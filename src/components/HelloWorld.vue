@@ -22,10 +22,10 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'HelloWorld232',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: '你好22！'
     }
   }
 }
