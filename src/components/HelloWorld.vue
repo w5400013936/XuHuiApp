@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 v-if="seen" @click="clickTest">{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -23,11 +23,19 @@
 <script>
 export default {
   name: 'HelloWorld232',
+
   data () {
     return {
-      msg: '你好22！'
+      msg: '你好22！',
+      seen: true
     }
-  }
+  },
+  methods: {
+      clickTest: () => {
+          console.log(4545);
+          this.msg=121212;
+      }
+  },
 }
 </script>
 
