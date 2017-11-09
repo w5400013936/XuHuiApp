@@ -42,10 +42,9 @@ export default {
     methods:{
         fetchData(){
             this.loading = true;
-            fetch(apiConfig.companyServer+apiConfig.homeIndexData)
-            .then((response) => {
-              console.log(response)
-            });
+            axios.get(apiConfig.companyServer+apiConfig.homeIndexData).then((response) => {
+                console.log(response);
+            })
         }
     },
     beforeMount(){
