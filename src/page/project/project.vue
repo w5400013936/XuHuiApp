@@ -1,7 +1,29 @@
 <template>
     <div>
         <headerbar title="项目"></headerbar>
-        <div>项目</div>
+        <div class="search-box">
+            <mt-search
+            cancel-text="取消"
+            placeholder="搜索">
+            </mt-search>
+        </div>
+        <div class="proj-box">
+            <div class="box-title">厦门</div>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+        </div>
+        <div class="proj-box">
+            <div class="box-title">厦门</div>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+        </div><div class="proj-box">
+            <div class="box-title">厦门</div>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+            <mt-cell title="255地块项目" is-link></mt-cell>
+        </div>
     </div>
 </template>
 
@@ -20,5 +42,20 @@ export default {
 </script>
 
 <style>
-    
+    .search-box .mint-search{
+        height: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .search-box .mint-searchbar{
+        z-index: 0;
+    }
+    .proj-box .box-title{
+        text-align: left;
+        padding: 0.5rem;
+    }
+    .proj-box .mint-cell-wrapper{
+        text-align: left;
+        padding-left: 1rem;
+        background-image: none;
+    }
 </style>
