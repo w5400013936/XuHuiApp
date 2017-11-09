@@ -11,7 +11,7 @@
                 <img src="../../../assets/images/home-index/u89.png" alt="#">
             </mt-swipe-item>
         </mt-swipe>
-        
+
         <div class="index-title">
             新人风采
         </div>
@@ -30,8 +30,27 @@
 </template>
 
 <script>
+import apiConfig from '../../../server/apiConfig';
+import axios from 'axios';
 export default {
-
+    data(){
+        return {
+            homeBannerAry:[],
+            loading: false,
+        }
+    },
+    methods:{
+        fetchData(){
+            this.loading = true;
+            fetch(apiConfig.companyServer+apiConfig.homeIndexData)
+            .then((response) => {
+              console.log(response)
+            });
+        }
+    },
+    beforeMount(){
+        this.fetchData();
+    },
 }
 </script>
 
