@@ -7,9 +7,11 @@ import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
 import '../src/assets/css/base.css'
 import '../src/assets/css/common.css'
-Vue.use(Mint);
-
-Vue.config.productionTip = false
+import axios from 'axios';
+//Vue.prototype.axios = axios;
+Vue.use(Mint,axios);
+console.log(Vue);
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -17,4 +19,4 @@ new Vue({
   router,
   template: '<App/>',
   components: { App }
-})
+});
