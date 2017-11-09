@@ -1,41 +1,45 @@
 <template>
-    <div class="tabs">
-        <!--命名路由-->
-        <ul>
-            <!--this inspection reports XML/HTML tags with missing mandatory attrbutes ,you can specify attrbute name that should not be reported-->
-            <!--home被点击后，一直处于激活状态，因此需要使用精确匹配模式，在router-link中添加exact属性-->
-            <router-link :to="{name:'Home'}" tag="li" exact>
-                <div>
-                    <i class="icon iconfont icon-31shouye"></i>
-                </div>
-                <div>首页</div>
-            </router-link>
-            <router-link :to="{name:'Brand'}" tag="li">
-                <div>
-                    <i class="icon iconfont icon-zhubaoshipin"></i>
-                </div>
-                <div>审批中心</div>
-            </router-link>
-            <router-link :to="{name:'Member'}" tag="li">
-                <div>
-                    <i class="icon iconfont icon-huiyuanqia"></i>
-                </div>
-                <div>项目</div>
-            </router-link>
-            <router-link :to="{name:'Cart'}" tag="li">
-                <div>
-                    <i class="icon iconfont icon-gouwucheman"></i>
-                </div>
-                <div>设置</div>
-            </router-link>
-        </ul>
-    </div>
+    <mt-tabbar v-model="selected" :fixed="true">
+        <mt-tab-item id="首页" href="#/Home">
+            <i class="fa fa-home" slot="icon"></i>
+            首页
+        </mt-tab-item>
+        <mt-tab-item id="审批中心" href="#/Flow">
+            <i class="fa fa-file-text-o" slot="icon"></i>
+            审批中心
+        </mt-tab-item>
+        <mt-tab-item id="项目" href="#/Project">
+            <i class="fa fa-th" slot="icon"></i>
+            项目
+        </mt-tab-item>
+        <mt-tab-item id="设置" href="#/Setting">
+            <i class="fa fa-gear" slot="icon"></i>
+            设置
+        </mt-tab-item>
+    </mt-tabbar>
 </template>
 
 <script>
   export default{
       data(){
+          return{
+              selected:'首页'
+          }
+      },
+    //   watch:{
+    //       selected:function(){
 
-      }
+    //       }
+    //   }
   }
 </script>
+
+<style>
+    .mint-tab-item{
+        color:gray;
+    }
+    .mint-tab-item-icon{
+        font-size: 1.5rem;
+    }
+</style>
+
