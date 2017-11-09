@@ -5,8 +5,8 @@
 const useStaticData = false;
 const serverDebug = 'http://192.168.1.19:8000/';
 const serverRelease = 'http://192.168.1.178:9012/';
-const companyServer = 'https://bird.ioliu.cn/v1/?url=http://des.cifi.com.cn:8033/';
-// const companyServer = 'http://192.168.1.159:9029';
+//const companyServer = 'https://bird.ioliu.cn/v1/?url=http://des.cifi.com.cn:8033/';
+const companyServer = '/api';
 export default {
     companyServer,
     // 首页
