@@ -13,7 +13,7 @@ export default {
 </script>
 <style>
     .header{
-        height: 3.5rem;
+        height: 3.8rem;
         font-size: 1.2rem;
     }
     .mint-header-title{
