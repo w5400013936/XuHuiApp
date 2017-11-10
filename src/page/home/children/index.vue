@@ -54,7 +54,7 @@ export default {
         fetchData(){
             this.loading = true;
             axios.get(apiConfig.companyServer+apiConfig.homeIndexData).then((response) => {
-                console.log(response);
+                // console.log(response);
                 this.homeBannerAry = response.data.appPicList;
                 this.appEmpList = response.data.appEmpList;
                 Indicator.close(); // 关闭遮罩

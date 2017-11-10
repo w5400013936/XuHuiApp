@@ -1,51 +1,39 @@
 <template>
     <div class="container">
-        <div class="rookies-box">
+        <div class="rookies-box" v-for="(item,index) in brideList" :key="index">
             <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
             <div class="rookies-info">
-                <span class="rookies-name">王伟强</span>
-                <p class="rookies-data">入职日期：2017.09.09</p>
+                <span class="rookies-name">{{item.name}}</span>
+                <p class="rookies-data">入职日期：{{item.entryDate}}</p>
                 <p class="rookies-position">郑州事业部设计部副经理</p>
             </div>
         </div>
-        <div class="rookies-box">
-            <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
-            <div class="rookies-info">
-                <span class="rookies-name">王伟强</span>
-                <p class="rookies-data">入职日期：2017.09.09</p>
-                <p class="rookies-position">郑州事业部设计部副经理</p>
-            </div>
-        </div>
-        <div class="rookies-box">
-            <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
-            <div class="rookies-info">
-                <span class="rookies-name">王伟强</span>
-                <p class="rookies-data">入职日期：2017.09.09</p>
-                <p class="rookies-position">郑州事业部设计部副经理</p>
-            </div>
-        </div>
-        <div class="rookies-box">
-            <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
-            <div class="rookies-info">
-                <span class="rookies-name">王伟强</span>
-                <p class="rookies-data">入职日期：2017.09.09</p>
-                <p class="rookies-position">郑州事业部设计部副经理</p>
-            </div>
-        </div>
-        <div class="rookies-box">
-            <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
-            <div class="rookies-info">
-                <span class="rookies-name">王伟强</span>
-                <p class="rookies-data">入职日期：2017.09.09</p>
-                <p class="rookies-position">郑州事业部设计部副经理</p>
-            </div>
-        </div>
+        
     </div>
 </template>
 
 <script>
+import apiConfig from '../../../server/apiConfig';
+import axios from 'axios';
 export default {
-    
+    data(){
+        return{
+            brideList:[],
+        }
+    },
+    methods:{
+        getBrideData(){
+            axios.get(apiConfig.companyServer+apiConfig.brideList)
+                .then(res=>{
+                    this.brideList = res.data.appEmpList;
+                }).catch(err=>{
+                    console.log(err)
+                })
+        }
+    },
+    beforeMount(){
+        this.getBrideData();
+    }
 }
 </script>
 

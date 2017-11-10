@@ -32,11 +32,21 @@
 
 <script>
 import headerbar from '@/components/header/header'
+import apiConfig from '../../server/apiConfig';
+import axios from 'axios';
 export default {
     data(){
         return {
-
+            projList:[],
         }
+    },
+    methods:{
+        getProjData(){
+            
+        }
+    },
+    beforeMount(){
+        // this.getProjData();
     },
     components:{
         headerbar
