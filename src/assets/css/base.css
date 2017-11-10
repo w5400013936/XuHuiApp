@@ -38,7 +38,6 @@ a:hover,article:hover,aside:hover,b:hover,body:hover,button:hover,dd:hover,div:h
 input[type=button],input[type=reset],input[type=search],input[type=submit],textarea {
   -webkit-appearance: none
 }
-
 body,html {
   height: 100%;
   width: 100%;

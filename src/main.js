@@ -7,10 +7,17 @@ import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
 import '../src/assets/css/base.css'
 import '../src/assets/css/common.css'
-import axios from 'axios';
+//import './config/rem';
+import FastClick from 'fastclick';
+
+//移除移动端点击延迟
+if ('addEventListener' in document) {
+  document.addEventListener('DOMContentLoaded', function() {
+    FastClick.attach(document.body);
+  }, false);
+}
 //Vue.prototype.axios = axios;
-Vue.use(Mint,axios);
-console.log(Vue);
+Vue.use(Mint);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
