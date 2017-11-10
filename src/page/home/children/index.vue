@@ -1,14 +1,11 @@
 <template>
     <div class="container">
         <mt-swipe class="carousel" :auto="4000">
-            <mt-swipe-item>
-                <img src="../../../assets/images/home-index/u85.png" alt="#">
-            </mt-swipe-item>
-            <mt-swipe-item>
-                <img src="../../../assets/images/home-index/u87.png" alt="#">
-            </mt-swipe-item>
-            <mt-swipe-item>
-                <img src="../../../assets/images/home-index/u89.png" alt="#">
+            <mt-swipe-item
+                v-for="(item,index) in homeBannerAry"
+                :key="index"
+            >
+                <img :src="item.path" alt="#">
             </mt-swipe-item>
         </mt-swipe>
 
@@ -43,7 +40,7 @@ export default {
         fetchData(){
             this.loading = true;
             axios.get(apiConfig.companyServer+apiConfig.homeIndexData).then((response) => {
-                console.log(response);
+                this.homeBannerAry = response.data.appPicList;
             })
         }
     },

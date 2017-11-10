@@ -7,23 +7,26 @@
             placeholder="搜索">
             </mt-search>
         </div>
-        <div class="proj-box">
-            <div class="box-title">厦门</div>
-            <mt-cell title="255地块项目" is-link></mt-cell>
-            <mt-cell title="255地块项目" is-link></mt-cell>
-            <mt-cell title="255地块项目" is-link></mt-cell>
+        <div class="container">
+            <div class="proj-box">
+                <div class="box-title">厦门</div>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+            </div>
+            <div class="proj-box">
+                <div class="box-title">厦门</div>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+            </div><div class="proj-box">
+                <div class="box-title">厦门</div>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+                <mt-cell title="255地块项目" is-link></mt-cell>
+            </div>
         </div>
-        <div class="proj-box">
-            <div class="box-title">厦门</div>
-            <mt-cell title="255地块项目" is-link></mt-cell>
-            <mt-cell title="255地块项目" is-link></mt-cell>
-            <mt-cell title="255地块项目" is-link></mt-cell>
-        </div><div class="proj-box">
-            <div class="box-title">厦门</div>
-            <mt-cell title="255地块项目" is-link></mt-cell>
-            <mt-cell title="255地块项目" is-link></mt-cell>
-            <mt-cell title="255地块项目" is-link></mt-cell>
-        </div>
+        
     </div>
 </template>
 

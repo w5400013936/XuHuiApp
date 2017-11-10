@@ -41,5 +41,8 @@
     .mint-tab-item-icon{
         font-size: 1.5rem;
     }
+    .mint-tab-item.is-selected i{
+        color: #26A2FF;
+    }
 </style>
 
