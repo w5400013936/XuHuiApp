@@ -4,6 +4,7 @@ import Home from '@/page/home/home'
 import Flow from '@/page/flow/flow'
 import Project from '@/page/project/project'
 import Setting from '@/page/setting/setting'
+import ProjectInfo from '@/page/project/projectInfo'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ Vue.use(Router)
       path: '/Setting',
       name: 'Setting',
       component: Setting
+    },
+    {
+      path: '/Project/:engId',
+      name:'ProjectInfo',
+      component: ProjectInfo
     },
   ]
 })
