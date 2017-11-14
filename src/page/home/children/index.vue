@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <bodyContent :showBottomPadding="false">
+    <div class="container" slot="content">
         <!-- 首页banner -->
         <swiper loop auto :aspect-ratio="400/800">
             <swiper-item v-for="(item,index) in homeBannerAry" :key="index">
@@ -22,10 +23,12 @@
             系统设置
         </div>
     </div>
+    </bodyContent>
 </template>
 
 <script>
 import { Swiper,SwiperItem,Flexbox, FlexboxItem,Panel,Cell  } from 'vux'
+import bodyContent from "@/components/content/bodyContent"
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
 import { Indicator } from 'mint-ui';
@@ -65,6 +68,7 @@ export default {
         Swiper, SwiperItem,
         Flexbox, FlexboxItem,
         Panel, Cell,
+        bodyContent,
     },
     computed: {
         filterEmp: function () {
@@ -75,23 +79,22 @@ export default {
     },
     methods:{
         onImgError (item, $event) {
-            console.log(item, $event)
+            // console.log(item, $event)
         },
         fetchData(){
+            this.$vux.loading.show({
+                text: '加载中'
+            })
             this.loading = true;
             axios.get(apiConfig.companyServer+apiConfig.homeIndexData).then((response) => {
                 // console.log(response);
                 this.homeBannerAry = response.data.appPicList;
                 this.appEmpList = response.data.appEmpList;
-                Indicator.close(); // 关闭遮罩
+                this.$vux.loading.hide(); // 关闭遮罩
             });
         }
     },
     beforeMount(){
-        Indicator.open({
-            text: '加载中...',
-            spinnerType: 'fading-circle'
-        });
         this.fetchData();
     },
 }

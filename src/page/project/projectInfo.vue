@@ -1,30 +1,33 @@
 <template>
     <div>
-        <headerbar :title="projInfoList.name"></headerbar>
-        <div class="container projInfoBox">
-            <div v-if="!loading">
-                <div v-if="projInfoList.projList.length > 0">
-                    <mt-cell v-for="(item,index) in projInfoList.projList" 
-                        :key="index" :title="item.name">
-                        <img slot="icon" :src="item.thumbPic"
-                            :onerror="defaultAvatar"
-                            width="35" height="35">
-                    </mt-cell>
+        <headerbar :title="title" :showBackBtn="true" ></headerbar>
+        <bodyContent :showBottomPadding="false">
+            <div class="container projInfoBox" slot="content">
+                <div v-if="!loading">
+                    <div v-if="projInfoList.projList.length > 0">
+                        <mt-cell v-for="(item,index) in projInfoList.projList" 
+                            :key="index" :title="item.name">
+                            <img slot="icon" :src="item.thumbPic"
+                                :onerror="defaultAvatar"
+                                width="35" height="35">
+                        </mt-cell>
+                    </div>
+                    <div v-else>暂无数据</div>
                 </div>
-                <div v-else>暂无数据</div>
             </div>
-        </div>
+        </bodyContent>
     </div>
 </template>
 <script>
 import headerbar from '@/components/header/header'
 import apiConfig from '../../server/apiConfig'
 import axios from 'axios'
-import { XHeader } from 'vux'
+import bodyContent from "@/components/content/bodyContent"
 export default {
     data(){
         return{
             projInfoList:[],
+            title:null,
             engId:null,
             loading:true,
             defaultAvatar: 'this.src="' + require('../../assets/images/avatar/BatMan.png') + '"',
@@ -47,14 +50,15 @@ export default {
                     this.$vux.loading.hide();
                     this.loading = false;
                 })
-        }
+        },
     },
     beforeMount(){
+        this.title = this.$route.params.name;
         this.getProjInfoData();
     },
     components:{
         headerbar,
-        XHeader
+        bodyContent
     }
 }
 </script>

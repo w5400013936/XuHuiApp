@@ -36,7 +36,7 @@ Vue.use(Router)
       component: Setting
     },
     {
-      path: '/Project/:engId',
+      path: '/Project/:name/:engId',
       name:'ProjectInfo',
       component: ProjectInfo
     },

@@ -1,5 +1,5 @@
 <template>
-    <mt-tabbar v-model="selected" :fixed="true">
+    <!-- <mt-tabbar v-model="selected" :fixed="true">
         <mt-tab-item id="首页" href="#/Home">
             <i class="fa fa-home" slot="icon"></i>
             首页
@@ -16,7 +16,25 @@
             <i class="fa fa-gear" slot="icon"></i>
             设置
         </mt-tab-item>
-    </mt-tabbar>
+    </mt-tabbar> -->
+    <tabbar v-model="selected">
+      <tabbar-item link="/Home">
+        <i class="fa fa-home" slot="icon"></i>
+        <span slot="label">首页</span>
+      </tabbar-item>
+      <tabbar-item link="/Flow">
+        <i class="fa fa-file-text-o" slot="icon"></i>
+        <span slot="label">审批中心</span>
+      </tabbar-item>
+      <tabbar-item link="/Project">
+        <i class="fa fa-th" slot="icon"></i>
+        <span slot="label">项目</span>
+      </tabbar-item>
+      <tabbar-item link="/Setting">
+        <i class="fa fa-gear" slot="icon"></i>
+        <span slot="label">设置</span>
+      </tabbar-item>
+    </tabbar>
 </template>
 
 <script>
@@ -24,7 +42,7 @@
   export default{
       data(){
           return{
-              selected:'首页'
+              selected:0
           }
       },
       components: {
@@ -35,7 +53,7 @@
 </script>
 
 <style>
-    .mint-tab-item{
+    /* .mint-tab-item{
         color:gray;
     }
     .mint-tab-item-icon{
@@ -43,6 +61,6 @@
     }
     .mint-tab-item.is-selected i{
         color: #26A2FF;
-    }
+    } */
 </style>
 

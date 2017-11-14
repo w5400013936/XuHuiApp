@@ -1,21 +1,27 @@
 <template>
     <div>
         <headerbar title="设置"></headerbar>
-        <div class="setting-info">
-            <img src="../../assets/images/logo/ico120.png" class="setting-logo">
-            <div class="setting-system-name">旭辉设计系统</div>
-        </div>
-        <div class="setting-operation">
-            <x-button class="setting-button" type="warn">清除缓存</x-button>
-            <x-button class="setting-button" type="warn">修改密码</x-button>
-            <x-button class="setting-button" type="warn">退出当前账号</x-button>
-        </div>
+        <bodyContent :showBottomPadding="false">
+            <div slot="content">
+                <div class="setting-info">
+                    <img src="../../assets/images/logo/ico120.png" class="setting-logo">
+                    <div class="setting-system-name">旭辉设计系统</div>
+                </div>
+                <div class="setting-operation">
+                    <x-button class="setting-button" type="warn">清除缓存</x-button>
+                    <x-button class="setting-button" type="warn">修改密码</x-button>
+                    <x-button class="setting-button" type="warn">退出当前账号</x-button>
+                </div>
+            </div>
+        </bodyContent>
     </div>
 </template>
 
 <script>
 import headerbar from '@/components/header/header'
+import bodyContent from "@/components/content/bodyContent"
 import { XButton } from 'vux'
+
 export default {
     data(){
         return {
@@ -24,7 +30,8 @@ export default {
     },
     components:{
         headerbar,
-        XButton
+        XButton,
+        bodyContent
     }
 }
 </script>
@@ -34,6 +41,10 @@ export default {
         padding: 3rem 0;
         background-color: #fff;
         border-bottom: 1px solid #d9d9d9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
     .setting-info .setting-logo{
         width: 5rem;

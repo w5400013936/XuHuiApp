@@ -1,7 +1,7 @@
 <template>
     <div>
         <headerbar title="首页"></headerbar>
-        <mt-navbar v-model="selected">
+        <!-- <mt-navbar v-model="selected">
             <mt-tab-item id="首页">首页</mt-tab-item>
             <mt-tab-item id="新闻">新闻</mt-tab-item>
             <mt-tab-item id="新人">新人</mt-tab-item>
@@ -16,7 +16,7 @@
             <mt-tab-container-item id="新人">
                 <Rookies></Rookies>
             </mt-tab-container-item>
-        </mt-tab-container>
+        </mt-tab-container> -->
     </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
         headerbar,
         Index,
         News,
-        Rookies
+        Rookies,
     }
 }
 </script>
