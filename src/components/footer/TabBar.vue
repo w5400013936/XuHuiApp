@@ -20,17 +20,17 @@
 </template>
 
 <script>
+  import { Tabbar, TabbarItem } from 'vux'
   export default{
       data(){
           return{
               selected:'首页'
           }
       },
-    //   watch:{
-    //       selected:function(){
-
-    //       }
-    //   }
+      components: {
+          Tabbar,
+          TabbarItem,
+      }
   }
 </script>
 

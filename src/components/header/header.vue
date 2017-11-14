@@ -1,13 +1,30 @@
 <template>
-    <mt-header class="header" fixed :title="title"></mt-header>
+    <x-header style="width:100%;position:absolute;left:0;top:0;z-index:100;"
+        :left-options="{showBack: showBackBtn}"
+    >
+      {{title}}
+    </x-header>
 </template>
 <script>
-export default {
-    props:['title'],
+  import { XHeader } from 'vux';
+  export default {
+    props:{
+        showBackBtn:{
+            //type: Boolean,
+            default: true,
+        },
+        title:{
+            //type: String,
+            default: '标题',
+        }
+    },
     data(){
         return{
-            
+
         }
+    },
+    components:{
+        XHeader
     }
 }
 </script>

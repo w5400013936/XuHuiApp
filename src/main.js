@@ -21,7 +21,7 @@ if ('addEventListener' in document) {
 //Vue.prototype.axios = axios;
 Vue.use(Mint);
 Vue.config.productionTip = false;
-
+//router.push('home');
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

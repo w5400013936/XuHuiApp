@@ -9,6 +9,8 @@ const serverRelease = 'http://192.168.1.178:9012/';
 const companyServer = '/api';
 export default {
     companyServer,
+    // 登录
+    login: '/Account/AjaxMobileLogin',
     // 首页
     homeIndexData: '/home/HomeIndexJson', // 首页图片及新闻数据
     newsDetailData: '/home/NewsDetailsJson', // 新闻详情

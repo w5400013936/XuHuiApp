@@ -1,35 +1,31 @@
 <template>
     <div class="container">
-        <mt-swipe class="carousel" :auto="4000">
-            <mt-swipe-item
-                v-for="(item,index) in homeBannerAry"
-                :key="index"
-            >
-                <img :src="item.path" alt="#">
-            </mt-swipe-item>
-        </mt-swipe>
-        <div class="index-title">
-            新人风采
-        </div>
+        <!-- 首页banner -->
+        <swiper loop auto :aspect-ratio="400/800">
+            <swiper-item v-for="(item,index) in homeBannerAry" :key="index">
+                <img :src="item.path" alt="#" width="100%">
+            </swiper-item>
+        </swiper>
+        <Cell class="index-title" is-link title="新人风采" link=""></Cell>
         <ul class="flexbox p-employeeShowList">
             <li
               v-for="(item,index) in filterEmp"
               :key="index"
             >
-                <img :src="item.path" alt="#" :onerror="defaultAvatar" width="100%" style="height:7rem;">
+                <img :src="item.path" alt="#" :onerror="defaultAvatar" width="100" style="height:100px;width: 100px;">
                 <span>{{item.name}}</span>
             </li>
         </ul>
+        <Cell class="index-title" is-link title="新闻快讯" link=""></Cell>
+        <panel :list="list" :type="type" @on-img-error="onImgError"></panel>
         <div class="index-title">
             系统设置
-        </div>
-        <div>
-            <img src="../../../assets/images/home-index/u25.png" alt="#">
         </div>
     </div>
 </template>
 
 <script>
+import { Swiper,SwiperItem,Flexbox, FlexboxItem,Panel,Cell  } from 'vux'
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
 import { Indicator } from 'mint-ui';
@@ -41,7 +37,34 @@ export default {
             appEmpList: [], // 首页新人展示
             loading: false, // 是否处于加载中
             defaultAvatar: 'this.src="' + require('../../../assets/images/avatar/BatMan.png') + '"',
+            defaultNewsImg: 'this.src="' + require('../../../assets/images/avatar/BatMan.png') + '"',
+            type: '1',
+            list: [{
+                src: 'http://somedomain.somdomain/x.jpg',
+                fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+                title: '标题一',
+                desc: '由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
+                url: '/component/cell'
+            }, {
+                src: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+                title: '标题二',
+                desc: '由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
+                url: {
+                  path: '/component/radio',
+                  replace: false
+                },
+                meta: {
+                  source: '来源信息',
+                  date: '时间',
+                  other: '其他信息'
+                }
+            }],
         }
+    },
+    components:{
+        Swiper, SwiperItem,
+        Flexbox, FlexboxItem,
+        Panel, Cell,
     },
     computed: {
         filterEmp: function () {
@@ -51,6 +74,9 @@ export default {
         }
     },
     methods:{
+        onImgError (item, $event) {
+            console.log(item, $event)
+        },
         fetchData(){
             this.loading = true;
             axios.get(apiConfig.companyServer+apiConfig.homeIndexData).then((response) => {
@@ -94,6 +120,28 @@ export default {
         align-items: center;
         overflow: hidden;
         flex-direction: column;
+    }
+    .index-newsItem{
+        display: flex;
+        justify-content: flex-start;
+        padding: 1rem;
+    }
+    .index-newsItem>img{
+        width: 5rem;
+        height: 5rem;
+    }
+    .container .weui-cell {
+        padding: 0px 15px;
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+    .container .weui-cell:before{
+        border-top: none;
     }
 </style>
 
