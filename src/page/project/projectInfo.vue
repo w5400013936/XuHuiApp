@@ -2,15 +2,17 @@
     <div>
         <headerbar :title="projInfoList.name"></headerbar>
         <div class="container projInfoBox">
-            <div v-if="projInfoList.projList.length > 0">
-                <mt-cell v-for="(item,index) in projInfoList.projList" 
-                    :key="index" :title="item.name">
-                    <img slot="icon" :src="item.thumbPic"
-                        :onerror="defaultAvatar"
-                        width="35" height="35">
-                </mt-cell>
+            <div v-if="!loading">
+                <div v-if="projInfoList.projList.length > 0">
+                    <mt-cell v-for="(item,index) in projInfoList.projList" 
+                        :key="index" :title="item.name">
+                        <img slot="icon" :src="item.thumbPic"
+                            :onerror="defaultAvatar"
+                            width="35" height="35">
+                    </mt-cell>
+                </div>
+                <div v-else>暂无数据</div>
             </div>
-            <div v-else>暂无数据</div>
         </div>
     </div>
 </template>
@@ -18,38 +20,41 @@
 import headerbar from '@/components/header/header'
 import apiConfig from '../../server/apiConfig'
 import axios from 'axios'
-import { Indicator } from 'mint-ui';
+import { XHeader } from 'vux'
 export default {
     data(){
         return{
             projInfoList:[],
             engId:null,
+            loading:true,
             defaultAvatar: 'this.src="' + require('../../assets/images/avatar/BatMan.png') + '"',
         }
     },
     methods:{
         getProjInfoData(){
+            this.$vux.loading.show({
+                text: '加载中'
+            })
             this.engId = this.$route.params.engId;
             axios.get(apiConfig.companyServer+apiConfig.projectInfoPageUrl+'?engId='+this.engId)
                 .then(res=>{
                     // console.log(res);
                     this.projInfoList = res.data;
-                    Indicator.close();
+                    this.$vux.loading.hide();
+                    this.loading = false;
                 }).catch(err=>{
                     console.log(err)
-                    Indicator.close();
+                    this.$vux.loading.hide();
+                    this.loading = false;
                 })
         }
     },
     beforeMount(){
-        Indicator.open({
-            text: '加载中...',
-            spinnerType: 'fading-circle'
-        });
         this.getProjInfoData();
     },
     components:{
         headerbar,
+        XHeader
     }
 }
 </script>

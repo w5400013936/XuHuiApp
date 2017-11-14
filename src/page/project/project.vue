@@ -8,18 +8,19 @@
             </mt-search>
         </div>
         <div class="container">
-            <div v-if="this.projList.length > 0">
-                <div class="proj-box" v-for="(item,index) in projList" :key="index">
-                    <div class="box-title">{{item.name}}</div>
-                    <mt-cell v-for="(proj,i) in item.engList" :key="i" 
-                        :title="proj.name" is-link 
-                        :to="{ name: 'ProjectInfo', params: { engId: proj.engId }}">
-                    </mt-cell>
+            <div v-if="!loading">
+                <div v-if="projList.length > 0">
+                    <div class="proj-box" v-for="(item,index) in projList" :key="index">
+                        <div class="box-title">{{item.name}}</div>
+                        <mt-cell v-for="(proj,i) in item.engList" :key="i" 
+                            :title="proj.name" is-link 
+                            :to="{ name: 'ProjectInfo', params: { engId: proj.engId }}">
+                        </mt-cell>
+                    </div>
                 </div>
+                <div v-else>暂无数据</div>
             </div>
-            <div v-else>暂无数据</div>
         </div>
-        
     </div>
 </template>
 
@@ -27,11 +28,11 @@
 import headerbar from '@/components/header/header'
 import apiConfig from '../../server/apiConfig'
 import axios from 'axios'
-import { Indicator } from 'mint-ui';
 export default {
     data(){
         return {
             projList:[],
+            loading:true,
         }
     },
     methods:{
@@ -43,10 +44,12 @@ export default {
             .then(res=>{
                 // console.log(res);
                 this.projList = res.data;
-                this.$vux.loading.hide()
+                this.$vux.loading.hide();
+                this.loading = false;
             }).catch(err=>{
                 console.log(err);
-                this.$vux.loading.hide()
+                this.$vux.loading.hide();
+                this.loading = false;
             })
         },
     },
@@ -62,7 +65,7 @@ export default {
 <style>
     .search-box .mint-search{
         height: 100%;
-        margin-bottom: 0.5rem;
+        /* margin-bottom: 0.5rem; */
     }
     .search-box .mint-searchbar{
         z-index: 0;
