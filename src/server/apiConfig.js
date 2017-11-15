@@ -31,13 +31,13 @@ export default {
     flowData:{
         historyFlowKey: 'historyFlowKey',
         currentFlowKey: 'currentFlowKey',
-        pageUrl: '/home/GetApprovalList',
+        pageUrl: '/home/GetApprovalList', // 获取审批列表（1 已审 2 待审 3 已发 4 待发）
     },
     flowContent:{
         pageKey: 'flowContent',
-        pageUrl: '/home/GetCommonPeddingInstance',
+        pageUrl: '/home/GetCommonPeddingInstance', // 查看流程详情（包含各个操作接口）
     },
-    commonApproveLogUrl: '/home/GetApproveLog',
+    commonApproveLogUrl: '/home/GetApproveLog', // 查看审批意见
     SelectUserPage: {
         pageKey: 'SelectUserPage',
         pageUrl: '/home/CityEnglish',
