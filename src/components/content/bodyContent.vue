@@ -5,7 +5,7 @@
 <template>
     <view-box ref="viewBox" body-padding-top="46px" :body-padding-bottom="showBottom">
         <!-- 主体 -->
-        <slot name=content></slot>
+        <slot name="content"></slot>
     </view-box>
 </template>
 

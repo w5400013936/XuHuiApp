@@ -1,7 +1,6 @@
 <template>
     <div class='fullScreen'>
         <headerbar title="项目"></headerbar>
-        
         <bodyContent :showBottomPadding="false">
             <div slot="content">
                 <Search v-model="searchKey" top="3rem"></Search>
@@ -23,13 +22,13 @@
                     </div>
                     <div v-else>暂无数据</div>
                 </div>
-
             </div>
         </bodyContent>
     </div>
 </template>
 
 <script>
+import globalData from '../../server/globalData'
 import headerbar from "@/components/header/header";
 import apiConfig from "../../server/apiConfig";
 import axios from "axios";
@@ -38,6 +37,7 @@ import { Search } from 'vux'
 export default {
   data() {
     return {
+      tabSelected:2,
       projList: [],
       loading: true,
       searchKey:null,
@@ -65,6 +65,7 @@ export default {
   },
   beforeMount() {
     this.getProjData();
+    globalData.tabSelected = this.tabSelected;
   },
   components: {
     headerbar,

@@ -1,28 +1,25 @@
 <template>
     <div>
-        <headerbar title="首页"></headerbar>
-        <index></index>
+        <headerbar :title="$route.params.name" :showBackBtn="true"></headerbar>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import globalData from '../../server/globalData'
 import headerbar from '@/components/header/header'
-import Index from '@/page/home/children/index'
 import News from '@/page/home/children/News'
 import Rookies from '@/page/home/children/Rookies'
 export default {
     data(){
         return {
-            tabSelected:0
+            
         }
     },
     beforeMount(){
-        globalData.tabSelected = this.tabSelected;
+        // console.log(this.$route)
     },
     components:{
         headerbar,
-        Index,
         News,
         Rookies,
     }

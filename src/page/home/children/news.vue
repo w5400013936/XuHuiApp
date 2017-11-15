@@ -1,15 +1,17 @@
 <template>
-    <div class="container">
-        <div class="news-box">
-            <mt-cell v-for="(item,index) in newsList" :key="index" :title="item.name" :label="item.date">
-                <img class="news-img" src="../../../assets/images/home-index/u71.png">
-            </mt-cell>
-            
+    <bodyContent :showBottomPadding="false">
+        <div class="container" slot="content">
+            <div class="news-box">
+                <mt-cell v-for="(item,index) in newsList" :key="index" :title="item.name" :label="item.date">
+                    <img class="news-img" src="../../../assets/images/home-index/u71.png">
+                </mt-cell>
+            </div>
         </div>
-    </div>
+    </bodyContent>
 </template>
 
 <script>
+import bodyContent from "@/components/content/bodyContent"
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
 export default {
@@ -30,6 +32,9 @@ export default {
     },
     beforeMount(){
         this.getNewsData();
+    },
+    components:{
+        bodyContent
     }
 }
 </script>

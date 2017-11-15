@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import globalData from '../../server/globalData'
 import headerbar from '@/components/header/header'
 import checkedFlow from '@/page/flow/children/checkedFlow'
 import uncheckedFlow from '@/page/flow/children/uncheckedFlow'
@@ -28,8 +29,12 @@ import sentFlow from '@/page/flow/children/sentFlow'
 export default {
     data(){
         return {
-            selected:'待审流程'
+            selected:'待审流程',
+            tabSelected:1
         }
+    },
+    beforeMount(){
+        globalData.tabSelected = this.tabSelected;
     },
     components:{
         headerbar,

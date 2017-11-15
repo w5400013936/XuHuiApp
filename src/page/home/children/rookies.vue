@@ -1,18 +1,20 @@
 <template>
-    <div class="container">
-        <div class="rookies-box" v-for="(item,index) in brideList" :key="index">
-            <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
-            <div class="rookies-info">
-                <span class="rookies-name">{{item.name}}</span>
-                <p class="rookies-data">入职日期：{{item.entryDate}}</p>
-                <p class="rookies-position">郑州事业部设计部副经理</p>
+    <bodyContent :showBottomPadding="false">
+        <div class="container" slot="content">
+            <div class="rookies-box" v-for="(item,index) in brideList" :key="index">
+                <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
+                <div class="rookies-info">
+                    <span class="rookies-name">{{item.name}}</span>
+                    <p class="rookies-data">入职日期：{{item.entryDate}}</p>
+                    <p class="rookies-position">郑州事业部设计部副经理</p>
+                </div>
             </div>
         </div>
-        
-    </div>
+    </bodyContent>
 </template>
 
 <script>
+import bodyContent from "@/components/content/bodyContent"
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
 export default {
@@ -33,6 +35,9 @@ export default {
     },
     beforeMount(){
         this.getBrideData();
+    },
+    components:{
+        bodyContent
     }
 }
 </script>

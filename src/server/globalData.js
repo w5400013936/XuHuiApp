@@ -8,5 +8,6 @@ export default {
         userId: null, // 用户Id
         name: null,  // 用户名
         avatar: null,  //头像
-    }
+    },
+    tabSelected:0,
 }

@@ -1,5 +1,5 @@
 <template>
-    <bodyContent :showBottomPadding="false">
+    <bodyContent :showBottomPadding="true">
     <div class="container" slot="content">
         <!-- 首页banner -->
         <swiper loop auto :aspect-ratio="400/800">
@@ -7,7 +7,7 @@
                 <img :src="item.path" alt="#" width="100%">
             </swiper-item>
         </swiper>
-        <Cell class="index-title" is-link title="新人风采" link=""></Cell>
+        <Cell class="index-title" is-link title="新人风采" :link="{name:'Rookies',params:{name:'新人风采'}}"></Cell>
         <ul class="flexbox p-employeeShowList">
             <li
               v-for="(item,index) in filterEmp"
@@ -17,7 +17,7 @@
                 <span>{{item.name}}</span>
             </li>
         </ul>
-        <Cell class="index-title" is-link title="新闻快讯" link=""></Cell>
+        <Cell class="index-title" is-link title="新闻快讯" :link="{name:'News',params:{name:'新闻快讯'}}"></Cell>
         <panel :list="list" :type="type" @on-img-error="onImgError"></panel>
         <div class="index-title">
             系统设置

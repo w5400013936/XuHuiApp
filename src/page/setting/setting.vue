@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import globalData from '../../server/globalData'
 import headerbar from '@/components/header/header'
 import bodyContent from "@/components/content/bodyContent"
 import { XButton } from 'vux'
@@ -25,8 +26,11 @@ import { XButton } from 'vux'
 export default {
     data(){
         return {
-
+            tabSelected:3
         }
+    },
+    beforeMount(){
+        globalData.tabSelected = this.tabSelected;
     },
     components:{
         headerbar,
