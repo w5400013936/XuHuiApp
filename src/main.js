@@ -9,8 +9,9 @@ import '../src/assets/css/base.css'
 import '../src/assets/css/common.css'
 //import './config/rem';
 import FastClick from 'fastclick';
-import  { LoadingPlugin } from 'vux'
-Vue.use(LoadingPlugin)
+import  { LoadingPlugin,ToastPlugin } from 'vux'
+Vue.use(LoadingPlugin);
+Vue.use(ToastPlugin);
 
 //移除移动端点击延迟
 if ('addEventListener' in document) {

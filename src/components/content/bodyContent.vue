@@ -13,9 +13,9 @@
     import {ViewBox} from 'vux';
     export default{
         props:{
-          showBottomPadding:{ // 是否有底部Tab
-              default: true,
-          }
+            showBottomPadding:{ // 是否有底部Tab
+                default: true,
+            }
         },
         components:{
             ViewBox
@@ -23,7 +23,6 @@
         //状态值
         data(){
             return {
-
             }
         },
         computed:{
