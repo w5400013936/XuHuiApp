@@ -10,7 +10,7 @@ import ProjectInfo from '@/page/project/ProjectInfo';
 import Mix from '@/page/home/children/Mix';
 import News from '@/page/home/children/News';
 import Rookies from '@/page/home/children/Rookies';
-
+import FlowContent from '@/page/flow/flowContent/FlowContent'
 Vue.use(Router);
 
  const router = new Router({
@@ -20,37 +20,36 @@ Vue.use(Router);
     //   name: 'Hello',
     //   component: HelloWorld
     // }
-    { /*登录页*/
+    {
       path:'/Login',
       name:'Login',
       component:Login
     },
-    { /*tab页面*/
+    {
       path: '/Index',
       name: 'Index',
       component: Index,
-      children:[
-          {/*首页*/
-              path: 'Home',
-              name: 'Home',
-              component: Home,
-          },
-          {/*审批中心页*/
-              path: 'Flow',
-              name: 'Flow',
-              component: Flow
-          },
-          {/*项目页*/
-              path: 'Project',
-              name: 'Project',
-              component: Project
-          },
-          {/*设置页*/
-              path: 'Setting',
-              name: 'Setting',
-              component: Setting
-          },
-      ]
+      children:[{
+        path: 'Home',
+        name: 'Home',
+        component: Home,
+      },
+      {
+        path: 'Flow',
+        name: 'Flow',
+        component: Flow,
+        children:[]
+      },
+      {
+        path: 'Project',
+        name: 'Project',
+        component: Project
+      },
+      {
+        path: 'Setting',
+        name: 'Setting',
+        component: Setting
+      },]
     },
     {
       path: '/Project/:name/:engId',
@@ -72,7 +71,11 @@ Vue.use(Router);
         component: Rookies
       }]
     },
-
+    {
+      path: '/FlowContent',
+      name: 'FlowContent',
+      component: FlowContent
+    },
   ]
 });
 router.push('Index/Home');

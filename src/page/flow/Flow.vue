@@ -25,7 +25,7 @@
 <script>
 import globalData from '../../server/globalData'
 import HeaderBar from '@/components/header/Header'
-import BodyContent from "@/components/content/BodyContent";
+import BodyContent from "@/components/content/BodyContent"
 import CheckedFlow from '@/page/flow/children/CheckedFlow'
 import UncheckedFlow from '@/page/flow/children/UncheckedFlow'
 // import UnsentFlow from '@/page/flow/children/UnsentFlow'
