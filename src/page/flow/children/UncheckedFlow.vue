@@ -3,7 +3,8 @@
         <div v-if="!loading">
             <div v-if="flowData.length > 0">
                 <mt-cell v-for="(item,index) in flowData" :key="index"
-                class="flow-cell" :title="item.flowName" :label="item.projName" is-link>
+                class="flow-cell" :title="item.flowName" 
+                :label="item.projName" is-link @click.native="goFlowContent">
                     {{item.StartDate}}
                 </mt-cell>
             </div>
@@ -40,6 +41,9 @@ export default {
                     this.loading = false;
                     this.$vux.loading.hide();
                 })
+        },
+        goFlowContent(){
+            this.$router.push({name:'FlowContent',query:{type:1}})
         }
     },
     beforeMount(){

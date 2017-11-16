@@ -10,7 +10,7 @@ import ProjectInfo from '@/page/project/ProjectInfo';
 import Mix from '@/page/home/children/Mix';
 import News from '@/page/home/children/News';
 import Rookies from '@/page/home/children/Rookies';
-
+import FlowContent from '@/page/flow/flowContent/FlowContent'
 Vue.use(Router);
 
  const router = new Router({
@@ -37,7 +37,8 @@ Vue.use(Router);
       {
         path: 'Flow',
         name: 'Flow',
-        component: Flow
+        component: Flow,
+        children:[]
       },
       {
         path: 'Project',
@@ -70,7 +71,11 @@ Vue.use(Router);
         component: Rookies
       }]
     },
-
+    {
+      path: '/FlowContent',
+      name: 'FlowContent',
+      component: FlowContent
+    },
   ]
 });
 router.push('Index/Home');
