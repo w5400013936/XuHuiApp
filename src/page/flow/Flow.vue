@@ -8,9 +8,15 @@
                     <tab-item>已审流程</tab-item>
                     <tab-item>已发流程</tab-item>
                 </tab>
-                <UncheckedFlow v-show="tabIndex == 0"></UncheckedFlow>
-                <CheckedFlow v-show="tabIndex == 1"></CheckedFlow>
-                <SentFlow v-show="tabIndex == 2"></SentFlow>
+                <keep-alive>
+                    <UncheckedFlow v-if="tabIndex == 0"></UncheckedFlow>
+                </keep-alive>
+                <keep-alive>
+                    <CheckedFlow v-if="tabIndex == 1"></CheckedFlow>
+                </keep-alive>
+                <keep-alive>
+                    <SentFlow v-if="tabIndex == 2"></SentFlow>
+                </keep-alive>
             </div>
         </BodyContent>
     </div>

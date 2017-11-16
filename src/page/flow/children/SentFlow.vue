@@ -1,8 +1,15 @@
 <template>
     <div class="container">
-        <mt-cell class="flow-cell" title="整盘概念及示范区策划会" label="上海测试地块管理员测试项目" is-link>
-            04/21
-        </mt-cell>
+        <div v-if="!loading">
+            <div v-if="flowData.length > 0">
+                <mt-cell v-for="(item,index) in flowData" :key="index"
+                class="flow-cell" :title="item.flowName" :label="item.projName" is-link>
+                    {{item.StartDate}}
+                </mt-cell>
+            </div>
+            <div v-else>暂无数据</div>
+        </div>
+        
         <!-- <group>
             <cell title="整盘概念及示范区策划会" value="4444"  inline-desc="上海测试地块管理员测试项目" is-link>
                 <p>1111</p>
@@ -13,8 +20,39 @@
 </template>
 
 <script>
+import apiConfig from '../../../server/apiConfig';
+import axios from 'axios'
+import globalData from '../../../server/globalData'
 import { Group,Cell } from 'vux'
 export default {
+    data(){  
+        return{
+            flowData:[],
+            loading:false,
+        }
+    },
+    methods:{
+        getFlowData(){
+            this.$vux.loading.show({
+                text: '加载中'
+            });
+            this.loading = true;
+            axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl + '?type=3&userId=' + globalData.user.guid)
+                .then(res=>{
+                    console.log(res)
+                    this.flowData = res.data;
+                    this.loading = false;
+                    this.$vux.loading.hide();
+                }).catch(err=>{
+                    console.log(err)
+                    this.loading = false;
+                    this.$vux.loading.hide();
+                })
+        }
+    },
+    beforeMount(){
+        this.getFlowData();
+    },
     components:{
         Cell,
         Group,
@@ -23,5 +61,5 @@ export default {
 </script>
 
 <style>
-    
+
 </style>

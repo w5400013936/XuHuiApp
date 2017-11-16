@@ -7,3 +7,9 @@
 .weui-toast__content{
     color: #fff;
 }
+.flow-cell .mint-cell-wrapper{
+    height: 5rem;
+}
+.flow-cell .mint-cell-title{
+    text-align: left;
+}
