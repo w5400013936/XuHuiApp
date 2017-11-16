@@ -3,7 +3,8 @@
         <div v-if="!loading">
             <div v-if="flowData.length > 0">
                 <mt-cell v-for="(item,index) in flowData" :key="index"
-                class="flow-cell" :title="item.flowName" :label="item.projName" is-link>
+                class="flow-cell" :title="item.flowName" :label="item.projName" is-link 
+                @click.native="goFlowContent(item.tableName,item.referFieldName,item.referFieldValue)">
                     {{item.StartDate}}
                 </mt-cell>
             </div>
@@ -28,6 +29,7 @@ export default {
     data(){  
         return{
             flowData:[],
+            type:3,
             loading:false,
         }
     },
@@ -48,6 +50,16 @@ export default {
                     this.loading = false;
                     this.$vux.loading.hide();
                 })
+        },
+        goFlowContent(tableName,referFieldName,referFieldValue){
+            this.$router.push({name:'FlowContent',
+                query:{
+                    tableName:tableName,
+                    referFieldName:referFieldName,
+                    referFieldValue:referFieldValue,
+                    type:this.type
+                }
+            })
         }
     },
     beforeMount(){

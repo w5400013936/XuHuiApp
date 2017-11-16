@@ -1,6 +1,5 @@
 <template>
     <div>
-        <HeaderBar title="审批中心"></HeaderBar>
         <BodyContent>
             <div slot="content">
                 <slot name="flowInfo"></slot>
@@ -12,7 +11,6 @@
     </div>
 </template>
 <script>
-import HeaderBar from '@/components/header/Header'
 import BodyContent from "@/components/content/BodyContent"
 export default {
     data(){
@@ -21,8 +19,10 @@ export default {
         }
     },
     components:{
-        HeaderBar,
         BodyContent,
     }
 }
 </script>
+<style>
+    
+</style>
