@@ -29,7 +29,4 @@
 }
 </script>
 <style scoped>
-    .vux-header{
-        background-color:#d33e39;
-    }
 </style>
