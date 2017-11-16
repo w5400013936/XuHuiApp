@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from '@/page/login'
+import Login from '@/page/Login'
 import Index from '@/page/Index';
 import Home from '@/page/home/Home';
 import Flow from '@/page/flow/Flow';
