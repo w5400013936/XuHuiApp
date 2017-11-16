@@ -1,11 +1,11 @@
 <template>
     <div>
-        <headerbar :title="title" :showBackBtn="true" ></headerbar>
-        <bodyContent :showBottomPadding="false">
+        <HeaderBar :title="title" :showBackBtn="true" ></HeaderBar>
+        <BodyContent :showBottomPadding="false">
             <div class="container projInfoBox" slot="content">
                 <div v-if="!loading">
                     <div v-if="projInfoList.projList.length > 0">
-                        <mt-cell v-for="(item,index) in projInfoList.projList" 
+                        <mt-cell v-for="(item,index) in projInfoList.projList"
                             :key="index" :title="item.name">
                             <img slot="icon" :src="item.thumbPic"
                                 :onerror="defaultAvatar"
@@ -15,14 +15,15 @@
                     <div v-else>暂无数据</div>
                 </div>
             </div>
-        </bodyContent>
+        </BodyContent>
     </div>
 </template>
 <script>
-import headerbar from '@/components/header/header'
-import apiConfig from '../../server/apiConfig'
-import axios from 'axios'
-import bodyContent from "@/components/content/bodyContent"
+import HeaderBar from '@/components/header/Header';
+import BodyContent from "@/components/content/BodyContent";
+import apiConfig from '../../server/apiConfig';
+import axios from 'axios';
+
 export default {
     data(){
         return{
@@ -57,8 +58,7 @@ export default {
         this.getProjInfoData();
     },
     components:{
-        headerbar,
-        bodyContent
+        HeaderBar, BodyContent,
     }
 }
 </script>

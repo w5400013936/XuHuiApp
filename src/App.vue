@@ -6,13 +6,11 @@
 </template>
 
 <script>
-import tabbar from './components/footer/TabBar'
-import index from './page/index'
+import Tabbar from './components/footer/TabBar';
 export default {
   name: 'app',
   components:{
-    tabbar,
-    index
+      Tabbar,
   }
 }
 </script>

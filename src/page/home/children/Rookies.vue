@@ -1,5 +1,5 @@
 <template>
-    <bodyContent :showBottomPadding="false">
+    <BodyContent :showBottomPadding="false">
         <div class="container" slot="content">
             <div class="rookies-box" v-for="(item,index) in brideList" :key="index">
                 <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
@@ -10,11 +10,11 @@
                 </div>
             </div>
         </div>
-    </bodyContent>
+    </BodyContent>
 </template>
 
 <script>
-import bodyContent from "@/components/content/bodyContent"
+import BodyContent from "@/components/content/BodyContent"
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
 export default {
@@ -37,7 +37,7 @@ export default {
         this.getBrideData();
     },
     components:{
-        bodyContent
+        BodyContent,
     }
 }
 </script>

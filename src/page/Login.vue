@@ -3,8 +3,8 @@
 */
 <template>
     <div class="fullScreen">
-        <headerbar title="登录" :showBackBtn="false"></headerbar>
-        <bodyContent class="container" :showBottomPadding="false">
+        <HeaderBar title="登录" :showBackBtn="false"></HeaderBar>
+        <BodyContent class="container" :showBottomPadding="false">
             <div slot='content'>
                 <!-- logo -->
                 <div class="logo">
@@ -25,20 +25,20 @@
                     </x-button>
                 </div>
             </div>
-        </bodyContent>
+        </BodyContent>
     </div>
 </template>
 
 <script>
-    import bodyContent from '@/components/content/bodyContent';
-    import headerbar from '@/components/header/header';
+    import BodyContent from '@/components/content/BodyContent';
+    import HeaderBar from '@/components/header/Header';
     import { XButton, ViewBox, XInput } from 'vux';
     import apiConfig from '../server/apiConfig';
-    import golbalData from '../server/globalData';
+    import globalData from '../server/globalData';
     import axios from 'axios';
     export default{
         components: {
-            XButton, headerbar, bodyContent, ViewBox, XInput,
+            XButton, HeaderBar, BodyContent, ViewBox, XInput,
         },
         //状态值
         data(){
@@ -64,8 +64,8 @@
                 axios.post(apiConfig.companyServer + apiConfig.login,param ).then((response)=>{
                     let data = response.data;
                     if(data.state === 1){
-                        golbalData.isLogin = true;
-                        golbalData.user={
+                        globalData.isLogin = true;
+                        globalData.user={
                             userId: data.userId, // 用户Id
                             name: data.name,  // 用户名
                             loginName: data.loginName,

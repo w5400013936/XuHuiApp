@@ -29,7 +29,7 @@
                 //     this.showTabbar = false;
                 // }
                 // console.log(val.name)
-                
+
             }
         },
         beforeMount(){
@@ -49,7 +49,7 @@
             //     }
         },
         components:{
-            TabBar
+            TabBar,
         }
     }
 </script>

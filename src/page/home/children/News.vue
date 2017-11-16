@@ -1,5 +1,5 @@
 <template>
-    <bodyContent :showBottomPadding="false">
+    <BodyContent :showBottomPadding="false">
         <div class="container" slot="content">
             <div class="news-box">
                 <mt-cell v-for="(item,index) in newsList" :key="index" :title="item.name" :label="item.date">
@@ -7,11 +7,11 @@
                 </mt-cell>
             </div>
         </div>
-    </bodyContent>
+    </BodyContent>
 </template>
 
 <script>
-import bodyContent from "@/components/content/bodyContent"
+import BodyContent from "@/components/content/BodyContent"
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
 export default {
@@ -34,7 +34,7 @@ export default {
         this.getNewsData();
     },
     components:{
-        bodyContent
+        BodyContent,
     }
 }
 </script>

@@ -1,16 +1,16 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import index from '@/page/index'
-import Home from '@/page/home/home'
-import Flow from '@/page/flow/flow'
-import Project from '@/page/project/project'
-import Setting from '@/page/setting/setting'
-import ProjectInfo from '@/page/project/projectInfo'
-import mix from '@/page/home/children/mix'
-import news from '@/page/home/children/news'
-import rookies from '@/page/home/children/rookies'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Index from '@/page/Index';
+import Home from '@/page/home/Home';
+import Flow from '@/page/flow/Flow';
+import Project from '@/page/project/Project';
+import Setting from '@/page/setting/Setting';
+import ProjectInfo from '@/page/project/ProjectInfo';
+import Mix from '@/page/home/children/Mix';
+import News from '@/page/home/children/News';
+import Rookies from '@/page/home/children/Rookies';
 
-Vue.use(Router)
+Vue.use(Router);
 
  const router = new Router({
   routes: [
@@ -22,7 +22,7 @@ Vue.use(Router)
     {
       path: '/Index',
       name: 'Index',
-      component: index,
+      component: Index,
       children:[{
         path: 'Home',
         name: 'Home',
@@ -52,20 +52,20 @@ Vue.use(Router)
     {
       path: '/Mix',
       name: 'Mix',
-      component: mix,
+      component: Mix,
       children:[{
         path:'News/:name',
         name:'News',
-        component: news
+        component: News
       },
       {
         path:'Rookies/:name',
         name:'Rookies',
-        component: rookies
+        component: Rookies
       }]
     },
-    
+
   ]
-})
-router.push('Index/Home')
+});
+router.push('Index/Home');
 export default router

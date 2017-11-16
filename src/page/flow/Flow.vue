@@ -1,6 +1,6 @@
 <template>
     <div>
-        <headerbar title="审批中心"></headerbar>
+        <HeaderBar title="审批中心"></HeaderBar>
         <mt-navbar v-model="selected">
             <mt-tab-item id="待审流程">待审流程</mt-tab-item>
             <mt-tab-item id="已审流程">已审流程</mt-tab-item>
@@ -8,24 +8,24 @@
         </mt-navbar>
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="待审流程">
-                <uncheckedFlow></uncheckedFlow>
+                <UncheckedFlow></UncheckedFlow>
             </mt-tab-container-item>
             <mt-tab-container-item id="已审流程">
-                <checkedFlow></checkedFlow>
+                <CheckedFlow></CheckedFlow>
             </mt-tab-container-item>
             <mt-tab-container-item id="已发流程">
-                <sentFlow></sentFlow>
+                <SentFlow></SentFlow>
             </mt-tab-container-item>
         </mt-tab-container>
     </div>
 </template>
 
 <script>
-import globalData from '../../server/globalData'
-import headerbar from '@/components/header/header'
-import checkedFlow from '@/page/flow/children/checkedFlow'
-import uncheckedFlow from '@/page/flow/children/uncheckedFlow'
-import sentFlow from '@/page/flow/children/sentFlow'
+import globalData from '../../server/globalData';
+import HeaderBar from '@/components/header/Header';
+import CheckedFlow from '@/page/flow/children/CheckedFlow';
+import UncheckedFlow from '@/page/flow/children/UncheckedFlow';
+import SentFlow from '@/page/flow/children/SentFlow';
 export default {
     data(){
         return {
@@ -37,14 +37,11 @@ export default {
         globalData.tabSelected = this.tabSelected;
     },
     components:{
-        headerbar,
-        checkedFlow,
-        uncheckedFlow,
-        sentFlow
+        HeaderBar, CheckedFlow, UncheckedFlow, SentFlow,
     }
 }
 </script>
 
 <style>
-    
+
 </style>

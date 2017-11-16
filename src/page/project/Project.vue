@@ -1,7 +1,7 @@
 <template>
     <div class='fullScreen'>
-        <headerbar title="项目"></headerbar>
-        <bodyContent :showBottomPadding="false">
+        <HeaderBar title="项目"></HeaderBar>
+        <BodyContent :showBottomPadding="false">
             <div slot="content">
                 <Search v-model="searchKey" top="3rem"></Search>
                 <!-- <div class="search-box">
@@ -14,8 +14,8 @@
                     <div v-if="projList.length > 0">
                         <div class="proj-box" v-for="(item,index) in projList" :key="index">
                             <div class="box-title">{{item.name}}</div>
-                            <mt-cell v-for="(proj,i) in item.engList" :key="i" 
-                                :title="proj.name" is-link 
+                            <mt-cell v-for="(proj,i) in item.engList" :key="i"
+                                :title="proj.name" is-link
                                 :to="{ name: 'ProjectInfo', params: { name:proj.name,engId: proj.engId }}">
                             </mt-cell>
                         </div>
@@ -23,16 +23,18 @@
                     <div v-else>暂无数据</div>
                 </div>
             </div>
-        </bodyContent>
+        </BodyContent>
     </div>
 </template>
 
 <script>
-import globalData from '../../server/globalData'
-import headerbar from "@/components/header/header";
+
+import HeaderBar from "@/components/header/Header";
+import BodyContent from "@/components/content/BodyContent";
 import apiConfig from "../../server/apiConfig";
+import globalData from '../../server/globalData';
 import axios from "axios";
-import bodyContent from "@/components/content/bodyContent";
+
 import { Search } from 'vux'
 export default {
   data() {
@@ -68,9 +70,7 @@ export default {
     globalData.tabSelected = this.tabSelected;
   },
   components: {
-    headerbar,
-    bodyContent,
-    Search
+      HeaderBar, BodyContent, Search,
   }
 };
 </script>

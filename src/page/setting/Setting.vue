@@ -1,7 +1,7 @@
 <template>
     <div>
-        <headerbar title="设置"></headerbar>
-        <bodyContent :showBottomPadding="false">
+        <HeaderBar title="设置"></HeaderBar>
+        <BodyContent :showBottomPadding="false">
             <div slot="content">
                 <div class="setting-info">
                     <img src="../../assets/images/logo/ico120.png" class="setting-logo">
@@ -13,14 +13,14 @@
                     <x-button class="setting-button" type="warn">退出当前账号</x-button>
                 </div>
             </div>
-        </bodyContent>
+        </BodyContent>
     </div>
 </template>
 
 <script>
-import globalData from '../../server/globalData'
-import headerbar from '@/components/header/header'
-import bodyContent from "@/components/content/bodyContent"
+import HeaderBar from '@/components/header/Header';
+import BodyContent from "@/components/content/BodyContent";
+import globalData from '../../server/globalData';
 import { XButton } from 'vux'
 
 export default {
@@ -33,9 +33,7 @@ export default {
         globalData.tabSelected = this.tabSelected;
     },
     components:{
-        headerbar,
-        XButton,
-        bodyContent
+        HeaderBar, XButton, BodyContent,
     }
 }
 </script>
