@@ -5,8 +5,9 @@
 export default {
     isLogin: false,
     user:{
-        userId: null, // 用户Id
-        name: null,  // 用户名
+        guid:"582b063a5e492108dcb26339",
+        userId: 847, // 用户Id
+        name: 'houbo',  // 用户名
         avatar: null,  //头像
     },
     tabSelected:0,

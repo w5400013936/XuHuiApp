@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Login from '@/page/login'
 import Index from '@/page/Index';
 import Home from '@/page/home/Home';
 import Flow from '@/page/flow/Flow';
@@ -19,6 +20,11 @@ Vue.use(Router);
     //   name: 'Hello',
     //   component: HelloWorld
     // }
+    {
+      path:'/Login',
+      name:'Login',
+      component:Login
+    },
     {
       path: '/Index',
       name: 'Index',
