@@ -35,12 +35,11 @@ import { Swiper,SwiperItem } from 'vux'
 export default {
     data(){
         return {
-            selected:'待审流程',
             tabIndex:0,
             tabSelected:1
         }
     },
-    beforeMoUnt(){
+    beforeMount(){
         globalData.tabSelected = this.tabSelected;
     },
     components:{

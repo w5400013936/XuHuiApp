@@ -5,15 +5,15 @@
             <div slot="flowInfo" v-if="flowContent.showFields.length > 0">
                 <group class="weui-group">
                     <cell v-for="(item,index) in flowContent.showFields" :key="index"
-                     :title="item.showName" :inline-desc="item.showValue"></cell>
+                        :title="item.showName" :inline-desc="item.showValue"></cell>
                 </group>
             </div>
             <div slot="flowAttachment" v-if="flowContent.fileList.length > 0">
                 <div class="title">相关附件</div>
                 <group>
                     <cell v-for="(item,index) in flowContent.fileList" :key="index"
-                     :title="item.name + item.ext">
-                        <x-button type="warn" :mini="true">查看</x-button>
+                        :title="item.name + item.ext">
+                        <x-button type="warn" :mini="true" @click.native="goFlowAttachment(item.name,item.ext)">查看</x-button>
                     </cell>
                 </group>
             </div>
@@ -21,12 +21,12 @@
                 <div class="title">相关表单</div>
                 <group>
                     <cell v-for="(item,index) in flowContent.formList" :key="index"
-                     :title="item.name"></cell>
+                        :title="item.name"></cell>
                 </group>
             </div>
             <div slot="flowOperation">
                 <div class="fixedBottom" v-if="type == 1">
-                    <x-button type="warn">查看审批意见</x-button>
+                    <x-button type="warn" @click.native="goFlowOpinion">查看审批意见</x-button>
                 </div>
                 <div class="fixedBottom" v-else-if="type == 2">
                     <flexbox>
@@ -34,12 +34,12 @@
                             <x-button type="warn">我要审批</x-button>
                         </flexbox-item>
                         <flexbox-item>
-                            <x-button type="warn">查看审批意见</x-button>
+                            <x-button type="warn" @click.native="goFlowOpinion">查看审批意见</x-button>
                         </flexbox-item>
                     </flexbox>
                 </div>
                 <div class="fixedBottom" v-if="type == 3">
-                    <x-button type="warn">查看审批意见</x-button>
+                    <x-button type="warn" @click.native="goFlowOpinion">查看审批意见</x-button>
                 </div>
             </div>
         </FlowTemplate>
@@ -84,6 +84,12 @@ export default {
                     this.loading = false;
                     this.$vux.loading.hide();
                 })
+        },
+        goFlowOpinion(){
+            this.$router.push({name:'FlowOpinion',query:{}});
+        },
+        goFlowAttachment(filename,fileext){
+            this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});
         }
     },
     beforeMount(){

@@ -11,6 +11,8 @@ import Mix from '@/page/home/children/Mix';
 import News from '@/page/home/children/News';
 import Rookies from '@/page/home/children/Rookies';
 import FlowContent from '@/page/flow/flowContent/FlowContent';
+import FlowOpinion from '@/page/flow/flowContent/FlowOpinion';
+import FlowAttachment from '@/page/flow/flowContent/FlowAttachment';
 Vue.use(Router);
 
  const router = new Router({
@@ -75,6 +77,16 @@ Vue.use(Router);
         path: '/FlowContent',
         name: 'FlowContent',
         component: FlowContent
+      },
+      {  // 查看审批意见  
+        path: '/FlowOpinion',
+        name: 'FlowOpinion',
+        component: FlowOpinion
+      },
+      {  // 查看附件  
+        path: '/FlowAttachment',
+        name: 'FlowAttachment',
+        component: FlowAttachment
       },
   ]
 });
