@@ -28,12 +28,8 @@
     }
 }
 </script>
-<style>
-    .header{
-        height: 3.8rem;
-        font-size: 1.2rem;
-    }
-    .mint-header-title{
-        color: #fff;
+<style scoped>
+    .vux-header{
+        background-color:#d33e39;
     }
 </style>

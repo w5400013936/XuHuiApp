@@ -29,7 +29,6 @@
                 //     this.showTabbar = false;
                 // }
                 // console.log(val.name)
-
             }
         },
         beforeMount(){

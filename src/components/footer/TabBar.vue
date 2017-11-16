@@ -48,6 +48,9 @@
   }
 </script>
 
-<style>
+<style scoped>
+  .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label>span {
+      color:#d33e39;
+  }
 </style>
 
