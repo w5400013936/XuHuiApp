@@ -10,7 +10,7 @@ import ProjectInfo from '@/page/project/ProjectInfo';
 import Mix from '@/page/home/children/Mix';
 import News from '@/page/home/children/News';
 import Rookies from '@/page/home/children/Rookies';
-import FlowContent from '@/page/flow/flowContent/FlowContent'
+import FlowContent from '@/page/flow/flowContent/FlowContent';
 Vue.use(Router);
 
  const router = new Router({
@@ -20,62 +20,62 @@ Vue.use(Router);
     //   name: 'Hello',
     //   component: HelloWorld
     // }
-    {
-      path:'/Login',
-      name:'Login',
-      component:Login
-    },
-    {
-      path: '/Index',
-      name: 'Index',
-      component: Index,
-      children:[{
-        path: 'Home',
-        name: 'Home',
-        component: Home,
+      { // 登录页
+        path:'/Login',
+        name:'Login',
+        component:Login
       },
-      {
-        path: 'Flow',
-        name: 'Flow',
-        component: Flow,
-        children:[]
+      { // 首页
+          path: '/Index',
+          name: 'Index',
+          component: Index,
+          children:[{ // 首页
+              path: 'Home',
+              name: 'Home',
+              component: Home,
+          },
+          { // 审批中心
+              path: 'Flow',
+              name: 'Flow',
+              component: Flow,
+              children:[]
+          },
+          { // 项目
+              path: 'Project',
+              name: 'Project',
+              component: Project
+          },
+          { // 设置
+              path: 'Setting',
+              name: 'Setting',
+              component: Setting
+          },]
       },
-      {
-        path: 'Project',
-        name: 'Project',
-        component: Project
+      { // 项目详情
+          path: '/Project/:name/:engId',
+          name: 'ProjectInfo',
+          component: ProjectInfo
       },
-      {
-        path: 'Setting',
-        name: 'Setting',
-        component: Setting
-      },]
-    },
-    {
-      path: '/Project/:name/:engId',
-      name:'ProjectInfo',
-      component: ProjectInfo
-    },
-    {
-      path: '/Mix',
-      name: 'Mix',
-      component: Mix,
-      children:[{
-        path:'News/:name',
-        name:'News',
-        component: News
+      { // 新人与新闻
+          path: '/Mix',
+          name: 'Mix',
+          component: Mix,
+          children:[{
+              path:'News/:name',
+              name:'News',
+              component: News
+          },
+          {
+              path:'Rookies/:name',
+              name:'Rookies',
+              component: Rookies
+          }]
       },
-      {
-        path:'Rookies/:name',
-        name:'Rookies',
-        component: Rookies
-      }]
-    },
-    {
-      path: '/FlowContent',
-      name: 'FlowContent',
-      component: FlowContent
-    },
+      {　// 流程详情页
+        path: '/FlowContent',
+        name: 'FlowContent',
+        component: FlowContent
+      },
   ]
 });
 router.push('Index/Home');

@@ -23,11 +23,6 @@
   import globalData from '../../server/globalData'
   import { Tabbar, TabbarItem } from 'vux'
   export default{
-      // props:{
-      //   tabSelected:{
-      //     default:0
-      //   }
-      // },
       data(){
           return{
               selected:0
@@ -49,8 +44,5 @@
 </script>
 
 <style scoped>
-  /*.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label>span {*/
-      /*color:#d33e39;*/
-  /*}*/
 </style>
 
