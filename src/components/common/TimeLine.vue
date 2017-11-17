@@ -4,7 +4,7 @@
 <template>
     <div class="p-timeline">
         <ul>
-          <slot></slot>
+            <slot></slot>
         </ul>
     </div>
 </template>

@@ -90,6 +90,9 @@ export default {
                 this.homeBannerAry = response.data.appPicList;
                 this.appEmpList = response.data.appEmpList;
                 this.$vux.loading.hide(); // 关闭遮罩
+            }).catch(error=>{
+                this.$vux.loading.hide(); // 关闭遮罩
+                console.log(error);
             });
         }
     },

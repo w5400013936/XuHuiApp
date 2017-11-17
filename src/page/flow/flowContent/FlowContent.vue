@@ -69,24 +69,24 @@ export default {
                 text: '加载中'
             });
             this.loading = true;
-            axios.get(apiConfig.companyServer + apiConfig.flowContent.pageUrl 
+            axios.get(apiConfig.companyServer + apiConfig.flowContent.pageUrl
                         + '?tableName='+this.tableName
                         +'&referFieldName=' + this.referFieldName
                         +'&referFieldValue='+this.referFieldValue
                         +'&userId=' + globalData.user.guid)
                 .then(res=>{
-                    console.log(res)
+                    console.log(res);
                     this.flowContent = res.data;
                     this.loading = false;
                     this.$vux.loading.hide();
                 }).catch(err=>{
-                    console.log(err)
+                    console.log(err);
                     this.loading = false;
                     this.$vux.loading.hide();
                 })
         },
         goFlowOpinion(){
-            this.$router.push({name:'FlowOpinion',query:{}});
+            this.$router.push({name:'FlowOpinion',query:{flowInstanceId:this.flowContent.flowInstanceId}});
         },
         goFlowAttachment(filename,fileext){
             this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});

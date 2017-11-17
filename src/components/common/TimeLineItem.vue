@@ -3,16 +3,16 @@
 */
 <template>
     <li class="vux-timeline-item">
-      <!-- 图标 -->
-      <div class="vux-timeline-item-head-first" :class="[isActive ? 'activeColor' : 'defaultColor']">
-        <i class="vux-timeline-item-checked weui-icon weui_icon_success_no_circle weui-icon-success-no-circle"></i>
-      </div>
-      <!-- 左侧竖线 -->
-      <div class="vux-timeline-item-tail" :class="[isActive ? 'activeColor' : 'defaultColor']"></div>
-      <!-- 内容区 -->
-      <div class="vux-timeline-item-content">
-          <slot></slot>
-      </div>
+        <!-- 图标 -->
+        <div class="vux-timeline-item-head-first" :class="[isActive ? 'activeColor' : 'defaultColor']">
+            <i class="vux-timeline-item-checked weui-icon weui_icon_success_no_circle weui-icon-success-no-circle"></i>
+        </div>
+        <!-- 左侧竖线 -->
+        <div class="vux-timeline-item-tail" :class="[isActive ? 'activeColor' : 'defaultColor']"></div>
+        <!-- 内容区 -->
+        <div class="vux-timeline-item-content">
+            <slot></slot>
+        </div>
     </li>
 </template>
 
@@ -27,7 +27,7 @@
                 type: Boolean,
                 default: false,
             },
-        }
+        },
     }
 </script>
 <style>
@@ -53,7 +53,7 @@
     position: relative;
   }
   .p-timeline .activeColor {
-    background-color: #09BB07;
+    background-color: #11e479;
   }
   .p-timeline .defaultColor{
     background-color: #cccccc;
