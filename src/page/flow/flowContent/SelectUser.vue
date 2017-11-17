@@ -1,9 +1,9 @@
 <template>
     <div>
-        <HeaderBar title="人员选择" :showBackBtn="true"></HeaderBar>
+        <HeaderBar title="人员选择" :showBackBtn="true" ></HeaderBar>
         <BodyContent>
             <div slot="content">
-                <search placeholder="输入搜索人员姓名"></search>
+                <search placeholder="输入搜索人员姓名" top="2.9rem" :auto-scroll-to-top="true"></search>
             </div>
         </BodyContent>
     </div>
@@ -15,18 +15,14 @@ import { Search } from 'vux'
 export default {
     data(){
         return{
-            actList:null,
+
         }
     },
     methods:{
-        goBack(){
-            console.log(1111)
-            this.$router.push({name:'FlowCheck',query:{actList:this.actList}});
-        }
+
     },
     beforeMount(){
-        this.actList = this.$route.query.actList;
-        console.log(this.actList)
+        
     },
     components:{
         HeaderBar,
@@ -35,4 +31,10 @@ export default {
     }
 }
 </script>
+<style>
+    .vux-search-fixed{
+        position: static;
+
+    }
+</style>
 

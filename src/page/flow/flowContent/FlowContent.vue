@@ -60,7 +60,6 @@ export default {
             referFieldName:null,
             referFieldValue:null,
             type:null,
-            actList:[],
             loading:false,
         }
     },
@@ -94,7 +93,11 @@ export default {
             this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});
         },
         goFlowCheck(){
-            this.$router.push({name:'FlowCheck',query:{actList:this.actList}});
+            this.$router.push({name:'FlowCheck',query:{
+                tableName:this.tableName,
+                referFieldName:this.referFieldName,
+                referFieldValue:this.referFieldValue
+            }});
         }
     },
     beforeMount(){
