@@ -2,7 +2,7 @@
     <div>
         <HeaderBar title="审批意见" :showBackBtn="true"></HeaderBar>
         <BodyContent :showBottomPadding="false">
-            <div :if="loaded" slot="content">
+            <div v-if="loaded" slot="content">
                 <TimeLine>
                     <TimeLineItem
                         v-for="(item,index) in flowOptionAry"
@@ -18,8 +18,8 @@
                     </TimeLineItem>
                 </TimeLine>
             </div>
-            <div :else="!loaded" class="fullScreen">
-
+            <div v-else class="fullScreen" slot="content">
+                <divider>数据加载中...</divider>
             </div>
         </BodyContent>
     </div>
@@ -29,6 +29,7 @@ import HeaderBar from '@/components/header/Header';
 import BodyContent from "@/components/content/BodyContent";
 import TimeLine from '../../../components/common/TimeLine.vue';
 import TimeLineItem from '../../../components/common/TimeLineItem.vue';
+import { Divider } from 'vux';
 
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
@@ -43,10 +44,8 @@ export default {
         }
     },
     components:{
-        HeaderBar,
-        BodyContent,
-        TimeLine,
-        TimeLineItem,
+        HeaderBar, BodyContent,
+        TimeLine, TimeLineItem, Divider,
     },
     methods:{
         fetchData(){
