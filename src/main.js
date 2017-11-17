@@ -9,9 +9,10 @@ import '../src/assets/css/base.css'
 import '../src/assets/css/common.css'
 //import './config/rem';
 import FastClick from 'fastclick';
-import { LoadingPlugin,ToastPlugin } from 'vux';
+import { LoadingPlugin,ToastPlugin,ConfirmPlugin } from 'vux';
 Vue.use(LoadingPlugin);
 Vue.use(ToastPlugin);
+Vue.use(ConfirmPlugin);
 
 //移除移动端点击延迟
 if ('addEventListener' in document) {

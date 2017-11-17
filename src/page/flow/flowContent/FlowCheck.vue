@@ -11,7 +11,7 @@
                 <div class="fixedBottom">
                     <flexbox>
                         <flexbox-item>
-                            <x-button type="warn">会签确认</x-button>
+                            <x-button type="warn" @click.native="signIn">会签确认</x-button>
                         </flexbox-item>
                         <flexbox-item>
                             <x-button type="warn">加签</x-button>
@@ -22,10 +22,7 @@
                     </flexbox>
                 </div>
                 <actionsheet v-model="popupShow" :menus="actMenu" @on-click-menu="operation"></actionsheet>
-                <!-- <popup v-model="popupShow" style="background:#fff;">
-                    <div class="popup">
-                    </div>
-                </popup> -->
+
             </div>
         </BodyContent>
     </div>
@@ -54,6 +51,12 @@ export default {
         operation(key,item){
             console.log(key);
             console.log(item);
+        },
+        signIn(){
+            this.$vux.confirm.show({
+                title:'请确认审批操作',
+                content:'您选择的审批操作为“会签确认”',
+            })
         }
     },
     components:{
