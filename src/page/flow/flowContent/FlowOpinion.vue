@@ -2,7 +2,7 @@
     <div>
         <HeaderBar title="审批意见" :showBackBtn="true"></HeaderBar>
         <BodyContent :showBottomPadding="false">
-            <div slot="content">
+            <div :if="loaded" slot="content">
                 <TimeLine>
                     <TimeLineItem
                         v-for="(item,index) in flowOptionAry"
@@ -17,6 +17,9 @@
                         <div class="p-flowContent">{{item.content.replace(/<[^>]+>/g, '').replace('&nbsp;', '')}}</div>
                     </TimeLineItem>
                 </TimeLine>
+            </div>
+            <div :else="!loaded" class="fullScreen">
+
             </div>
         </BodyContent>
     </div>
@@ -35,7 +38,8 @@ export default {
     data(){
         return {
             flowOptionAry: null,
-            isLoading: false,
+            isLoading: false, // 加载指示器
+            loaded: false, //页面是否已经加载
         }
     },
     components:{
@@ -53,6 +57,7 @@ export default {
             axios.get(apiConfig.companyServer+apiConfig.commonApproveLogUrl+"?flowInstanceId="+this.$route.query.flowInstanceId).then(res=>{
                 this.flowOptionAry = res.data;
                 this.isLoading = false;
+                this.loaded = true;
                 this.$vux.loading.hide(); // 关闭遮罩
             }).catch(error=>{
                 this.isLoading = false;
