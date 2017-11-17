@@ -14,6 +14,7 @@ import FlowContent from '@/page/flow/flowContent/FlowContent';
 import FlowOpinion from '@/page/flow/flowContent/FlowOpinion';
 import FlowAttachment from '@/page/flow/flowContent/FlowAttachment';
 import FlowCheck from '@/page/flow/flowContent/FlowCheck';
+import SelectUser from '@/page/flow/flowContent/SelectUser';
 Vue.use(Router);
 
  const router = new Router({
@@ -93,6 +94,11 @@ Vue.use(Router);
         path: '/FlowAttachment',
         name: 'FlowAttachment',
         component: FlowAttachment
+      },
+      {
+        path: '/SelectUser',
+        name: 'SelectUser',
+        component: SelectUser,
       },
   ]
 });

@@ -32,6 +32,7 @@ export default {
     data(){
         return {
             popupShow:false,
+            actList:null,
             mainAct:null,
             moreAct:null,
             actMenu:{},
@@ -41,36 +42,39 @@ export default {
         showMore(){
             this.popupShow = true;
         },
-        operation(type){
-            console.log(type);  
+        operation(type,item){
+            console.log(typeof type);
             switch(type){
-                case 2: // 通过
+                case '2': // 通过
                 break;
-                case 3: // 驳回
+                case '3': // 驳回
                 break;
-                case 5: // 转办
+                case '5': // 转办
+                this.$router.push({name:'SelectUser',query:{actList:this.actList}});
                 break;
-                case 7: // 终止
+                case '7': // 终止
                 this.$vux.confirm.show({
                     title:'请确认审批操作',
                     content:'您选择的审批操作为“终止”',
                     onConfirm(){
-
+                            
                     },
                 })
                 break;
-                case 10: // 当前会签
+                case '10': // 当前会签
                 break;
-                case 11: // 加签
+                case '11': // 加签
                 break;
-                case 12: // 回退
+                case '12': // 回退
                 break;
-                case 13: // 只会
+                case '13': // 只会
                 break;
             }
         },
     },
     beforeMount(){
+        // console.log(this.$route.query.actList)
+        this.actList = this.$route.query.actList;
         this.mainAct = this.$route.query.actList.slice(0,2);
         this.moreAct = this.$route.query.actList.slice(2);
         this.moreAct.forEach(function(item,index) {
