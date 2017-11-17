@@ -37,7 +37,7 @@ export default {
         pageKey: 'flowContent',
         pageUrl: '/home/GetCommonPeddingInstance', // 查看流程详情（包含各个操作接口）
     },
-    commonApproveLogUrl: '/home/GetApproveLog', // 查看审批意见
+    commonApproveLogUrl: '/home/GetApproveLog', // 查看审批意见 参数　flowInstanceId
     SelectUserPage: {
         pageKey: 'SelectUserPage',
         pageUrl: '/home/CityEnglish',

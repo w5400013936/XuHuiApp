@@ -10,11 +10,8 @@
                 </div>
                 <div class="fixedBottom">
                     <flexbox>
-                        <flexbox-item>
-                            <x-button type="warn" @click.native="signIn">会签确认</x-button>
-                        </flexbox-item>
-                        <flexbox-item>
-                            <x-button type="warn">加签</x-button>
+                        <flexbox-item v-for="(item,index) in mainAct" :key="index">
+                            <x-button type="warn" @click.native="operation(item.type)">{{item.name}}</x-button>
                         </flexbox-item>
                         <flexbox-item>
                             <x-button @click.native="showMore">更多</x-button>
@@ -35,29 +32,50 @@ export default {
     data(){
         return {
             popupShow:false,
-            actMenu:{
-                menu1: '回退',
-                menu2: '当前会签',
-                menu3: '终止',
-                menu4: '转办',
-                menu5: '知会',
-            }
+            mainAct:null,
+            moreAct:null,
+            actMenu:{},
         }
     },
     methods:{
         showMore(){
             this.popupShow = true;
         },
-        operation(key,item){
-            console.log(key);
-            console.log(item);
+        operation(type){
+            console.log(type);  
+            switch(type){
+                case 2: // 通过
+                break;
+                case 3: // 驳回
+                break;
+                case 5: // 转办
+                break;
+                case 7: // 终止
+                this.$vux.confirm.show({
+                    title:'请确认审批操作',
+                    content:'您选择的审批操作为“终止”',
+                    onConfirm(){
+
+                    },
+                })
+                break;
+                case 10: // 当前会签
+                break;
+                case 11: // 加签
+                break;
+                case 12: // 回退
+                break;
+                case 13: // 只会
+                break;
+            }
         },
-        signIn(){
-            this.$vux.confirm.show({
-                title:'请确认审批操作',
-                content:'您选择的审批操作为“会签确认”',
-            })
-        }
+    },
+    beforeMount(){
+        this.mainAct = this.$route.query.actList.slice(0,2);
+        this.moreAct = this.$route.query.actList.slice(2);
+        this.moreAct.forEach(function(item,index) {
+            this.actMenu[item.type] = item.name;
+        }, this);
     },
     components:{
         HeaderBar,
