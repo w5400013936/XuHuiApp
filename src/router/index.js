@@ -13,6 +13,7 @@ import Rookies from '@/page/home/children/Rookies';
 import FlowContent from '@/page/flow/flowContent/FlowContent';
 import FlowOpinion from '@/page/flow/flowContent/FlowOpinion';
 import FlowAttachment from '@/page/flow/flowContent/FlowAttachment';
+import FlowCheck from '@/page/flow/flowContent/FlowCheck';
 Vue.use(Router);
 
  const router = new Router({
@@ -77,6 +78,11 @@ Vue.use(Router);
         path: '/FlowContent',
         name: 'FlowContent',
         component: FlowContent
+      },
+      {  // 审批流程
+        path:'/FlowCheck',
+        name:'FlowCheck',
+        component: FlowCheck
       },
       {  // 查看审批意见  
         path: '/FlowOpinion',

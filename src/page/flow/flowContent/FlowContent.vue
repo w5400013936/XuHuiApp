@@ -31,7 +31,7 @@
                 <div class="fixedBottom" v-else-if="type == 2">
                     <flexbox>
                         <flexbox-item>
-                            <x-button type="warn">我要审批</x-button>
+                            <x-button type="warn" @click.native="goFlowCheck">我要审批</x-button>
                         </flexbox-item>
                         <flexbox-item>
                             <x-button type="warn" @click.native="goFlowOpinion">查看审批意见</x-button>
@@ -90,6 +90,9 @@ export default {
         },
         goFlowAttachment(filename,fileext){
             this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});
+        },
+        goFlowCheck(){
+            this.$router.push({name:'FlowCheck'});
         }
     },
     beforeMount(){
@@ -113,13 +116,6 @@ export default {
 <style scoped>
     .title{
         margin-top: 0.5rem;
-    }
-    .fixedBottom{
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        padding: 0.2rem;
-        background-color: #fff;
     }
     .weui-group>.vux-no-group-title.weui-cells{
         margin-top: 0;
