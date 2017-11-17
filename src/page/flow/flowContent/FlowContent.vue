@@ -3,7 +3,7 @@
         <HeaderBar title="审批中心" :showBackBtn="true"></HeaderBar>
         <FlowTemplate v-if="!loading">
             <div slot="flowInfo" v-if="flowContent.showFields.length > 0">
-                <group class="weui-group">
+                <group class="weui-group p-flowInfoContent">
                     <cell v-for="(item,index) in flowContent.showFields" :key="index"
                         :title="item.showName" :inline-desc="item.showValue"></cell>
                 </group>
@@ -125,5 +125,10 @@ export default {
     .weui-cells{
         margin-top: 0;
     }
+</style>
+<style>
+  .p-flowInfoContent .vux-no-group-title{
+    margin-top: 0 !important;
+  }
 </style>
 
