@@ -2,9 +2,9 @@
 * Created by Administrator on 2017/11/13.
 */
 <template>
-    <div>
+    <div class="fullScreen">
         <router-view></router-view>
-        <TabBar></TabBar>
+        <!--<TabBar></TabBar>-->
     </div>
 </template>
 
