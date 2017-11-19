@@ -42,6 +42,7 @@ export default {
         pageKey: 'SelectUserPage',
         pageUrl: '/home/CityEnglish',
     },
+    searchSysUser: '/home/SearchSysUserList', // 参数 keyWord  GET请求
     // 设置
     changeUserPwdData: '/home/ChangeAppUserPwd',
 }

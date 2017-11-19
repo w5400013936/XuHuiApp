@@ -55,12 +55,12 @@ import { Group,Cell,XButton,Flexbox, FlexboxItem, } from 'vux'
 export default {
     data(){
         return{
-            flowContent:[],
-            tableName:null,
-            referFieldName:null,
-            referFieldValue:null,
-            type:null,
-            loading:false,
+            flowContent: [],
+            tableName: null,
+            referFieldName: null,
+            referFieldValue: null,
+            type: null,
+            loading: false,
         }
     },
     methods:{
