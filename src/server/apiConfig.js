@@ -42,7 +42,14 @@ export default {
         pageKey: 'SelectUserPage',
         pageUrl: '/home/CityEnglish',
     },
+    selectUserGroup: '/Home/GetFlowPosition', // 参数 flowInstanceId
     searchSysUser: '/home/SearchSysUserList', // 参数 keyWord  GET请求
+    // 知会 参数
+    // flowId: this.props.auditData.flowId,
+    // givenUserIds: Object.keys(this.state.selectedUsers.toObject()).join(','),
+    // grantUserId: GlobalData.user.userId,
+    // remark: this.state.remark,
+
     // 设置
     changeUserPwdData: '/home/ChangeAppUserPwd',
 }

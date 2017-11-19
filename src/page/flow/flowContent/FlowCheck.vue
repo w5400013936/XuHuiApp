@@ -60,7 +60,7 @@ export default {
                     title:'请确认审批操作',
                     content:'您选择的审批操作为“通过”',
                     onConfirm(){
-                        
+
                     },
                 })
                 break;
@@ -69,7 +69,7 @@ export default {
                     title:'请确认审批操作',
                     content:'您选择的审批操作为“驳回”',
                     onConfirm(){
-                        
+
                     },
                 })
                 break;
@@ -81,7 +81,7 @@ export default {
                     title:'请确认审批操作',
                     content:'您选择的审批操作为“终止”',
                     onConfirm(){
-                        
+
                     },
                 })
                 break;
@@ -94,7 +94,7 @@ export default {
                     title:'请确认审批操作',
                     content:'您选择的审批操作为“回退”，流程将返回给上一级操作',
                     onConfirm(){
-                            
+
                     },
                 })
                 break;
@@ -136,7 +136,7 @@ export default {
         this.referFieldName = this.$route.query.referFieldName;
         this.referFieldValue = this.$route.query.referFieldValue;
         this.getActList();
-        
+
     },
     components:{
         HeaderBar,
