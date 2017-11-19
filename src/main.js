@@ -14,6 +14,9 @@ Vue.use(LoadingPlugin);
 Vue.use(ToastPlugin);
 Vue.use(ConfirmPlugin);
 
+import utils from './server/globalData'
+Vue.prototype.$utils=utils;
+
 //移除移动端点击延迟
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function() {
