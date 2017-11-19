@@ -52,11 +52,26 @@ export default {
             this.popupShow = true;
         },
         operation(type,item){
-            console.log(typeof type);
+            type = type + '';
+            // console.log(typeof type);
             switch(type){
                 case '2': // 通过
+                this.$vux.confirm.show({
+                    title:'请确认审批操作',
+                    content:'您选择的审批操作为“通过”',
+                    onConfirm(){
+                        
+                    },
+                })
                 break;
                 case '3': // 驳回
+                this.$vux.confirm.show({
+                    title:'请确认审批操作',
+                    content:'您选择的审批操作为“驳回”',
+                    onConfirm(){
+                        
+                    },
+                })
                 break;
                 case '5': // 转办
                 this.$router.push({name:'SelectUser',query:{actList:this.actList}});
@@ -66,7 +81,7 @@ export default {
                     title:'请确认审批操作',
                     content:'您选择的审批操作为“终止”',
                     onConfirm(){
-                            
+                        
                     },
                 })
                 break;
@@ -83,7 +98,8 @@ export default {
                     },
                 })
                 break;
-                case '13': // 只会
+                case '13': // 知会
+                this.$router.push({name:'NotifyUser'});
                 break;
             }
         },

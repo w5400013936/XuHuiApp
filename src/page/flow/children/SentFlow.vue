@@ -8,7 +8,9 @@
                     {{item.StartDate}}
                 </mt-cell>
             </div>
-            <div v-else>暂无数据</div>
+            <div v-else>
+                <divider>暂无数据</divider>
+            </div>
         </div>
         
         <!-- <group>
@@ -24,7 +26,7 @@
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios'
 import globalData from '../../../server/globalData'
-import { Group,Cell } from 'vux'
+import { Group,Cell,Divider } from 'vux'
 export default {
     data(){  
         return{
@@ -68,6 +70,7 @@ export default {
     components:{
         Cell,
         Group,
+        Divider,
     }
 }
 </script>

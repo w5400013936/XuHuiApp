@@ -15,6 +15,7 @@ import FlowOpinion from '@/page/flow/flowContent/FlowOpinion';
 import FlowAttachment from '@/page/flow/flowContent/FlowAttachment';
 import FlowCheck from '@/page/flow/flowContent/FlowCheck';
 import SelectUser from '@/page/flow/flowContent/SelectUser';
+import NotifyUser from '@/page/flow/flowContent/NotifyUser';
 Vue.use(Router);
 
  const router = new Router({
@@ -100,7 +101,12 @@ Vue.use(Router);
         name: 'SelectUser',
         component: SelectUser,
       },
+      {
+        path: '/NotifyUser',
+        name: 'NotifyUser',
+        component: NotifyUser, 
+      }
   ]
 });
-router.push('Index/Home');
+router.push('Index/Flow');
 export default router

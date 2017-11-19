@@ -9,7 +9,9 @@
                     {{item.StartDate}}
                 </mt-cell>
             </div>
-            <div v-else>暂无数据</div>
+            <div v-else>
+                <divider>暂无数据</divider>
+            </div>
         </div>
     </div>
 </template>
@@ -18,6 +20,7 @@
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios'
 import globalData from '../../../server/globalData'
+import { Divider } from 'vux'
 export default {
     data(){  
         return{
@@ -57,6 +60,9 @@ export default {
     },
     beforeMount(){
         this.getFlowData();
+    },
+    components:{
+        Divider,
     }
 }
 </script>
