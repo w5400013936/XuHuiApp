@@ -5,7 +5,7 @@
           <div slot="content">
               <SelectUserItemComponent
                   v-for="(item,index) in groupList" :itemVisible="!!item.itemVisible"
-                  :key="index"
+                  :key="index" :titleName="item.name" :userList="item.userList"
               />
           </div>
       </BodyContent>
@@ -29,14 +29,12 @@
           fetchGroupItem(){
               axios.get(apiConfig.companyServer+apiConfig.selectUserGroup
                   +"?flowInstanceId="+this.$route.query.flowInstanceId
-              ).then(res=> {
+              ).then( res => {
                   this.groupList = res.data;
-                  this.groupList.forEach((v,k)=>{
+                  this.groupList.forEach((v,k) => {
                       v.itemVisible = true;
                   });
-                  console.log(this.groupList)
               }).catch(err => {
-                  console.log('错误')
                   console.log(err);
               })
           }

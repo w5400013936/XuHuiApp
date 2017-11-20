@@ -49,6 +49,7 @@ export default {
             stepId:null,    // 当前步骤Id
             comment:'',     // 审批意见
             loading:false,
+            fetchData: null, //　当前页面请求的数据
         }
     },
     methods:{
@@ -91,7 +92,7 @@ export default {
                     break;
                 case '5': // 转办
                     this.$router.push({name:'SelectUser',query:{actList:this.actList}});
-                break;
+                    break;
                 case '7': // 终止
                     this.$vux.confirm.show({
                         title:'请确认审批操作',
@@ -99,7 +100,7 @@ export default {
                         onConfirm(){
                             self.doActions('/Home/ForceCompleteInstance',0);
                         },
-                    })
+                    });
                     break;
                 case '10': // 当前会签
                     this.$vux.confirm.show({
@@ -115,10 +116,9 @@ export default {
                         title:'请确认审批操作',
                         content:'您选择的审批操作为“加签”',
                         onConfirm(){
-                            // self.doActions('/Home/AddAuditStep',0);
-                            self.$router.push({name:''});
+                            self.$router.push({name:'FlowSign',query:{flowInstanceId: self.fetchData.flowInstanceId}});
                         },
-                    })
+                    });
                     break;
                 case '12': // 回退
                     this.$vux.confirm.show({
@@ -127,11 +127,11 @@ export default {
                         onConfirm(){
                             //self.doActions('/Home/BackSpaceAction',4,0);
                         },
-                    })
+                    });
                     break;
                 case '13': // 知会
                     this.$router.push({name:'NotifyUser'});
-                break;
+                    break;
             }
         },
         doActions(url,actId,attitude){
@@ -184,7 +184,7 @@ export default {
                         +'&referFieldValue='+this.referFieldValue
                         +'&userId=' + globalData.user.guid)
                 .then(res=>{
-                    console.log(res);
+                    this.fetchData = res.data;
                     this.actList = res.data.actList;
                     this.mainAct = this.actList.slice(0,2);
                     this.moreAct = this.actList.slice(2);
@@ -209,7 +209,6 @@ export default {
         this.referFieldName = this.$route.query.referFieldName;
         this.referFieldValue = this.$route.query.referFieldValue;
         this.getActList();
-
     },
     components:{
         HeaderBar,

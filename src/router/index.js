@@ -16,16 +16,11 @@ import FlowAttachment from '@/page/flow/flowContent/FlowAttachment';
 import FlowCheck from '@/page/flow/flowContent/FlowCheck';
 import SelectUser from '@/page/flow/flowContent/SelectUser';
 import NotifyUser from '@/page/flow/flowContent/NotifyUser';
+import FlowSign from '@/page/flow/flowContent/FlowSign';
 Vue.use(Router);
 
  const router = new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'Hello',
-    //   component: HelloWorld
-    // }
-    
       { // 登录页
         path:'/Login',
         name:'Login',
@@ -93,12 +88,12 @@ Vue.use(Router);
         name:'FlowCheck',
         component: FlowCheck
       },
-      {  // 查看审批意见  
+      {  // 查看审批意见
         path: '/FlowOpinion',
         name: 'FlowOpinion',
         component: FlowOpinion
       },
-      {  // 查看附件  
+      {  // 查看附件
         path: '/FlowAttachment',
         name: 'FlowAttachment',
         component: FlowAttachment
@@ -111,7 +106,12 @@ Vue.use(Router);
       {
         path: '/NotifyUser',
         name: 'NotifyUser',
-        component: NotifyUser, 
+        component: NotifyUser,
+      },
+      {
+        path: '/FlowSign',
+        name: 'FlowSign',
+        component: FlowSign,
       },
   ]
 });

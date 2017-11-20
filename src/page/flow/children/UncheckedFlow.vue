@@ -1,15 +1,15 @@
 <template>
-    <div class="container">
-        <div v-if="!loading">
+    <div class="fullScreen">
+        <div v-if="!loading" class="fullScreen">
             <div v-if="flowData.length > 0">
                 <mt-cell v-for="(item,index) in flowData" :key="index"
-                class="flow-cell" :title="item.flowName" 
-                :label="item.projName" is-link 
+                class="flow-cell" :title="item.flowName"
+                :label="item.projName" is-link
                 @click.native="goFlowContent(item.tableName,item.referFieldName,item.referFieldValue)">
                     {{item.StartDate}}
                 </mt-cell>
             </div>
-            <div v-else>
+            <div v-else class="noData-panel">
                 <divider>暂无数据</divider>
             </div>
         </div>
@@ -22,7 +22,7 @@ import axios from 'axios'
 import globalData from '../../../server/globalData'
 import { Divider } from 'vux'
 export default {
-    data(){  
+    data(){
         return{
             flowData:[],
             type:2,
@@ -37,12 +37,11 @@ export default {
             this.loading = true;
             axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl + '?type=2&userId=' + globalData.user.guid)
                 .then(res=>{
-                    console.log(res)
                     this.flowData = res.data;
                     this.loading = false;
                     this.$vux.loading.hide();
                 }).catch(err=>{
-                    console.log(err)
+                    console.log(err);
                     this.loading = false;
                     this.$vux.loading.hide();
                 })
@@ -68,5 +67,5 @@ export default {
 </script>
 
 <style>
-    
+
 </style>

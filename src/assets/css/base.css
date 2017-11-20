@@ -181,3 +181,6 @@ body{
   height: 100%;
   width: 100%;
 }
+.noData-panel{
+    padding: 50px;
+}

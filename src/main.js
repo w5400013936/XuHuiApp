@@ -7,7 +7,6 @@ import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
 import '../src/assets/css/base.css'
 import '../src/assets/css/common.css'
-//import './config/rem';
 import FastClick from 'fastclick';
 import { LoadingPlugin,ToastPlugin,ConfirmPlugin } from 'vux';
 Vue.use(LoadingPlugin);
