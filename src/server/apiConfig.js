@@ -5,8 +5,8 @@
 const useStaticData = false;
 const serverDebug = 'http://192.168.1.19:8000/';
 const serverRelease = 'http://192.168.1.178:9012/';
-const companyServer = 'https://bird.ioliu.cn/v1/?url=http://des.cifi.com.cn:8033/';
-//const companyServer = '/api';
+// const companyServer = 'https://bird.ioliu.cn/v1/?url=http://des.cifi.com.cn:8033/';
+const companyServer = '/api';
 export default {
     companyServer,
     // 登录
@@ -44,6 +44,8 @@ export default {
     },
     selectUserGroup: '/Home/GetFlowPosition', // 参数 flowInstanceId
     searchSysUser: '/home/SearchSysUserList', // 参数 keyWord  GET请求
+
+    doAction:'/Home/DoAction', // 操作接口 attitude: 1,  动作的属性值：1（已阅2，通过1，不通过0）
     // 知会 参数
     // flowId: this.props.auditData.flowId,
     // givenUserIds: Object.keys(this.state.selectedUsers.toObject()).join(','),

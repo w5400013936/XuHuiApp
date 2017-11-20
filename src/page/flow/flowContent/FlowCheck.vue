@@ -6,7 +6,7 @@
                 <div slot="content">
                     <div class="comment">
                         <group title="填写审批意见：">
-                            <x-textarea  :max="200" :show-counter="false" :height="200"></x-textarea>
+                            <x-textarea v-model="comment"  :max="200" :show-counter="false" :height="200"></x-textarea>
                         </group>
                     </div>
                     <div class="fixedBottom">
@@ -44,6 +44,10 @@ export default {
             tableName:null,
             referFieldName:null,
             referFieldValue:null,
+            flowId: null,   // 流程Id
+            flowInstanceId: null,   // 流程实例Id
+            stepId:null,    // 当前步骤Id
+            comment:'',     // 审批意见
             loading:false,
         }
     },
@@ -52,15 +56,29 @@ export default {
             this.popupShow = true;
         },
         operation(type,item){
+            var self = this;
             type = type + '';
             // console.log(typeof type);
             switch(type){
                 case '2': // 通过
+                console.log(apiConfig.companyServer + apiConfig.doAction)
                 this.$vux.confirm.show({
                     title:'请确认审批操作',
                     content:'您选择的审批操作为“通过”',
                     onConfirm(){
-
+                        let param = new URLSearchParams();
+                        param.append("flowId", self.flowId);
+                        param.append("flowInstanceId", self.flowInstanceId);
+                        param.append("stepId", self.stepId);
+                        param.append("content", self.comment);
+                        param.append("actId", 3);
+                        param.append("attitude", 1);
+                        axios.post(apiConfig.companyServer + apiConfig.doAction,param).then(res=>{
+                                console.log(res);
+                                self.$router.push({name:'Flow'});
+                            }).catch(err=>{
+                                console.log(err);
+                            })
                     },
                 })
                 break;
@@ -122,6 +140,9 @@ export default {
                         this.actMenu[item.type] = item.name;
                     }, this);
 
+                    this.flowId = res.data.flowId;
+                    this.flowInstanceId = res.data.flowInstanceId;
+                    this.stepId = res.data.stepId;
                     this.loading = false;
                     this.$vux.loading.hide();
                 }).catch(err=>{

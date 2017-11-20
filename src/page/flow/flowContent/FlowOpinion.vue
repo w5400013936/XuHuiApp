@@ -54,6 +54,7 @@ export default {
                 text: '加载中'
             });
             axios.get(apiConfig.companyServer+apiConfig.commonApproveLogUrl+"?flowInstanceId="+this.$route.query.flowInstanceId).then(res=>{
+                console.log(res);
                 this.flowOptionAry = res.data;
                 this.isLoading = false;
                 this.loaded = true;

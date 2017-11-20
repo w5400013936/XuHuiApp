@@ -37,7 +37,7 @@ export default {
             this.loading = true;
             axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl + '?type=2&userId=' + globalData.user.guid)
                 .then(res=>{
-                    // console.log(res)
+                    console.log(res)
                     this.flowData = res.data;
                     this.loading = false;
                     this.$vux.loading.hide();

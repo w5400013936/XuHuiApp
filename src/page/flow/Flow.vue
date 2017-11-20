@@ -44,8 +44,8 @@ export default {
         console.log('首页获取用户数据');
         // console.log(location.href);
         let channel=this.$utils.getUrlKey("channel");
-        console.log(this.$route)
-        console.log('channel'+channel)
+        // console.log(this.$route)
+        // console.log('channel'+channel)
         // if(this.$route.query.guid){
         //     globalData.guid = this.$route.query.guid;
         //     globalData.userId = this.$route.query.userId;

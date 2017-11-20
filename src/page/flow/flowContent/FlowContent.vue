@@ -59,7 +59,7 @@ export default {
             tableName: null,
             referFieldName: null,
             referFieldValue: null,
-            type: null,
+            type: null, // 判断流程状态 1.已审 2.未审 3.已发
             loading: false,
         }
     },
@@ -87,7 +87,7 @@ export default {
                 })
         },
         goFlowOpinion(){
-            this.$router.push({name:'FlowOpinion',query:{flowInstanceId:this.flowContent.flowInstanceId}});
+            this.$router.push({name:'FlowOpinion',query:{flowInstanceId:this.sflowInstanceId}});
         },
         goFlowAttachment(filename,fileext){
             this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});
@@ -96,7 +96,7 @@ export default {
             this.$router.push({name:'FlowCheck',query:{
                 tableName:this.tableName,
                 referFieldName:this.referFieldName,
-                referFieldValue:this.referFieldValue
+                referFieldValue:this.referFieldValue,
             }});
         }
     },
