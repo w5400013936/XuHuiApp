@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="fullScreen">
         <HeaderBar title="选择知会人员" :customLeft="true">
             <span slot="customLeft" @click="goBack">
                 <i class="left-arrow"></i>
@@ -42,12 +42,13 @@ import { Group,XTextarea,XButton,Flexbox,FlexboxItem  } from 'vux'
 export default {
     data(){
         return{
+            actType:13,
             userName:[], // 知会人员
         }
     },
     methods:{
         selectUser(){
-            this.$router.push({name:'SelectUser',query:{userName:this.userName}});
+            this.$router.push({name:'SelectUser',query:{actType:this.actType,userName:this.userName}});
         },
         submitNotify(){
             
@@ -73,9 +74,7 @@ export default {
 }
 </script>
 <style scoped>
-    .comment{
-        padding: 0 1rem;
-    }
+    
     .mt1{
         margin-top: 1rem;
         padding: 0 1rem;

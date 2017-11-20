@@ -64,7 +64,7 @@ export default {
                 case '1': // 会签确认
                     this.$vux.confirm.show({
                         title:'请确认审批操作',
-                        content:'您选择的审批操作为“通过”',
+                        content:'您选择的审批操作为“会签确认”',
                         onConfirm(){
                             self.doActions('/Home/DoAction',2,1)
                         },
@@ -91,7 +91,8 @@ export default {
                 case '4': // 集团驳回
                     break;
                 case '5': // 转办
-                    this.$router.push({name:'SelectUser',query:{actList:this.actList}});
+                    global.flow.actId = 0;
+                    this.$router.push({name:'SelectUser',query:{actType:5}});
                     break;
                 case '7': // 终止
                     this.$vux.confirm.show({
@@ -112,13 +113,7 @@ export default {
                     })
                     break;
                 case '11': // 加签
-                    this.$vux.confirm.show({
-                        title:'请确认审批操作',
-                        content:'您选择的审批操作为“加签”',
-                        onConfirm(){
-                            self.$router.push({name:'FlowSign',query:{flowInstanceId: self.fetchData.flowInstanceId}});
-                        },
-                    });
+                    self.$router.push({name:'FlowSign',query:{flowInstanceId: self.flowInstanceId}});
                     break;
                 case '12': // 回退
                     this.$vux.confirm.show({
@@ -158,56 +153,50 @@ export default {
                     console.log(err);
                 })
         },
-        // doOperations(url){
-        //     let param = new URLSearchParams();
-        //     param.append("flowId", self.flowId);
-        //     param.append("flowInstanceId", self.flowInstanceId);
-        //     param.append("stepId", self.stepId);
-        //     param.append("content", self.comment);
-        //     param.append("actId", 0);
-        //     axios.post(apiConfig.companyServer + apiConfig.url,param)
-        //         .then(res=>{
-        //             console.log(res);
-        //             self.$router.push({name:'Flow'});
-        //         }).catch(err=>{
-        //             console.log(err);
-        //         })
-        // },
         getActList(){
-            this.$vux.loading.show({
-                text: '加载中'
-            });
-            this.loading = true;
-            axios.get(apiConfig.companyServer + apiConfig.flowContent.pageUrl
-                        + '?tableName='+this.tableName
-                        +'&referFieldName=' + this.referFieldName
-                        +'&referFieldValue='+this.referFieldValue
-                        +'&userId=' + globalData.user.guid)
-                .then(res=>{
-                    this.fetchData = res.data;
-                    this.actList = res.data.actList;
-                    this.mainAct = this.actList.slice(0,2);
-                    this.moreAct = this.actList.slice(2);
-                    this.moreAct.forEach(function(item,index) {
-                        this.actMenu[item.type] = item.name;
-                    }, this);
+            // this.$vux.loading.show({
+            //     text: '加载中'
+            // });
+            // this.loading = true;
+            // axios.get(apiConfig.companyServer + apiConfig.flowContent.pageUrl
+            //             + '?tableName='+this.tableName
+            //             +'&referFieldName=' + this.referFieldName
+            //             +'&referFieldValue='+this.referFieldValue
+            //             +'&userId=' + globalData.user.guid)
+            //     .then(res=>{
+            //         this.fetchData = res.data;
+            //         this.actList = res.data.actList;
+            //         this.mainAct = this.actList.slice(0,2);
+            //         this.moreAct = this.actList.slice(2);
+            //         this.moreAct.forEach(function(item,index) {
+            //             this.actMenu[item.type] = item.name;
+            //         }, this);
 
-                    this.flowId = res.data.flowId;
-                    this.flowInstanceId = res.data.flowInstanceId;
-                    this.stepId = res.data.stepId;
-                    this.loading = false;
-                    this.$vux.loading.hide();
-                }).catch(err=>{
-                    console.log(err);
-                    this.loading = false;
-                    this.$vux.loading.hide();
-                })
+            //         this.flowId = res.data.flowId;
+            //         this.flowInstanceId = res.data.flowInstanceId;
+            //         this.stepId = res.data.stepId;
+            //         this.loading = false;
+            //         this.$vux.loading.hide();
+            //     }).catch(err=>{
+            //         console.log(err);
+            //         this.loading = false;
+            //         this.$vux.loading.hide();
+            //     })
         }
     },
     beforeMount(){
-        this.tableName = this.$route.query.tableName;
-        this.referFieldName = this.$route.query.referFieldName;
-        this.referFieldValue = this.$route.query.referFieldValue;
+        // this.tableName = this.$route.query.tableName;
+        // this.referFieldName = this.$route.query.referFieldName;
+        // this.referFieldValue = this.$route.query.referFieldValue;
+        this.flowId = globalData.flow.flowId;
+        this.flowInstanceId = globalData.flow.flowInstanceId;
+        this.stepId = globalData.flow.stepId;
+        this.actList = globalData.flow.actList;
+        this.mainAct = this.actList.slice(0,2);
+        this.moreAct = this.actList.slice(2);
+        this.moreAct.forEach(function(item,index) {
+            this.actMenu[item.type] = item.name;
+        }, this);
         this.getActList();
     },
     components:{

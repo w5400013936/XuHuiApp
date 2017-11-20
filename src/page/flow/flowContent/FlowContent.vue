@@ -59,6 +59,10 @@ export default {
             tableName: null,
             referFieldName: null,
             referFieldValue: null,
+            actList:null,
+            flowId: null,   // 流程Id
+            flowInstanceId: null,   // 流程实例Id
+            stepId:null,    // 当前步骤Id
             type: null, // 判断流程状态 1.已审 2.未审 3.已发
             loading: false,
         }
@@ -78,6 +82,10 @@ export default {
                     console.log(res);
                     this.flowContent = res.data;
                     this.actList = res.data.actList;
+                    this.flowId = res.data.flowId;
+                    this.flowInstanceId = res.data.flowInstanceId;
+                    this.stepId = res.data.stepId;
+
                     this.loading = false;
                     this.$vux.loading.hide();
                 }).catch(err=>{
@@ -93,10 +101,17 @@ export default {
             this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});
         },
         goFlowCheck(){
+            globalData.flow.actList = this.actList;
+            globalData.flow.flowId = this.flowId;
+            globalData.flow.flowInstanceId = this.flowInstanceId;
+            globalData.flow.stepId = this.stepId;
             this.$router.push({name:'FlowCheck',query:{
-                tableName:this.tableName,
-                referFieldName:this.referFieldName,
-                referFieldValue:this.referFieldValue,
+                // flowId:this.flowId,
+                // flowInstanceId: this.flowInstanceId,
+                // stepId: this.stepId,
+                // tableName:this.tableName,
+                // referFieldName:this.referFieldName,
+                // referFieldValue:this.referFieldValue,
             }});
         }
     },

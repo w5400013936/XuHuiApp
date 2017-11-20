@@ -17,6 +17,7 @@ import FlowCheck from '@/page/flow/flowContent/FlowCheck';
 import SelectUser from '@/page/flow/flowContent/SelectUser';
 import NotifyUser from '@/page/flow/flowContent/NotifyUser';
 import FlowSign from '@/page/flow/flowContent/FlowSign';
+import FlowComment from '@/page/flow/flowContent/FlowComment';
 Vue.use(Router);
 
  const router = new Router({
@@ -112,6 +113,11 @@ Vue.use(Router);
         path: '/FlowSign',
         name: 'FlowSign',
         component: FlowSign,
+      },
+      {
+        path: '/FlowComment',
+        name: 'FlowComment',
+        component: FlowComment,
       },
   ]
 });

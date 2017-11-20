@@ -17,7 +17,15 @@ export default {
         avatar: null,  //头像
     },
     tabSelected:0,
+    flow:{
+        actList:null, // 流程操作列表，例如：通过，驳回，加签...
+        FlowId:null,
+        FlowInstanceId:null,
+        stepId:null,
+        actId:null,
+    },
+    
     getUrlKey:function(name){
         return decodeURIComponent((new RegExp('[?|&]'+name+'='+'([^&;]+?)(&|#|;|$)').exec(location.href)||[,""])[1].replace(/\+/g,'%20'))||null;
-    }
+    },
 }

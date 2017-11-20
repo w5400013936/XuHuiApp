@@ -14,7 +14,7 @@
                     <group>
                         <cell v-for="(item,index) in userList" 
                             :key="index" :title="item.userName"
-                            @click.native="submitUser(item.userName)">
+                            @click.native="submitUser(item)">
                         </cell>
                     </group>
                 </div>
@@ -33,8 +33,9 @@ export default {
     data(){
         return{
             keyWord:null,
+            actType:null,
             userList:[],
-            userName:[],
+            userNames:[],
         }
     },
     methods:{
@@ -45,35 +46,51 @@ export default {
             });
             axios.get(apiConfig.companyServer + apiConfig.searchSysUser + '?keyWord=' + this.keyWord)
                 .then(res=>{
-                    console.log(res)
+                    console.log(res);
                     this.userList = res.data;
                     this.$vux.loading.hide();
                 }).catch(err=>{
-                    console.log(err)
+                    console.log(err);
                     this.$vux.loading.hide();
                 })
         },
-        submitUser(userName){
-            if(this.userName > 0){
-                var count = 0;
-                this.userName.forEach(item=>{
-                    if(item != userName){
-                        count++;
-                        if(count == this.userName.length){
-                            this.userName.push(userName);
-                        }
+        submitUser(user){
+            switch(this.actType){
+                case 5:     // 转办
+                    this.$router.push({name:'FlowComment',query:{
+                        actType:this.actType,
+                        userName:user.userName,
+                        userId: user.userId,
+                    }});
+                    break;
+                case 13:    // 知会
+                    if(this.userNames > 0){
+                        var count = 0;
+                        this.userNames.forEach(item=>{
+                            if(item != user.userName){
+                                count++;
+                                if(count == this.userNames.length){
+                                    this.userNames.push(user.userName);
+                                }
+                            }
+                        })
+                    }else{
+                        this.userNames.push(userName);
                     }
-                })
-            }else{
-                this.userName.push(userName);
+                    this.$router.push({name:'NotifyUser',query:{userName:this.userNames}});
+                    break;
             }
-            this.$router.push({name:'NotifyUser',query:{userName:this.userName}});
+                    
         }
     },
     beforeMount(){
-        if(this.$route.query.userName && this.$route.query.userName.length > 0){
-            this.userName = this.$route.query.userName;
+        this.actType = this.$route.query.actType;
+        if(this.actType == 13){
+            if(this.$route.query.userName && this.$route.query.userName.length > 0){
+                this.userNames = this.$route.query.userName;
+            }
         }
+        
     },
     components:{
         HeaderBar,
