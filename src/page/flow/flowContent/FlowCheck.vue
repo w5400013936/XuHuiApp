@@ -60,67 +60,119 @@ export default {
             type = type + '';
             // console.log(typeof type);
             switch(type){
+                case '1': // 会签确认
+                    this.$vux.confirm.show({
+                        title:'请确认审批操作',
+                        content:'您选择的审批操作为“通过”',
+                        onConfirm(){
+                            self.doActions('/Home/DoAction',2,1)
+                        },
+                    })
+                    break;
                 case '2': // 通过
-                console.log(apiConfig.companyServer + apiConfig.doAction)
-                this.$vux.confirm.show({
-                    title:'请确认审批操作',
-                    content:'您选择的审批操作为“通过”',
-                    onConfirm(){
-                        let param = new URLSearchParams();
-                        param.append("flowId", self.flowId);
-                        param.append("flowInstanceId", self.flowInstanceId);
-                        param.append("stepId", self.stepId);
-                        param.append("content", self.comment);
-                        param.append("actId", 3);
-                        param.append("attitude", 1);
-                        axios.post(apiConfig.companyServer + apiConfig.doAction,param).then(res=>{
-                                console.log(res);
-                                self.$router.push({name:'Flow'});
-                            }).catch(err=>{
-                                console.log(err);
-                            })
-                    },
-                })
-                break;
+                    this.$vux.confirm.show({
+                        title:'请确认审批操作',
+                        content:'您选择的审批操作为“通过”',
+                        onConfirm(){
+                            self.doActions('/Home/DoAction',3,1)
+                        },
+                    })
+                    break;
                 case '3': // 驳回
-                this.$vux.confirm.show({
-                    title:'请确认审批操作',
-                    content:'您选择的审批操作为“驳回”',
-                    onConfirm(){
-
-                    },
-                })
-                break;
+                    this.$vux.confirm.show({
+                        title:'请确认审批操作',
+                        content:'您选择的审批操作为“驳回”',
+                        onConfirm(){
+                            self.doActions('/Home/DoAction',4,0)
+                        },
+                    })
+                    break;
+                case '4': // 集团驳回
+                    break;
                 case '5': // 转办
-                this.$router.push({name:'SelectUser',query:{actList:this.actList}});
+                    this.$router.push({name:'SelectUser',query:{actList:this.actList}});
                 break;
                 case '7': // 终止
-                this.$vux.confirm.show({
-                    title:'请确认审批操作',
-                    content:'您选择的审批操作为“终止”',
-                    onConfirm(){
-
-                    },
-                })
-                break;
+                    this.$vux.confirm.show({
+                        title:'请确认审批操作',
+                        content:'您选择的审批操作为“终止”',
+                        onConfirm(){
+                            self.doActions('/Home/ForceCompleteInstance',0);
+                        },
+                    })
+                    break;
                 case '10': // 当前会签
-                break;
+                    this.$vux.confirm.show({
+                        title:'请确认审批操作',
+                        content:'您选择的审批操作为“当前会签”',
+                        onConfirm(){
+                            // self.doActions('/Home/AddCounterSignStep',0);
+                        },
+                    })
+                    break;
                 case '11': // 加签
-                break;
+                    this.$vux.confirm.show({
+                        title:'请确认审批操作',
+                        content:'您选择的审批操作为“加签”',
+                        onConfirm(){
+                            // self.doActions('/Home/AddAuditStep',0);
+                            self.$router.push({name:''});
+                        },
+                    })
+                    break;
                 case '12': // 回退
-                this.$vux.confirm.show({
-                    title:'请确认审批操作',
-                    content:'您选择的审批操作为“回退”，流程将返回给上一级操作',
-                    onConfirm(){
-
-                    },
-                })
-                break;
+                    this.$vux.confirm.show({
+                        title:'请确认审批操作',
+                        content:'您选择的审批操作为“回退”，流程将返回给上一级操作',
+                        onConfirm(){
+                            //self.doActions('/Home/BackSpaceAction',4,0);
+                        },
+                    })
+                    break;
                 case '13': // 知会
-                this.$router.push({name:'NotifyUser'});
+                    this.$router.push({name:'NotifyUser'});
                 break;
             }
         },
+        doActions(url,actId,attitude){
+            var self = this;
+            let param = new URLSearchParams();
+            param.append("flowId", self.flowId);
+            param.append("flowInstanceId", self.flowInstanceId);
+            param.append("stepId", self.stepId);
+            param.append("content", self.comment);
+            param.append("actId", actId);
+            if(attitude){
+                param.append("attitude", attitude);
+            }
+            axios.post(apiConfig.companyServer + url,param)
+                .then(res=>{
+                    console.log(res);
+                    this.$vux.toast.show({
+                        text: '操作成功'
+                    })
+                    setTimeout(()=>{
+                        self.$router.push({name:'Flow'});
+                    },500)
+                }).catch(err=>{
+                    console.log(err);
+                })
+        },
+        // doOperations(url){
+        //     let param = new URLSearchParams();
+        //     param.append("flowId", self.flowId);
+        //     param.append("flowInstanceId", self.flowInstanceId);
+        //     param.append("stepId", self.stepId);
+        //     param.append("content", self.comment);
+        //     param.append("actId", 0);
+        //     axios.post(apiConfig.companyServer + apiConfig.url,param)
+        //         .then(res=>{
+        //             console.log(res);
+        //             self.$router.push({name:'Flow'});
+        //         }).catch(err=>{
+        //             console.log(err);
+        //         })
+        // },
         getActList(){
             this.$vux.loading.show({
                 text: '加载中'

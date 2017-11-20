@@ -25,10 +25,17 @@ Vue.use(Router);
     //   name: 'Hello',
     //   component: HelloWorld
     // }
+    
       { // 登录页
         path:'/Login',
         name:'Login',
         component:Login
+      },
+      {
+          path:'/',     // 路由默认页
+          name:'Flow',
+          component:Flow,
+          redirect:'/Index/Flow'
       },
       { // 首页
           path: '/Index',
@@ -105,8 +112,8 @@ Vue.use(Router);
         path: '/NotifyUser',
         name: 'NotifyUser',
         component: NotifyUser, 
-      }
+      },
   ]
 });
-router.push('Index/Flow');
+// router.push('Index/Flow');
 export default router
