@@ -35,8 +35,8 @@ export default {
             flowId: null,   // 流程Id
             flowInstanceId: null,   // 流程实例Id
             comment:'',
-            givenUserId: null,
-            grantUserId: null,
+            givenUserId: null,  // 当前用户
+            grantUserId: null,  // 转办对象
         }
     },
     methods:{
@@ -52,7 +52,7 @@ export default {
                     this.$vux.toast.show({
                         text: '操作成功'
                     })
-                    this.$router.push({name:'Flow'});
+                    // this.$router.push({name:'Flow'});
                 }).catch(err=>{
                     console.log(err)
                 })
@@ -65,8 +65,9 @@ export default {
             this.userName = this.$route.query.userName;
             this.flowId = globalData.flow.flowId;
             this.flowInstanceId = globalData.flow.flowInstanceId;
-            this.givenUserId = globalData.user.userId;
-            this.grantUserId = this.$route.query.userId;
+            this.givenUserId = this.$route.query.userId;
+            this.grantUserId = globalData.user.userId;
+            
         }
     },
     components:{

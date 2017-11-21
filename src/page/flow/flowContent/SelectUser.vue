@@ -35,12 +35,11 @@ export default {
             keyWord:null,
             actType:null,
             userList:[],
-            userNames:[],
+            users:[],
         }
     },
     methods:{
         getUser(){
-            console.log(this.keyWord)
             this.$vux.loading.show({
                 text: '加载中'
             });
@@ -64,20 +63,20 @@ export default {
                     }});
                     break;
                 case 13:    // 知会
-                    if(this.userNames > 0){
+                    if(this.users > 0){
                         var count = 0;
-                        this.userNames.forEach(item=>{
-                            if(item != user.userName){
+                        this.users.forEach(item=>{
+                            if(item.userId != user.userId){
                                 count++;
-                                if(count == this.userNames.length){
-                                    this.userNames.push(user.userName);
+                                if(count == this.users.length){
+                                    this.users.push(user);
                                 }
                             }
                         })
                     }else{
-                        this.userNames.push(userName);
+                        this.users.push(user);
                     }
-                    this.$router.push({name:'NotifyUser',query:{userName:this.userNames}});
+                    this.$router.push({name:'NotifyUser',query:{users:this.users}});
                     break;
             }
                     
@@ -87,7 +86,7 @@ export default {
         this.actType = this.$route.query.actType;
         if(this.actType == 13){
             if(this.$route.query.userName && this.$route.query.userName.length > 0){
-                this.userNames = this.$route.query.userName;
+                this.users = this.$route.query.users;
             }
         }
         

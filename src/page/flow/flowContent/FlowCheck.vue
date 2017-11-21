@@ -62,13 +62,7 @@ export default {
             // console.log(typeof type);
             switch(type){
                 case '1': // 会签确认
-                    this.$vux.confirm.show({
-                        title:'请确认审批操作',
-                        content:'您选择的审批操作为“会签确认”',
-                        onConfirm(){
-                            self.doActions('/Home/DoAction',2,1)
-                        },
-                    })
+                    self.doActions('/Home/DoAction',2,1)
                     break;
                 case '2': // 通过
                     this.$vux.confirm.show({
@@ -91,7 +85,7 @@ export default {
                 case '4': // 集团驳回
                     break;
                 case '5': // 转办
-                    global.flow.actId = 0;
+                    globalData.flow.actId = 0;
                     this.$router.push({name:'SelectUser',query:{actType:5}});
                     break;
                 case '7': // 终止
@@ -137,6 +131,7 @@ export default {
             param.append("stepId", self.stepId);
             param.append("content", self.comment);
             param.append("actId", actId);
+            param.append('jumpStepId',0);
             if(attitude){
                 param.append("attitude", attitude);
             }

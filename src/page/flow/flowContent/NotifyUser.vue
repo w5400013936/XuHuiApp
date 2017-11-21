@@ -14,20 +14,27 @@
                     </group>
                 </div>
                 <keep-alive>
-                    <div class="mt1" v-if="userName.length > 0">
+                    <div class="mt1" v-if="users.length > 0">
                         <ul>
-                            <li class="fl" v-for="(item,index) in userName" :key="index">{{item}}</li>
+                            <li class="fl" v-for="(item,index) in users" :key="index">{{item.userName}}</li>
                         </ul>
                     </div>
                 </keep-alive>
                 
                 <div class="mt2">
-                    <x-button @click.native="selectUser" style="border-radius:99px;">选择知会人员</x-button>
+                    <x-button @click.native="selectUser" style="border-radius:99px;">
+                        <i class="fa fa-plus"></i>
+                        选择知会人员
+                    </x-button>
                 </div>
                 <div class="fixedBottom">
                     <flexbox>
                         <flexbox-item>
-                            <x-button type="warn" @click.native="submitNotify">确认知会</x-button>
+                            <x-button type="warn" 
+                             @click.native="submitNotify"
+                             :disabled="users.length > 0?false:true">
+                                确认知会
+                            </x-button>
                         </flexbox-item>
                     </flexbox>
                 </div>
@@ -43,12 +50,12 @@ export default {
     data(){
         return{
             actType:13,
-            userName:[], // 知会人员
+            users:[], // 知会人员
         }
     },
     methods:{
         selectUser(){
-            this.$router.push({name:'SelectUser',query:{actType:this.actType,userName:this.userName}});
+            this.$router.push({name:'SelectUser',query:{actType:this.actType,users:this.users}});
         },
         submitNotify(){
             
@@ -58,8 +65,9 @@ export default {
         }
     },
     beforeMount(){
-        if(this.$route.query.userName){
-            this.userName = this.$route.query.userName;
+        console.log(this.$route.query.users)
+        if(this.$route.query.users){
+            this.users = this.$route.query.users;
         }
     },
     components:{

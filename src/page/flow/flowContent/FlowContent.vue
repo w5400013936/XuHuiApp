@@ -95,7 +95,7 @@ export default {
                 })
         },
         goFlowOpinion(){
-            this.$router.push({name:'FlowOpinion',query:{flowInstanceId:this.sflowInstanceId}});
+            this.$router.push({name:'FlowOpinion',query:{flowInstanceId:this.flowInstanceId}});
         },
         goFlowAttachment(filename,fileext){
             this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});

@@ -5,7 +5,7 @@
 export default {
     isLogin: false,
     user:{
-        // houbo
+        //houbo
         // guid:"582b063a5e492108dcb26339",
         // userId: 847, // 用户Id
         // name: 'houbo',  // 用户名

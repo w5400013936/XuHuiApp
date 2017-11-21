@@ -41,10 +41,10 @@ export default {
     },
     beforeMount(){
         globalData.tabSelected = this.tabSelected;
-        console.log('首页获取用户数据');
+        // console.log('首页获取用户数据');
         // console.log(location.href);
         let channel=this.$utils.getUrlKey("channel");
-        console.log(this.$route)
+        // console.log(this.$route)
         // console.log('channel'+channel)
         if(this.$route.query.guid){
             globalData.guid = this.$route.query.guid;
@@ -52,8 +52,8 @@ export default {
             globalData.name = this.$route.query.name;
         }
         else{
-            console.log("没有获取到用户guid");
-            console.log(this.$route.query)
+            // console.log("没有获取到用户guid");
+            // console.log(this.$route.query)
         }
     },
     components:{
