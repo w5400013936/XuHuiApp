@@ -13,7 +13,7 @@
                             <div class="p-actionType">{{item.actionTypeName}}</div>
                             <div class="p-createTime">{{item.createDate}}</div>
                         </div>
-                        <div class="p-preStepName">{{item.approvalUser}} - {{item.preStepName}}</div>
+                        <div class="p-preStepName" v-if="item.approvalUser||item.preStepName">{{item.approvalUser}} - {{item.preStepName}}</div>
                         <div class="p-flowContent">{{item.content.replace(/<[^>]+>/g, '').replace('&nbsp;', '')}}</div>
                     </TimeLineItem>
                 </TimeLine>
