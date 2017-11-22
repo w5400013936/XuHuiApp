@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="fullScreen">
         <HeaderBar title="审批中心" :showBackBtn="true"></HeaderBar>
-        <div v-if="!loading">
+        <div class="fullScreen" v-if="!loading">
             <BodyContent>
                 <div slot="content">
                     <div class="comment">
@@ -20,7 +20,19 @@
                         </flexbox>
                     </div>
                     <actionsheet v-model="popupShow" :menus="actMenu" @on-click-menu="operation"></actionsheet>
-
+                    <div v-if="userSelectModal">
+                        <SelectUser
+                            @listenToToggleSearchBar="syncToggleState"
+                            @listenSelectedUserList="getUserFromChild"
+                        />
+                    </div>
+                    <div v-if="flowCommentModal">
+                        <FlowComment 
+                            :actType="actType"
+                            :givenUser="givenUser"
+                            @listenToToggleComment="syncToggleComment"
+                        />
+                    </div>
                 </div>
             </BodyContent>
         </div>
@@ -32,29 +44,53 @@ import BodyContent from "@/components/content/BodyContent"
 import apiConfig from '../../../server/apiConfig'
 import axios from 'axios'
 import globalData from '../../../server/globalData'
+import SelectUser from './SelectUser.vue';
+import FlowComment from './FlowComment';
 import { Group,XTextarea,XButton,Flexbox,FlexboxItem,Popup,Actionsheet  } from 'vux'
 export default {
     data(){
         return {
             popupShow:false,
+            userSelectModal:false,
+            flowCommentModal:false,
             actList:null,
             mainAct:null,
             moreAct:null,
             actMenu:{},
-            tableName:null,
-            referFieldName:null,
-            referFieldValue:null,
+            // tableName:null,
+            // referFieldName:null,
+            // referFieldValue:null,
             flowId: null,   // 流程Id
             flowInstanceId: null,   // 流程实例Id
             stepId:null,    // 当前步骤Id
+            actType:null,
             comment:'',     // 审批意见
+            givenUser:null,
             loading:false,
-            fetchData: null, //　当前页面请求的数据
         }
     },
     methods:{
         showMore(){
             this.popupShow = true;
+        },
+        syncToggleState: function(newState){ // 同步用户选择状态
+            this.userSelectModal = newState;
+        },
+        getUserFromChild: function(data){
+            console.log('以下是从组件获取的人员信息！');
+            console.log(data);
+            if(data.userId != globalData.user.userId){
+                this.givenUser = data;
+                this.flowCommentModal = !this.flowCommentModal;
+            }else{
+                this.$vux.toast.show({
+                    type:'warn',
+                    text: '转办对象有误',
+                })
+            }
+        },
+        syncToggleComment(newState){
+            this.flowCommentModal = newState;
         },
         operation(type,item){
             var self = this;
@@ -86,7 +122,8 @@ export default {
                     break;
                 case '5': // 转办
                     globalData.flow.actId = 0;
-                    this.$router.push({name:'SelectUser',query:{actType:5}});
+                    this.actType = 5;
+                    this.userSelectModal = !this.userSelectModal;
                     break;
                 case '7': // 终止
                     this.$vux.confirm.show({
@@ -114,7 +151,7 @@ export default {
                         title:'请确认审批操作',
                         content:'您选择的审批操作为“回退”，流程将返回给上一级操作',
                         onConfirm(){
-                            //self.doActions('/Home/BackSpaceAction',4,0);
+                            self.doActions('/Home/BackSpaceAction',4,0);
                         },
                     });
                     break;
@@ -192,11 +229,14 @@ export default {
         this.moreAct.forEach(function(item,index) {
             this.actMenu[item.type] = item.name;
         }, this);
-        this.getActList();
+        // this.getActList();
+        console.log(this.actList)
     },
     components:{
         HeaderBar,
         BodyContent,
+        SelectUser,
+        FlowComment,
         Group,
         XTextarea,
         XButton,

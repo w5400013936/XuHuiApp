@@ -85,7 +85,7 @@
     display:flex;
     align-items: center;
     flex-direction: row;
-    backgroundColor: '#f6f6f6',
+    background-color: '#f6f6f6',
   }
   .p-userItemHeader>i{
       margin: 8px;

@@ -19,8 +19,8 @@ export default {
     tabSelected:0,
     flow:{
         actList:null, // 流程操作列表，例如：通过，驳回，加签...
-        FlowId:null,
-        FlowInstanceId:null,
+        flowId:null,
+        flowInstanceId:null,
         stepId:null,
         actId:null,
     },

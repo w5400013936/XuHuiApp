@@ -54,7 +54,7 @@
               this.selectedList.push(data)
           },
           makeSureFlowSign:function(){
-              console.log('获取的人员列表')
+              console.log('获取的人员列表');
               console.log(this.selectedList);
           },
       },

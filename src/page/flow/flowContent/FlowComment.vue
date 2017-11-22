@@ -1,22 +1,27 @@
 <template>
-    <div class="fullScreen">
-        <HeaderBar :title="title" :showBackBtn="true"></HeaderBar>
-        <BodyContent :showBottomPadding="false">
-            <div slot="content">
-                <div class="comment">
-                    <group :title="'转办给'+userName+'：'">
-                        <x-textarea v-model="comment" :max="200" :show-counter="false" :height="200"></x-textarea>
-                    </group>
+    <div>
+        <popup height="100%" v-model="commentVisible">
+            <x-header :left-options="{showBack: false}" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
+                {{title}}
+                <a slot="right" href="javascript:;" @click="toggleDialog"><i class="fa fa-close"></i></a>
+            </x-header>
+            <BodyContent :showBottomPadding="false">
+                <div slot="content">
+                    <div class="comment">
+                        <group :title="subTitle">
+                            <x-textarea v-model="comment" :max="200" :show-counter="false" :height="200"></x-textarea>
+                        </group>
+                    </div>
+                    <div class="fixedBottom">
+                        <flexbox>
+                            <flexbox-item>
+                                <x-button type="warn" @click.native="submitTurn">确认</x-button>
+                            </flexbox-item>
+                        </flexbox>
+                    </div>
                 </div>
-                <div class="fixedBottom">
-                    <flexbox>
-                        <flexbox-item>
-                            <x-button type="warn" @click.native="submitTurn">确认转办</x-button>
-                        </flexbox-item>
-                    </flexbox>
-                </div>
-            </div>
-        </BodyContent>
+            </BodyContent>
+        </popup>
     </div>
 </template>
 <script>
@@ -25,25 +30,35 @@ import BodyContent from "@/components/content/BodyContent"
 import apiConfig from '../../../server/apiConfig'
 import axios from 'axios'
 import globalData from '../../../server/globalData'
-import { Group,XTextarea,XButton,Flexbox,FlexboxItem  } from 'vux'
+import { Popup,XHeader,Group,XTextarea,XButton,Flexbox,FlexboxItem  } from 'vux'
 export default {
     data(){
         return{
-            actType:null,
+            commentVisible:true,
             title:null,
+            subTitle:null,
             userName:null,
             flowId: null,   // 流程Id
             flowInstanceId: null,   // 流程实例Id
             comment:'',
-            givenUserId: null,  // 当前用户
-            grantUserId: null,  // 转办对象
+            grantUserId: null,  // 当前用户
         }
     },
+    props:{ 
+        givenUser:{}, //// 转办对象
+        actType:{   // 操作类型
+            type:Number,    
+        },     
+    },
     methods:{
+        toggleDialog(){     // 显示当前组件是否可见
+            this.commentVisible = !this.commentVisible;
+            this.$emit('listenToToggleComment',this.commentVisible);
+        },
         submitTurn(){
             let param = new URLSearchParams();
             param.append("flowId", this.flowId);
-            param.append("givenUserId", this.givenUserId);
+            param.append("givenUserId", this.givenUser.userId);
             param.append("grantUserId", this.grantUserId);
             param.append("remark", this.comment);
             axios.post(apiConfig.companyServer + '/Home/TurnOnToUser/' + this.flowInstanceId,param)
@@ -52,26 +67,28 @@ export default {
                     this.$vux.toast.show({
                         text: '操作成功'
                     })
-                    // this.$router.push({name:'Flow'});
+                    this.$router.push({name:'Flow'});
                 }).catch(err=>{
                     console.log(err)
                 })
         }
     },
     beforeMount(){
-        this.actType = this.$route.query.actType;
+        console.log(this.givenUser)
         if(this.actType == 5){
             this.title = '填写转办意见';
+            this.subTitle = '转办给'+this.givenUser.userName+'：';
             this.userName = this.$route.query.userName;
             this.flowId = globalData.flow.flowId;
             this.flowInstanceId = globalData.flow.flowInstanceId;
-            this.givenUserId = this.$route.query.userId;
             this.grantUserId = globalData.user.userId;
             
         }
     },
     components:{
         HeaderBar,
+        Popup,
+        XHeader,
         BodyContent,
         Group,
         XTextarea,

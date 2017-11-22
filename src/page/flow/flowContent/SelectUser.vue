@@ -59,7 +59,7 @@ export default {
         },
         multiple:{ // 是否多选
             type: Boolean,
-            default: true,
+            default: false,
         }
     },
     methods:{
@@ -69,7 +69,7 @@ export default {
             });
             axios.get(apiConfig.companyServer + apiConfig.searchSysUser + '?keyWord=' + this.keyWord)
                 .then(res=>{
-                    console.log(res)
+                    // console.log(res)
                     this.userList = res.data;
                     this.$vux.loading.hide();
                 }).catch(err=>{
@@ -98,6 +98,7 @@ export default {
        */
         exportDataToParent(selectedUser){
             this.$emit('listenSelectedUserList',selectedUser);
+            this.toggleDialog();
         }
     },
     beforeMount(){

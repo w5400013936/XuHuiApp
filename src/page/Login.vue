@@ -71,7 +71,7 @@
                             loginName: data.loginName,
                             guid: data.guid,
                         };
-                        this.$router.push('Home');
+                        this.$router.push({name:'Flow'});
                     }else{
                         this.$vux.toast.text(data.Message, 'bottom');
                     }
