@@ -5,8 +5,8 @@
           <div slot="content">
               <SelectUserItemComponent
                   v-for="(item,index) in groupList" :itemVisible="!!item.itemVisible"
-                  :key="index" :titleName="item.name" :userList="item.userList"
-                  @listenToChildEvent="showAryFromChild"
+                  :key="index" :titleName="item.name" :userList="item.userList" :flowPosId="item.flowPosId"
+                  @listenToChildEvent="getAryFromChild"
               ></SelectUserItemComponent>
           </div>
       </BodyContent>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import HeaderBar from '@/components/header/Header'
+  import HeaderBar from '@/components/header/Header';
   import BodyContent from "@/components/content/BodyContent";
   import axios from 'axios';
   import SelectUserItemComponent from './SelectUserItemComponent.vue';
@@ -34,10 +34,13 @@
       methods:{
           /**
            * 数据格式：{flowPosId: '21',name:'集团-成本部负责人',order:'',orgLevel:"1",userList:[],itemVisible: true,}
-           *  flowPosId:　
+           *  flowPosId: 负责人岗位Id
            *  userList: 已选成员
            */
           fetchGroupItem:function(){
+              this.$vux.loading.show({
+                  text: '加载中'
+              });
               axios.get(apiConfig.companyServer+apiConfig.selectUserGroup
                   + '?flowInstanceId=' + this.$route.query.flowInstanceId
               ).then(res => {
@@ -45,13 +48,31 @@
                   this.groupList.forEach((v) => {
                       v.itemVisible = true;
                   });
+                  this.$vux.loading.hide();
               }).catch(err => {
-                  console.log(err);
+                  this.$vux.loading.hide();
               });
           },
-          showAryFromChild:function(data){
-              console.log(data);
-              this.selectedList.push(data)
+          getAryFromChild: function(data){
+              let flowPosId = data.flowPosId;
+              this.groupList.forEach((item,index)=>{
+                  if(item.flowPosId == flowPosId){
+                      item.userList = []; //赋值前先置空
+                      item.userList = data.data;
+                  }
+              });
+              console.log('--------------------------------')
+              console.log(this.groupList);
+//              if(data.type===1){
+//                  this.selectedList.push(data)
+//              }else{
+//                  this.selectedList.forEach((item,index)=>{
+//                      if(item.flowPosId == data.flowPosId){
+//                          this.selectedList.splice(index, 1);
+//                          return false;
+//                      }
+//                  });
+//              }
           },
           makeSureFlowSign:function(){
               console.log('获取的人员列表');

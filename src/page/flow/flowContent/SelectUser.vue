@@ -52,7 +52,7 @@ export default {
             selectedList: [], // 已选人员列表
         }
     },
-    props:{
+    props:{ // 参数列表
         isVisible:{ // 父级传递当前dialog 是否可见状态
             type: Boolean,
             default: true,
@@ -69,13 +69,16 @@ export default {
             });
             axios.get(apiConfig.companyServer + apiConfig.searchSysUser + '?keyWord=' + this.keyWord)
                 .then(res=>{
-                    // console.log(res)
                     this.userList = res.data;
                     this.$vux.loading.hide();
                 }).catch(err=>{
                     this.$vux.loading.hide();
                 });
-        },// 显示当前组件是否可见
+        },
+        /**
+         * 显示当前组件是否可见
+         * 需要在父组件中监听listenToToggleSearchBar 用来更新父组件传到该组件的起始状态
+         */
         toggleDialog(){
             this.searchBarVisible = !this.searchBarVisible;
             this.$emit('listenToToggleSearchBar',this.searchBarVisible);
@@ -97,8 +100,9 @@ export default {
        * @param selectedUser
        */
         exportDataToParent(selectedUser){
+            this.searchBarVisible = false;
             this.$emit('listenSelectedUserList',selectedUser);
-            this.toggleDialog();
+            this.$emit('listenToToggleSearchBar',this.searchBarVisible);
         }
     },
     beforeMount(){
