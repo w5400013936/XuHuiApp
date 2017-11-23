@@ -53,6 +53,17 @@
                   this.$vux.loading.hide();
               });
           },
+        /**
+         *  更新选取人员数组
+         */
+        updateSelectAry: function(){
+              this.selectedList = []; // 清空
+              this.groupList.forEach((item,index) => {
+                  if(item.userList.length>0){
+                      this.selectedList = this.selectedList.concat(item.userList);
+                  }
+              });
+          },
           getAryFromChild: function(data){
               let flowPosId = data.flowPosId;
               this.groupList.forEach((item,index)=>{
@@ -61,18 +72,7 @@
                       item.userList = data.data;
                   }
               });
-              console.log('--------------------------------')
-              console.log(this.groupList);
-//              if(data.type===1){
-//                  this.selectedList.push(data)
-//              }else{
-//                  this.selectedList.forEach((item,index)=>{
-//                      if(item.flowPosId == data.flowPosId){
-//                          this.selectedList.splice(index, 1);
-//                          return false;
-//                      }
-//                  });
-//              }
+              this.updateSelectAry();
           },
           makeSureFlowSign:function(){
               console.log('获取的人员列表');

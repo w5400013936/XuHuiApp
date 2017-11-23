@@ -7,9 +7,9 @@
         </div>
         <!-- 人员列表 -->
         <group v-if="!!!temp_ivData">
-            <!-- 已选人员列表 -->
-            <checklist v-if="selectedList.length>0" label-position="right" required
-                       :options="selectedList" @on-change="changeItem"
+            <!-- 已选人员列表 单选的时候必须设置 max=1 -->
+            <checklist v-if="selectedList.length>0" label-position="right" required v-model="defaultSelectAry"
+                       :options="selectedList" @on-change="changeItem" :max="1"
             ></checklist>
             <cell is-link >
                 <span slot="title" style="color:green;">
@@ -38,6 +38,7 @@
             selectedUserAry: [], // 回传到父级的当前组件已选人员（加减）
             userSelectModal: false, //　是否处于用户选择模式下
             curFlowPosId: this.flowPosId, //当前组件负责人岗位Id
+            defaultSelectAry: [], // 默认选中的项
         }
     },
     props:{
@@ -65,9 +66,6 @@
         Cell, Group, Badge, SelectUser, Radio, CheckIcon, Checklist
     },
     beforeMount(){
-//        console.log("============以下为初始的数据==================");
-//        console.log(this.selectedList);
-//        console.log(this.userList);
         this.sendMsgToParent(0); // 初始化当前组件状态时需先同父组件同步状态
     },
     methods:{
@@ -84,29 +82,28 @@
             this.userSelectModal = newState;
         },
         getUserFromSearchBar: function(data){ // 渲染选取人员列表
-            console.log('从搜索获取的人员',data);
             if(Object.prototype.toString.call(data) == "[object Array]" && data.length>1){ // 数组
                 this.selectedList = data;
             }else{
                 //单选模式 值 用户Id--部门Id
-                this.selectedList = [{key:JSON.stringify(data),value:data.userName+"--"+data.orgName}];
+                this.selectedList = [{'key':JSON.stringify(data),'value':data.userName+'--'+data.orgName}];
             }
-            console.log('赋值后的数据',this.selectedList);
+            let initVal = [];
+            this.selectedList.forEach((item)=>{
+                initVal.push(item.key);
+            });
+            this.updateInitAry(initVal); // 选取人员后 默认选中项
         }, // 选择后操作
         changeItem(val, label){ // val 与label 均为数组
             this.selectedUserAry = []; // 将当前数据置空
-          console.log(this.selectedList)
-            console.log(val);
             val.forEach((item,index)=>{
                 this.selectedUserAry.push(JSON.parse(item));
             });
-            // 数组去重
-//            var hash = {};
-//            this.selectedUserAry = this.selectedUserAry.reduce(function(item, next) {
-//              hash[next.name] ? '' : hash[next.name] = true && item.push(next);
-//              return item
-//            }, []);
             this.sendMsgToParent(); // 同步
+        },
+        // 更细初始选中项
+        updateInitAry(newAry){
+            this.defaultSelectAry = newAry||[];
         }
     }
   }
