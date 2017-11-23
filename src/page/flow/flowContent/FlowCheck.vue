@@ -9,12 +9,12 @@
                             <x-textarea v-model="comment"  :max="200" :show-counter="false" :height="200"></x-textarea>
                         </group>
                     </div>
-                    <div class="fixedBottom">
+                    <div class="fixedBottom" v-if="actList.length > 0">
                         <flexbox>
                             <flexbox-item v-for="(item,index) in mainAct" :key="index">
                                 <x-button type="warn" @click.native="operation(item.type)">{{item.name}}</x-button>
                             </flexbox-item>
-                            <flexbox-item>
+                            <flexbox-item v-if="moreAct.length > 0">
                                 <x-button @click.native="showMore">更多</x-button>
                             </flexbox-item>
                         </flexbox>
@@ -53,9 +53,9 @@ export default {
             popupShow:false,
             userSelectModal:false,
             flowCommentModal:false,
-            actList:null,
-            mainAct:null,
-            moreAct:null,
+            actList:[],
+            mainAct:[],
+            moreAct:[],
             actMenu:{},
             // tableName:null,
             // referFieldName:null,
@@ -98,14 +98,14 @@ export default {
             // console.log(typeof type);
             switch(type){
                 case '1': // 会签确认
-                    self.doActions('/Home/DoAction',2,1)
+                    self.doActions(apiConfig.doAction,2,1)
                     break;
                 case '2': // 通过
                     this.$vux.confirm.show({
                         title:'请确认审批操作',
                         content:'您选择的审批操作为“通过”',
                         onConfirm(){
-                            self.doActions('/Home/DoAction',3,1)
+                            self.doActions(apiConfig.doAction,3,1)
                         },
                     })
                     break;
@@ -114,7 +114,7 @@ export default {
                         title:'请确认审批操作',
                         content:'您选择的审批操作为“驳回”',
                         onConfirm(){
-                            self.doActions('/Home/DoAction',4,0)
+                            self.doActions(apiConfig.doAction,4,0)
                         },
                     })
                     break;
@@ -130,7 +130,7 @@ export default {
                         title:'请确认审批操作',
                         content:'您选择的审批操作为“终止”',
                         onConfirm(){
-                            self.doActions('/Home/ForceCompleteInstance',0);
+                            self.doActions(apiConfig.ForceCompleteInstance,0);
                         },
                     });
                     break;
@@ -139,7 +139,7 @@ export default {
                         title:'请确认审批操作',
                         content:'您选择的审批操作为“当前会签”',
                         onConfirm(){
-                            // self.doActions('/Home/AddCounterSignStep',0);
+                            
                         },
                     })
                     break;
@@ -151,7 +151,7 @@ export default {
                         title:'请确认审批操作',
                         content:'您选择的审批操作为“回退”，流程将返回给上一级操作',
                         onConfirm(){
-                            self.doActions('/Home/BackSpaceAction',4,0);
+                            self.doActions(apiConfig.BackSpaceAction,4,0);
                         },
                     });
                     break;
@@ -185,52 +185,22 @@ export default {
                     console.log(err);
                 })
         },
-        getActList(){
-            // this.$vux.loading.show({
-            //     text: '加载中'
-            // });
-            // this.loading = true;
-            // axios.get(apiConfig.companyServer + apiConfig.flowContent.pageUrl
-            //             + '?tableName='+this.tableName
-            //             +'&referFieldName=' + this.referFieldName
-            //             +'&referFieldValue='+this.referFieldValue
-            //             +'&userId=' + globalData.user.guid)
-            //     .then(res=>{
-            //         this.fetchData = res.data;
-            //         this.actList = res.data.actList;
-            //         this.mainAct = this.actList.slice(0,2);
-            //         this.moreAct = this.actList.slice(2);
-            //         this.moreAct.forEach(function(item,index) {
-            //             this.actMenu[item.type] = item.name;
-            //         }, this);
-
-            //         this.flowId = res.data.flowId;
-            //         this.flowInstanceId = res.data.flowInstanceId;
-            //         this.stepId = res.data.stepId;
-            //         this.loading = false;
-            //         this.$vux.loading.hide();
-            //     }).catch(err=>{
-            //         console.log(err);
-            //         this.loading = false;
-            //         this.$vux.loading.hide();
-            //     })
-        }
     },
     beforeMount(){
-        // this.tableName = this.$route.query.tableName;
-        // this.referFieldName = this.$route.query.referFieldName;
-        // this.referFieldValue = this.$route.query.referFieldValue;
+        var self = this;
         this.flowId = globalData.flow.flowId;
         this.flowInstanceId = globalData.flow.flowInstanceId;
         this.stepId = globalData.flow.stepId;
         this.actList = globalData.flow.actList;
-        this.mainAct = this.actList.slice(0,2);
-        this.moreAct = this.actList.slice(2);
-        this.moreAct.forEach(function(item,index) {
-            this.actMenu[item.type] = item.name;
-        }, this);
-        // this.getActList();
-        console.log(this.actList)
+        if(this.actList.length == 1 || this.actList.length == 2){
+            this.mainAct = this.actList;
+        }else if(this.actList.length > 2){
+            this.mainAct = this.actList.slice(0,2);
+            this.moreAct = this.actList.slice(2);
+            this.moreAct.forEach(function(item,index) {
+                this.actMenu[item.type] = item.name;
+            }, this);
+        }
     },
     components:{
         HeaderBar,

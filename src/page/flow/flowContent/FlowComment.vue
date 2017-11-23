@@ -61,7 +61,7 @@ export default {
             param.append("givenUserId", this.givenUser.userId);
             param.append("grantUserId", this.grantUserId);
             param.append("remark", this.comment);
-            axios.post(apiConfig.companyServer + '/Home/TurnOnToUser/' + this.flowInstanceId,param)
+            axios.post(apiConfig.companyServer + apiConfig.TurnOnToUser + this.flowInstanceId,param)
                 .then(res=>{
                     console.log(res);
                     this.$vux.toast.show({

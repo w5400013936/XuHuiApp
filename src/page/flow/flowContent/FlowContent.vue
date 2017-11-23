@@ -41,6 +41,9 @@
                 <div class="fixedBottom" v-if="type == 3">
                     <x-button type="warn" @click.native="goFlowOpinion">查看审批意见</x-button>
                 </div>
+                <div class="fixedBottom" v-if="type == 4">
+                    <x-button type="warn" @click.native="startFlow">发起流程</x-button>
+                </div>
             </div>
         </FlowTemplate>
     </div>
@@ -63,7 +66,7 @@ export default {
             flowId: null,   // 流程Id
             flowInstanceId: null,   // 流程实例Id
             stepId:null,    // 当前步骤Id
-            type: null, // 判断流程状态 1.已审 2.未审 3.已发
+            type: null, // 判断流程状态 1.已审 2.未审 3.已发 4.未发
             loading: false,
         }
     },
@@ -113,6 +116,9 @@ export default {
                 // referFieldName:this.referFieldName,
                 // referFieldValue:this.referFieldValue,
             }});
+        },
+        startFlow(){
+            // 发起流程
         }
     },
     beforeMount(){

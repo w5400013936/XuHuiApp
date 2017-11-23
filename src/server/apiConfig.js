@@ -49,7 +49,9 @@ export default {
     ForceCompleteInstance:'/Home/ForceCompleteInstance', // 终止流程
     AddCounterSignStep:'/Home/AddCounterSignStep', // 当前会签
     AddAuditStep:'/Home/AddAuditStep', // 加签
+    TurnOnToUser:'/Home/TurnOnToUser/', // 转办
     BackSpaceAction:'/Home/BackSpaceAction', // 回退
+    CirculateToUser:'/Home/CirculateToUser/', // 知会
     // 知会 参数
     // flowId: this.props.auditData.flowId,
     // givenUserIds: Object.keys(this.state.selectedUsers.toObject()).join(','),
