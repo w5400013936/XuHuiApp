@@ -135,16 +135,10 @@ export default {
                     });
                     break;
                 case '10': // 当前会签
-                    this.$vux.confirm.show({
-                        title:'请确认审批操作',
-                        content:'您选择的审批操作为“当前会签”',
-                        onConfirm(){
-                            
-                        },
-                    })
+                    self.$router.push({name:'FlowSign',query:{flowInstanceId:this.flowInstanceId,actType:10}});
                     break;
                 case '11': // 加签
-                    self.$router.push({name:'FlowSign',query:{flowInstanceId: self.flowInstanceId}});
+                    self.$router.push({name:'FlowSign',query:{actType:11}});
                     break;
                 case '12': // 回退
                     this.$vux.confirm.show({

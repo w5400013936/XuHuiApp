@@ -12,9 +12,9 @@
                        :options="selectedList" @on-change="changeItem" :max="1"
             ></checklist>
             <cell is-link >
-                <span slot="title" style="color:green;">
-                    <span style="vertical-align:middle;" @click="showSearchBar">选择指定人员</span>
-                </span>
+                <div slot="title" style="color:green;">
+                    <p style="vertical-align:middle;" @click="showSearchBar">选择指定人员</p>
+                </div>
             </cell>
         </group>
         <div v-if="userSelectModal">
