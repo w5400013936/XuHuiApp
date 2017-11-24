@@ -9,7 +9,7 @@
                     {{item.StartDate}}
                 </mt-cell>
             </div>
-            <div v-else class="noData-panel">
+            <div v-else class="p-no-data-panel">
                 <divider>暂无数据</divider>
             </div>
         </div>

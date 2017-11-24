@@ -18,7 +18,7 @@
                     </TimeLineItem>
                 </TimeLine>
             </div>
-            <div v-else class="fullScreen" slot="content">
+            <div v-else class="p-no-data-panel" slot="content">
                 <divider>数据加载中...</divider>
             </div>
         </BodyContent>

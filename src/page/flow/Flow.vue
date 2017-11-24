@@ -27,15 +27,15 @@
 </template>
 
 <script>
-import globalData from '../../server/globalData'
-import HeaderBar from '@/components/header/Header'
-import BodyContent from "@/components/content/BodyContent"
-import CheckedFlow from '@/page/flow/children/CheckedFlow'
-import UncheckedFlow from '@/page/flow/children/UncheckedFlow'
-// import UnsentFlow from '@/page/flow/children/UnsentFlow'
-import SentFlow from '@/page/flow/children/SentFlow'
-import { Tab, TabItem } from 'vux'
-import { Swiper,SwiperItem } from 'vux'
+import globalData from '../../server/globalData';
+import HeaderBar from '@/components/header/Header';
+import BodyContent from "@/components/content/BodyContent";
+import CheckedFlow from '@/page/flow/children/CheckedFlow';
+import UncheckedFlow from '@/page/flow/children/UncheckedFlow';
+import UnsentFlow from '@/page/flow/children/UnsentFlow';
+import SentFlow from '@/page/flow/children/SentFlow';
+import { Tab, TabItem, Swiper, SwiperItem } from 'vux'
+
 export default {
     data(){
         return {
@@ -45,32 +45,22 @@ export default {
     },
     beforeMount(){
         globalData.tabSelected = this.tabSelected;
-        // console.log('首页获取用户数据');
-        // console.log(location.href);
-        let channel=this.$utils.getUrlKey("channel");
-        // console.log(this.$route)
-        // console.log('channel'+channel)
         if(this.$route.query.guid){
-            globalData.guid = this.$route.query.guid;
-            globalData.userId = this.$route.query.userId;
-            globalData.name = this.$route.query.name;
-        }
-        else{
+            let loginUser = globalData.user;
+            loginUser.guid = this.$route.query.guid;
+            loginUser.userId = this.$route.query.userId;
+            loginUser.name = this.$route.query.name;
+        } else{
             // console.log("没有获取到用户guid");
             // console.log(this.$route.query)
         }
     },
     components:{
-        HeaderBar,
-        BodyContent,
-        CheckedFlow,
-        // UnsentFlow,
-        UncheckedFlow,
-        SentFlow,
-        Tab,
-        TabItem,
-        Swiper,
-        SwiperItem,
+        HeaderBar, BodyContent,
+        CheckedFlow, UnsentFlow,
+        UncheckedFlow, SentFlow,
+        Tab, TabItem,
+        Swiper, SwiperItem,
     }
 }
 </script>
