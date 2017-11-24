@@ -28,3 +28,19 @@
     margin-top: 1rem;
     padding: 0 1rem;
 }
+.fullScreen{
+  height: 100%;
+  width: 100%;
+}
+.noData-panel{
+  padding: 50px;
+}
+.p-title{
+  margin-top: 0.5rem;
+  background-color: #FFF;
+  padding: 8px;
+  font-weight: bold;
+}
+.p-no-group-top .vux-no-group-title{
+  margin-top: 0px !important;
+}

@@ -9,8 +9,8 @@
                 </group>
             </div>
             <div slot="flowAttachment" v-if="flowContent.fileList.length > 0">
-                <div class="title">相关附件</div>
-                <group>
+                <div class="p-title">相关附件</div>
+                <group class="p-no-group-top">
                     <cell v-for="(item,index) in flowContent.fileList" :key="index"
                         :title="item.name + item.ext">
                         <x-button type="warn" :mini="true" @click.native="goFlowAttachment(item.name,item.ext)">查看</x-button>
@@ -18,8 +18,8 @@
                 </group>
             </div>
             <div slot="flowForm" v-if="flowContent.formList.length > 0">
-                <div class="title">相关表单</div>
-                <group>
+                <div class="p-title">相关表单</div>
+                <group class="p-no-group-top">
                     <cell v-for="(item,index) in flowContent.formList" :key="index"
                         :title="item.name"></cell>
                 </group>
