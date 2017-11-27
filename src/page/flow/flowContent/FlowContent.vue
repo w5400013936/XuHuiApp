@@ -20,8 +20,13 @@
             <div slot="flowForm" v-if="flowContent.formList.length > 0">
                 <div class="p-title">相关表单</div>
                 <group class="p-no-group-top">
+<<<<<<< HEAD
                     <cell v-for="(item,index) in flowContent.formList" :key="index"  @click.native="goFlowAttachment(item.name,item.url)"
                         :title="item.name"></cell>
+=======
+                    <cell v-for="(item,index) in flowContent.formList" :key="index" is-link
+                        :title="item.name" @click.native="showTable(item)"></cell>
+>>>>>>> 75765859279825a4dccc73dbfe66be4b58aed36e
                 </group>
             </div>
             <div slot="flowOperation">
@@ -46,15 +51,27 @@
                 </div>
             </div>
         </FlowTemplate>
+        <popup height="100%" v-model="showPopup">
+            <x-header :left-options="{showBack: false}" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
+                {{curPopupTitle}}
+                <a slot="right" href="javascript:;" @click="toggleDialog"><i class="fa fa-close"></i></a>
+            </x-header>
+            <BodyContent :showBottomPadding="false">
+                <iframe v-if="curTableUrl" slot="content" :src="curTableUrl" width="100%" height="100%" frameborder="0"></iframe>
+                <div v-else slot="content">暂无数据</div>
+            </BodyContent>
+        </popup>
     </div>
 </template>
 <script>
-import HeaderBar from '@/components/header/Header'
-import FlowTemplate from '@/components/FlowTemplate/FlowTemplate'
-import apiConfig from '../../../server/apiConfig'
-import axios from 'axios'
-import globalData from '../../../server/globalData'
-import { Group,Cell,XButton,Flexbox, FlexboxItem, } from 'vux'
+import HeaderBar from '@/components/header/Header';
+import FlowTemplate from '@/components/FlowTemplate/FlowTemplate';
+import BodyContent from "@/components/content/BodyContent";
+import TableView from '@/components/common/TableViewReader';
+import apiConfig from '../../../server/apiConfig';
+import axios from 'axios';
+import globalData from '../../../server/globalData';
+import { Group, Cell, XButton, Flexbox, FlexboxItem, Popup,XHeader } from 'vux';
 export default {
     data(){
         return{
@@ -68,6 +85,9 @@ export default {
             stepId:null,    // 当前步骤Id
             type: null, // 判断流程状态 1.已审 2.未审 3.已发 4.未发
             loading: false,
+            showPopup: false, // 是否显示弹窗
+            curPopupTitle: '附件标题',
+            curTableUrl: null,
         }
     },
     methods:{
@@ -124,6 +144,17 @@ export default {
         },
         startFlow(){
             // 发起流程
+        },
+        showTable(item){
+            this.showPopup = true;
+            this.curPopupTitle = item.name;
+            this.curTableUrl = apiConfig.webViewServer + decodeURIComponent(item.url) + '&uid=' + globalData.user.guid;
+
+            console.log(this.curTableUrl);
+        },
+        toggleDialog(){
+            this.showPopup = false;
+            this.curPopupTitle = "暂无附件";
         }
     },
     beforeMount(){
@@ -134,13 +165,9 @@ export default {
         this.getFlowContent();
     },
     components:{
-        HeaderBar,
-        FlowTemplate,
-        Group,
-        Cell,
-        XButton,
-        Flexbox,
-        FlexboxItem,
+        HeaderBar, FlowTemplate, Group,
+        Cell, XButton, XHeader, BodyContent,
+        Flexbox, FlexboxItem, Popup, TableView,
     }
 }
 </script>
@@ -157,7 +184,7 @@ export default {
 </style>
 <style>
   .p-flowInfoContent .vux-no-group-title{
-    margin-top: 0 !important;
+      margin-top: 0 !important;
   }
 </style>
 

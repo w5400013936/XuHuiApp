@@ -6,8 +6,8 @@
                 <tab v-model="tabIndex">
                     <tab-item selected>待审流程</tab-item>
                     <tab-item>已审流程</tab-item>
-                    <tab-item>已发流程</tab-item>
                     <tab-item>待发流程</tab-item>
+                    <tab-item>已发流程</tab-item>
                 </tab>
                 <keep-alive>
                     <UncheckedFlow v-if="tabIndex == 0"></UncheckedFlow>
@@ -16,7 +16,7 @@
                     <CheckedFlow v-if="tabIndex == 1"></CheckedFlow>
                 </keep-alive>
                 <keep-alive>
-                    <SentFlow v-if="tabIndex == 2"></SentFlow>
+                    <UnsentFlow v-if="tabIndex == 2"></UnsentFlow>
                 </keep-alive>
                 <keep-alive>
                     <SentFlow v-if="tabIndex == 3"></SentFlow>
