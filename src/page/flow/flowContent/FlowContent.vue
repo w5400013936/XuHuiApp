@@ -13,14 +13,14 @@
                 <group class="p-no-group-top">
                     <cell v-for="(item,index) in flowContent.fileList" :key="index"
                         :title="item.name + item.ext">
-                        <x-button type="warn" :mini="true" @click.native="goFlowAttachment(item.name,item.ext)">查看</x-button>
+                        <x-button type="warn" :mini="true" @click.native="goFlowAttachment(item.name,item.url,item.ext)">查看</x-button>
                     </cell>
                 </group>
             </div>
             <div slot="flowForm" v-if="flowContent.formList.length > 0">
                 <div class="p-title">相关表单</div>
                 <group class="p-no-group-top">
-                    <cell v-for="(item,index) in flowContent.formList" :key="index"
+                    <cell v-for="(item,index) in flowContent.formList" :key="index"  @click.native="goFlowAttachment(item.name,item.url)"
                         :title="item.name"></cell>
                 </group>
             </div>
@@ -100,8 +100,13 @@ export default {
         goFlowOpinion(){
             this.$router.push({name:'FlowOpinion',query:{flowInstanceId:this.flowInstanceId}});
         },
-        goFlowAttachment(filename,fileext){
-            this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});
+        goFlowAttachment(filename,url,fileext){
+            if(fileext){
+                this.$router.push({name:'FlowAttachment',query:{filename:filename,fileext:fileext}});
+            }else{
+                this.$router.push({name:'FlowAttachment',query:{filename:filename,url:url,fileext:''}});
+            }
+            
         },
         goFlowCheck(){
             globalData.flow.actList = this.actList;

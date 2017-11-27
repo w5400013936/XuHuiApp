@@ -2,7 +2,7 @@
     <div class="fullScreen">
         <HeaderBar title="审批中心"></HeaderBar>
         <BodyContent :showBottomPadding="true">
-            <div slot="content">
+            <div slot="content" class="fullScreen">
                 <tab v-model="tabIndex">
                     <tab-item selected>待审流程</tab-item>
                     <tab-item>已审流程</tab-item>

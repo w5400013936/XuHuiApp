@@ -196,6 +196,18 @@ export default {
             }, this);
         }
     },
+    mounted(){
+        if(this.actList.length <= 0){
+            var self = this;
+            this.$vux.toast.show({
+                text: '该流程已结束',
+                type: 'warn',
+            })
+            setTimeout(()=>{
+                self.$router.push({name:'Flow'});
+            },2000)
+        }
+    },
     components:{
         HeaderBar,
         BodyContent,
