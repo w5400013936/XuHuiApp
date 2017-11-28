@@ -7,6 +7,10 @@
 .weui-toast__content{
     color: #fff;
 }
+.weui-cell.index-title{
+    margin: 0.5rem 0;
+}
+
 .flow-cell .mint-cell-wrapper{
     height: 5rem;
 }

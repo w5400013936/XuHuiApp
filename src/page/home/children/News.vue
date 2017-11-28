@@ -24,6 +24,7 @@ export default {
         getNewsData(){
             axios.get(apiConfig.companyServer+apiConfig.allNewsList)
                 .then(res=>{
+                    console.log(res)
                     this.newsList = res.data.appNewsList;
                 }).catch(err=>{
                     console.log(err)

@@ -22,7 +22,7 @@
                     <spinner size="1.5rem"></spinner>
                     正在加载
                 </div>
-                
+
             </mt-loadmore>
             <div v-else class="p-no-data-panel">
                 <divider>暂无数据</divider>
@@ -41,7 +41,7 @@ export default {
         return{
             flowData:[], // 页面数据
             type:4, // 数据类型
-            loading:false, 
+            loading:false,
             firstLoad:false, // 判断当前页是否为初次加载
             allLoaded:false, // 判断数据是否全部加载完成
             currentPage:0, // 数据页码
@@ -62,9 +62,9 @@ export default {
                 });
             }
             this.currentPage += 1;
-            axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl 
-            + '?type='+this.type+'&userId=' + globalData.user.guid 
-            + '&current=' + this.currentPage 
+            axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl
+            + '?type='+this.type+'&userId=' + globalData.user.guid
+            + '&current=' + this.currentPage
             + '&pageSize=' + this.pageSize)
                 .then(res=>{
                     if(res.data.length == 0){
@@ -74,15 +74,16 @@ export default {
                         if(refresh){
                             this.flowData = res.data;
                             this.allLoaded = false;
-                        }
-                        else{
+                        } else{
                             this.flowData = this.flowData.concat(res.data);
                         }
+
+                        this.$nextTick(()=>{
+                            if(this.$refs.loadmore){
+                                this.$refs.loadmore.onTopLoaded();
+                            }
+                        });
                     }
-                    this.$nextTick(()=>{
-                        console.log(this.$refs.loadmore)
-                        this.$refs.loadmore.onTopLoaded();
-                    })
                     this.loadmore = false;
                     this.loading = false;
                     this.$vux.loading.hide();

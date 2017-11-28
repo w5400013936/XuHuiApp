@@ -71,7 +71,9 @@ export default {
     selectedList: {
       // 加签选中人员
       type: Array,
-      default: []
+      default: function(){
+          return [];
+      }
     }
   },
   methods: {

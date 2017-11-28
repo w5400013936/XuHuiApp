@@ -116,7 +116,8 @@ export default {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        padding: .5rem;
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+        background-color: #fff;
     }
     .p-employeeShowList li{
         width: 30%;
