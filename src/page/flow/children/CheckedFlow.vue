@@ -73,13 +73,14 @@ export default {
                         else{
                             this.flowData = this.flowData.concat(res.data);
                         }
-                        this.loading = false;
-                        this.$vux.loading.hide();
+                        
                         this.$nextTick(()=>{
                             this.$refs.loadmore.onTopLoaded();
                             this.$refs.loadmore.onBottomLoaded();
                         })
                     }
+                    this.loading = false;
+                    this.$vux.loading.hide();
                 }).catch(err=>{
                     console.log(err)
                     this.loading = false;

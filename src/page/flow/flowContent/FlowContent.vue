@@ -20,13 +20,8 @@
             <div slot="flowForm" v-if="flowContent.formList.length > 0">
                 <div class="p-title">相关表单</div>
                 <group class="p-no-group-top">
-<<<<<<< HEAD
-                    <cell v-for="(item,index) in flowContent.formList" :key="index"  @click.native="goFlowAttachment(item.name,item.url)"
-                        :title="item.name"></cell>
-=======
                     <cell v-for="(item,index) in flowContent.formList" :key="index" is-link
                         :title="item.name" @click.native="showTable(item)"></cell>
->>>>>>> 75765859279825a4dccc73dbfe66be4b58aed36e
                 </group>
             </div>
             <div slot="flowOperation">
