@@ -78,13 +78,12 @@ export default {
                         else{
                             this.flowData = this.flowData.concat(res.data);
                         }
-                        
-                        this.$nextTick(()=>{
-                            console.log(this.$refs.loadmore)
-                            this.$refs.loadmore.onTopLoaded();
-                            
-                        })
                     }
+                        
+                    this.$nextTick(()=>{
+                        console.log(this.$refs.loadmore)
+                        this.$refs.loadmore.onTopLoaded();
+                    })
                     this.loadmore = false;
                     this.loading = false;
                     this.$vux.loading.hide();

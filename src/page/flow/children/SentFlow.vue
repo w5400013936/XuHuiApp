@@ -63,7 +63,7 @@ export default {
             }
             this.currentPage += 1;
             axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl 
-            + '?type=3&userId=' + globalData.user.guid 
+            + '?type='+this.type+'&userId=' + globalData.user.guid 
             + '&current=' + this.currentPage 
             + '&pageSize=' + this.pageSize)
                 .then(res=>{
@@ -81,8 +81,9 @@ export default {
                         
                         this.$nextTick(()=>{
                             console.log(this.$refs.loadmore)
-                            this.$refs.loadmore.onTopLoaded();
-                            
+                            if(this.$refs.loadmore){
+                                this.$refs.loadmore.onTopLoaded();
+                            }
                         })
                     }
                     this.loadmore = false;
