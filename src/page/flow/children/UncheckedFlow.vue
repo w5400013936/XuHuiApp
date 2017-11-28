@@ -3,12 +3,12 @@
         <div v-if="!loading" class="fullScreen">
             <mt-loadmore class="fullScreen" v-if="flowData.length > 0"
                 :top-method="loadTop"
-                :bottom-method="loadBottom"
                 :autoFill="false"
-                :bottom-all-loaded="allLoaded"
-                @bottom-status-change="handleBottomChange"
                 ref="loadmore">
-                <ul class="content">
+                <ul class="content"
+                v-infinite-scroll="getFlowData"
+                infinite-scroll-disabled="loadmore"
+                infinite-scroll-immediate-check="false">
                     <li  v-for="(item,index) in flowData" :key="index">
                         <mt-cell
                         class="flow-cell" :title="item.flowName" :label="item.projName" is-link
@@ -17,10 +17,12 @@
                         </mt-cell>
                     </li>
                 </ul>
-                <divider v-if="allLoaded">已经到底啦</divider>
-                <div slot="bottom" class="mint-loadmore-bottom">
-                    <load-more v-show="bottomStatus === 'loading' && !allLoaded" tip="正在加载"></load-more>
+                <divider class="mb55" v-if="allLoaded">已经到底啦</divider>
+                <div class="spinner mb55" v-show="loadmore&&!allLoaded">
+                    <spinner size="1.5rem"></spinner>
+                    正在加载
                 </div>
+                
             </mt-loadmore>
             <div v-else class="p-no-data-panel">
                 <divider>暂无数据</divider>
@@ -33,7 +35,7 @@
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios'
 import globalData from '../../../server/globalData'
-import { Divider,LoadMore, } from 'vux'
+import { Divider,LoadMore,Spinner } from 'vux'
 export default {
     data(){
         return{
@@ -41,15 +43,17 @@ export default {
             type:2, // 数据类型
             loading:false, 
             firstLoad:false, // 判断当前页是否为初次加载
-            bottomStatus:'', // 上拉加载状态
             allLoaded:false, // 判断数据是否全部加载完成
             currentPage:0, // 数据页码
             pageSize:10, // 每页数据量
+            loadmore:false, //判断页面底部是否正在加载更多
         }
     },
     methods:{
         getFlowData(refresh){
-            
+            if(!refresh){
+                this.loadmore = true;
+            }
             if(!this.firstLoad){
                 this.firstLoad = true;
                 this.loading = true;
@@ -59,7 +63,7 @@ export default {
             }
             this.currentPage += 1;
             axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl 
-            + '?type=2&userId=' + globalData.user.guid 
+            + '?type='+this.type+'&userId=' + globalData.user.guid 
             + '&current=' + this.currentPage 
             + '&pageSize=' + this.pageSize)
                 .then(res=>{
@@ -69,24 +73,27 @@ export default {
                     else{
                         if(refresh){
                             this.flowData = res.data;
+                            this.allLoaded = false;
                         }
                         else{
                             this.flowData = this.flowData.concat(res.data);
                         }
-                        console.log(this.$refs.loadmore)
+                        
                         this.$nextTick(()=>{
+                            console.log(this.$refs.loadmore)
                             this.$refs.loadmore.onTopLoaded();
-                            this.$refs.loadmore.onBottomLoaded();
+                            
                         })
                     }
+                    this.loadmore = false;
                     this.loading = false;
                     this.$vux.loading.hide();
                 }).catch(err=>{
                     console.log(err)
+                    this.loadmore = false;
                     this.loading = false;
                     this.$vux.loading.hide();
                     this.$refs.loadmore.onTopLoaded();
-                    this.$refs.loadmore.onBottomLoaded();
                 })
         },
         goFlowContent(tableName,referFieldName,referFieldValue){
@@ -106,9 +113,6 @@ export default {
         loadBottom(){
             this.getFlowData();
         },
-        handleBottomChange(status){
-            this.bottomStatus = status;
-        }
     },
     created(){
         this.getFlowData();
@@ -119,6 +123,7 @@ export default {
     components:{
         Divider,
         LoadMore,
+        Spinner,
     }
 }
 </script>

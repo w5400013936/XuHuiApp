@@ -44,3 +44,15 @@
 .p-no-group-top .vux-no-group-title{
   margin-top: 0px !important;
 }
+
+.mint-loadmore {
+    overflow: scroll;
+}
+.mb55{
+    margin-bottom: 55px;
+}
+.spinner{
+    width: 100%;
+    text-align: center;
+    color: #666;
+}

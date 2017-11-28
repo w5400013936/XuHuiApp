@@ -4,7 +4,7 @@
 <template>
     <div class="fullScreen">
         <router-view></router-view>
-        <!--<TabBar></TabBar>-->
+        <TabBar></TabBar>
     </div>
 </template>
 
