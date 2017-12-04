@@ -52,6 +52,9 @@
     </div>
 </template>
 <script>
+import apiConfig from "../../../server/apiConfig";
+import globalData from '../../../server/globalData';
+import axios from "axios";
 import { Group,Cell,CellBox } from 'vux'
 export default {
     data(){

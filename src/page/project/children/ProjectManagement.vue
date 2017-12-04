@@ -8,14 +8,6 @@
             <span><i class="fa fa-circle" style="color:#6ABBE4;"></i>未开始</span>
             <span><i class="fa fa-circle" style="color:#FE5D31;"></i>未开始</span>
             <span><i class="fa fa-check-circle" style="color:#FE5D31;"></i>未开始</span>
-            <!-- <ul>
-                <li>注：</li>
-                <li><i class="fa fa-circle"></i>未开始</li>
-                <li><i class="fa fa-circle"></i>未开始</li>
-                <li><i class="fa fa-circle"></i>未开始</li>
-                <li><i class="fa fa-circle"></i>未开始</li>
-                <li><i class="fa fa-circle"></i>未开始</li>
-            </ul> -->
         </div>
         <div>
             <div class="p-leafname">投资阶段</div>
@@ -101,6 +93,9 @@
     </div>
 </template>
 <script>
+import apiConfig from "../../../server/apiConfig";
+import globalData from '../../../server/globalData';
+import axios from "axios";
 import { Search,Group,Cell,CellBox,Icon } from 'vux'
 export default {
     data(){
