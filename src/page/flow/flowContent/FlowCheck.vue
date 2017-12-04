@@ -134,11 +134,20 @@ export default {
                         },
                     });
                     break;
+                case '8': // 已阅
+                    this.$vux.confirm.show({
+                        title:'请确认审批操作',
+                        content:'您选择的审批操作为“已阅”',
+                        onConfirm(){
+                            self.doActions(apiConfig.doAction,3,2)
+                        },
+                    })
+                    break;
                 case '10': // 当前会签
                     self.$router.push({name:'FlowSign',query:{flowInstanceId:this.flowInstanceId,actType:10}});
                     break;
                 case '11': // 加签
-                    self.$router.push({name:'FlowSign',query:{actType:11}});
+                    self.$router.push({name:'FlowSign',query:{flowInstanceId:this.flowInstanceId,actType:11}});
                     break;
                 case '12': // 回退
                     this.$vux.confirm.show({

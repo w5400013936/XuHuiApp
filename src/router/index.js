@@ -6,7 +6,8 @@ import Home from '@/page/home/Home';
 import Flow from '@/page/flow/Flow';
 import Project from '@/page/project/Project';
 import Setting from '@/page/setting/Setting';
-import ProjectInfo from '@/page/project/ProjectInfo';
+import ProjectList from '@/page/project/ProjectList';
+import ProjectIndex from '@/page/project/ProjectIndex';
 import Mix from '@/page/home/children/Mix';
 import News from '@/page/home/children/News';
 import Rookies from '@/page/home/children/Rookies';
@@ -18,6 +19,7 @@ import SelectUser from '@/page/flow/flowContent/SelectUser';
 import NotifyUser from '@/page/flow/flowContent/NotifyUser';
 import FlowSign from '@/page/flow/flowContent/FlowSign';
 import FlowComment from '@/page/flow/flowContent/FlowComment';
+import ChangePwd from '@/page/setting/ChangePwd';
 Vue.use(Router);
 
  const router = new Router({
@@ -59,10 +61,15 @@ Vue.use(Router);
               component: Setting
           },]
       },
-      { // 项目详情
+      { // 项目详情列表
           path: '/Project/:name/:engId',
-          name: 'ProjectInfo',
-          component: ProjectInfo
+          name: 'ProjectList',
+          component: ProjectList
+      },
+      {
+          path: '/Project/:title',
+          name: 'ProjectIndex',
+          component: ProjectIndex
       },
       { // 新人与新闻
           path: '/Mix',
@@ -119,6 +126,11 @@ Vue.use(Router);
         name: 'FlowComment',
         component: FlowComment,
       },
+      {
+        path: '/ChangePwd',
+        name: 'ChangePwd',
+        component: ChangePwd,
+      }
   ]
 });
 // router.push('Index/Flow');

@@ -31,7 +31,7 @@ export default {
         this.filename = this.$route.query.filename;
         this.fileext = this.$route.query.fileext;
         this.url = this.$route.query.url;
-        this.src = 'http://des.cifi.com.cn:8035' + decodeURIComponent(this.url) + '&uid=' + globalData.user.guid;
+        this.src = apiConfig.companyServer + decodeURIComponent(this.url) + '&uid=' + globalData.user.guid;
         console.log(this.src)
     },
     mounted(){

@@ -22,12 +22,17 @@ export default {
     },
     methods:{
         getNewsData(){
+            this.$vux.loading.show({
+                text: '加载中'
+            });
             axios.get(apiConfig.companyServer+apiConfig.allNewsList)
                 .then(res=>{
-                    console.log(res)
+                    // console.log(res)
                     this.newsList = res.data.appNewsList;
+                    this.$vux.loading.hide();
                 }).catch(err=>{
                     console.log(err)
+                    this.$vux.loading.hide();
                 })
         }
     },

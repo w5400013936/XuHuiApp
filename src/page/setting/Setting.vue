@@ -9,8 +9,8 @@
                 </div>
                 <div class="setting-operation">
                     <x-button class="setting-button" type="warn">清除缓存</x-button>
-                    <x-button class="setting-button" type="warn">修改密码</x-button>
-                    <x-button class="setting-button" type="warn">退出当前账号</x-button>
+                    <x-button class="setting-button" type="warn" @click.native="goChangePwd">修改密码</x-button>
+                    <x-button class="setting-button" type="warn" @click.native="goLogin">退出当前账号</x-button>
                 </div>
             </div>
         </BodyContent>
@@ -27,6 +27,14 @@ export default {
     data(){
         return {
             tabSelected:3
+        }
+    },
+    methods:{
+        goChangePwd(){
+            this.$router.push({name:'ChangePwd'});
+        },
+        goLogin(){
+            this.$router.push({name:'Login'});
         }
     },
     beforeMount(){

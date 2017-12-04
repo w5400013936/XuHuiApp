@@ -25,11 +25,16 @@ export default {
     },
     methods:{
         getBrideData(){
+            this.$vux.loading.show({
+                text: '加载中'
+            });
             axios.get(apiConfig.companyServer+apiConfig.brideList)
                 .then(res=>{
                     this.brideList = res.data.appEmpList;
+                    this.$vux.loading.hide();
                 }).catch(err=>{
                     console.log(err)
+                    this.$vux.loading.hide();
                 })
         }
     },

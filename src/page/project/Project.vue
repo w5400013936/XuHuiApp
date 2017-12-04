@@ -3,24 +3,20 @@
         <HeaderBar title="项目"></HeaderBar>
         <BodyContent :showBottomPadding="false">
             <div slot="content">
-                <Search v-model="searchKey" top="3rem"></Search>
-                <!-- <div class="search-box">
-                    <mt-search
-                    cancel-text="取消"
-                    placeholder="搜索">
-                    </mt-search>
-                </div> -->
                 <div v-if="!loading">
                     <div v-if="projList.length > 0">
+                        <Search v-model="searchKey" top="3rem"></Search>
                         <div class="proj-box" v-for="(item,index) in projList" :key="index">
                             <div class="box-title">{{item.name}}</div>
                             <mt-cell v-for="(proj,i) in item.engList" :key="i"
                                 :title="proj.name" is-link
-                                :to="{ name: 'ProjectInfo', params: { name:proj.name,engId: proj.engId }}">
+                                :to="{ name: 'ProjectList', params: { name:proj.name,engId: proj.engId }}">
                             </mt-cell>
                         </div>
                     </div>
-                    <div v-else>暂无数据</div>
+                    <div v-else class="p-no-data-panel">
+                        <divider>暂无数据</divider>
+                    </div>
                 </div>
             </div>
         </BodyContent>
@@ -35,14 +31,14 @@ import apiConfig from "../../server/apiConfig";
 import globalData from '../../server/globalData';
 import axios from "axios";
 
-import { Search } from 'vux'
+import { Search,Divider } from 'vux'
 export default {
   data() {
     return {
       tabSelected:2,
       projList: [],
       loading: true,
-      searchKey:null,
+      searchKey:'',
     };
   },
   methods: {
@@ -70,7 +66,10 @@ export default {
     globalData.tabSelected = this.tabSelected;
   },
   components: {
-      HeaderBar, BodyContent, Search,
+      HeaderBar,
+      BodyContent,
+      Search,
+      Divider,
   }
 };
 </script>

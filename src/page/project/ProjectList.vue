@@ -6,7 +6,8 @@
                 <div v-if="!loading">
                     <div v-if="projInfoList.projList.length > 0">
                         <mt-cell v-for="(item,index) in projInfoList.projList"
-                            :key="index" :title="item.name">
+                            :key="index" :title="item.name" is-link
+                            :to="{ name: 'ProjectIndex', params: { title:item.name }}">
                             <img slot="icon" :src="item.thumbPic"
                                 :onerror="defaultAvatar"
                                 width="35" height="35">
@@ -30,7 +31,7 @@ export default {
             projInfoList:[],
             title:null,
             engId:null,
-            loading:true,
+            loading:false,
             defaultAvatar: 'this.src="' + require('../../assets/images/avatar/BatMan.png') + '"',
         }
     },
@@ -39,6 +40,7 @@ export default {
             this.$vux.loading.show({
                 text: '加载中'
             })
+            this.loading = true;
             this.engId = this.$route.params.engId;
             axios.get(apiConfig.companyServer+apiConfig.projectInfoPageUrl+'?engId='+this.engId)
                 .then(res=>{
