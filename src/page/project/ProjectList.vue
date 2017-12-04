@@ -4,7 +4,7 @@
         <BodyContent :showBottomPadding="false">
             <div class="container projInfoBox" slot="content">
                 <div v-if="!loading">
-                    <div v-if="projInfoList.projList.length > 0">
+                    <div v-if="projInfoList.projList && projInfoList.projList.length > 0">
                         <mt-cell v-for="(item,index) in projInfoList.projList"
                             :key="index" :title="item.name" is-link
                             :to="{ name: 'ProjectIndex', params: { title:item.name }}">
@@ -13,7 +13,9 @@
                                 width="35" height="35">
                         </mt-cell>
                     </div>
-                    <div v-else>暂无数据</div>
+                    <div v-else class="p-no-data-panel">
+                        <divider>暂无数据</divider>
+                    </div>
                 </div>
             </div>
         </BodyContent>

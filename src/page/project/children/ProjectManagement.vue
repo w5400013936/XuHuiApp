@@ -2,7 +2,20 @@
     <div class="fullScreen">
         <!-- <Search v-model="searchKey" top="5.6rem"></Search> -->
         <div class="p-tips">
-            注：
+            <span>注：</span>
+            <span><i class="fa fa-circle" style="color:#B4B4B4;"></i>未开始</span>
+            <span><i class="fa fa-circle" style="color:#F7C124;"></i>未开始</span>
+            <span><i class="fa fa-circle" style="color:#6ABBE4;"></i>未开始</span>
+            <span><i class="fa fa-circle" style="color:#FE5D31;"></i>未开始</span>
+            <span><i class="fa fa-check-circle" style="color:#FE5D31;"></i>未开始</span>
+            <!-- <ul>
+                <li>注：</li>
+                <li><i class="fa fa-circle"></i>未开始</li>
+                <li><i class="fa fa-circle"></i>未开始</li>
+                <li><i class="fa fa-circle"></i>未开始</li>
+                <li><i class="fa fa-circle"></i>未开始</li>
+                <li><i class="fa fa-circle"></i>未开始</li>
+            </ul> -->
         </div>
         <div>
             <div class="p-leafname">投资阶段</div>
@@ -41,7 +54,7 @@
                     </div>
                     <div>
                         <div class="p-name">状态</div>
-                        <div><icon type="success"></icon></div>
+                        <div><i class="fa fa-check-circle" style="color:#FE5D31;font-size:1rem;"></i></div>
                     </div>
                 </cell-box>
             </group>
@@ -80,7 +93,7 @@
                     </div>
                     <div>
                         <div class="p-name">状态</div>
-                        <div><icon type="success"></icon></div>
+                        <div><i class="fa fa-check-circle" style="color:#FE5D31;font-size:1rem;"></i></div>
                     </div>
                 </cell-box>
             </group>
@@ -109,6 +122,12 @@ export default {
     width: 100%;
     padding: 1rem;
     background-color: #fff;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-end;
+}
+.p-tips span{
+    margin-left: 0.2rem;
 }
 .p-leafname{
     width: 100%;

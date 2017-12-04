@@ -1,13 +1,34 @@
 <template>
     <div class="fullScreen">
         <group>
-            <cell title="分期名称" value="总部楼C1" value-align="left"></cell>
-            <cell title="分期名称" value="总部楼C1" value-align="left"></cell>
-            <cell title="分期名称" value="总部楼C1" value-align="left"></cell>
-            <cell title="分期名称" value="总部楼C1" value-align="left"></cell>
-            <cell title="分期名称" value="总部楼C1" value-align="left"></cell>
-            <cell title="分期名称" value="总部楼C1" value-align="left"></cell>
-            <cell title="分期名称" value="总部楼C1" value-align="left"></cell>
+            <cell value-align="left">
+                <div slot="title" class="p-label">分期名称</div>
+                <span class="p-value">总部楼C1</span>
+            </cell>
+            <cell value-align="left">
+                <div slot="title" class="p-label">分期名称名</div>
+                <span class="p-value">总部楼C1</span>
+            </cell>
+            <cell value-align="left">
+                <div slot="title" class="p-label">分期名称名</div>
+                <span class="p-value">总部楼C1</span>
+            </cell>
+            <cell value-align="left">
+                <div slot="title" class="p-label">分期名称名</div>
+                <span class="p-value">总部楼C1</span>
+            </cell>
+            <cell value-align="left">
+                <div slot="title" class="p-label">分期名称名</div>
+                <span class="p-value">总部楼C1</span>
+            </cell>
+            <cell value-align="left">
+                <div slot="title" class="p-label">分期名称名</div>
+                <span class="p-value">总部楼C1</span>
+            </cell>
+            <cell value-align="left">
+                <div slot="title" class="p-label">分期名称名</div>
+                <span class="p-value">总部楼C1</span>
+            </cell>
             <cell-box>
                 <div class="w100p">
                     <div class="p-cellTitle">效果图</div>
@@ -49,9 +70,15 @@ export default {
 .weui-cells .weui-cell{
     padding: 15px;
 }
-
-.vux-label{
+.p-label{
     color: #999999 !important;
+    width: 6rem;
+    font-size: 1rem;
+}
+.p-value{
+    padding-left: 1rem;
+    color:#000;
+    font-size: 1rem;
 }
 .weui-cell__ft{
     margin-left: 1rem !important;
