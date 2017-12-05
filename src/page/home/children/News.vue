@@ -3,7 +3,7 @@
         <div class="container" slot="content">
             <div class="news-box">
                 <mt-cell v-for="(item,index) in newsList" :key="index" :title="item.name" :label="item.date">
-                    <img class="news-img" src="../../../assets/images/home-index/u71.png">
+                    <img class="news-img" :src="item.picUrl" :onerror="defaultAvatar">
                 </mt-cell>
             </div>
         </div>
@@ -18,6 +18,7 @@ export default {
     data(){
         return{
             newsList:[],
+            defaultAvatar: 'this.src="' + require('../../../assets/images/avatar/Captain.png') + '"',
         }
     },
     methods:{
@@ -27,7 +28,7 @@ export default {
             });
             axios.get(apiConfig.companyServer+apiConfig.allNewsList)
                 .then(res=>{
-                    // console.log(res)
+                    console.log(res)
                     this.newsList = res.data.appNewsList;
                     this.$vux.loading.hide();
                 }).catch(err=>{

@@ -140,7 +140,4 @@ export default {
 .p-name{
  color: #999999;
 }
-.p-childleaf{
-    /* padding-left: 1rem; */
-}
 </style>

@@ -2,7 +2,7 @@
     <BodyContent :showBottomPadding="false">
         <div class="container" slot="content">
             <div class="rookies-box" v-for="(item,index) in brideList" :key="index">
-                <img class="rookies-img" src="../../../assets/images/home-index/u71.png" >
+                <img class="rookies-img" :src="item.picUrl" :onerror="defaultAvatar">
                 <div class="rookies-info">
                     <span class="rookies-name">{{item.name}}</span>
                     <p class="rookies-data">入职日期：{{item.entryDate}}</p>
@@ -21,6 +21,7 @@ export default {
     data(){
         return{
             brideList:[],
+            defaultAvatar: 'this.src="' + require('../../../assets/images/avatar/BatMan.png') + '"',
         }
     },
     methods:{

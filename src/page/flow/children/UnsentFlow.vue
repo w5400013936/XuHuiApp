@@ -1,11 +1,11 @@
 <template>
     <div class="fullScreen">
         <div v-if="!loading" class="fullScreen">
-            <mt-loadmore class="fullScreen" v-if="flowData.length > 0"
+            <mt-loadmore class="fullScreen"
                 :top-method="loadTop"
                 :autoFill="false"
                 ref="loadmore">
-                <ul class="content"
+                <ul class="content"  v-if="flowData.length > 0"
                 v-infinite-scroll="getFlowData"
                 infinite-scroll-disabled="loadmore"
                 infinite-scroll-immediate-check="false">
@@ -17,16 +17,17 @@
                         </mt-cell>
                     </li>
                 </ul>
-                <divider class="mb55" v-if="allLoaded">已经到底啦</divider>
+                <div v-else class="p-no-data-panel">
+                    <divider v-if="firstLoad">暂无数据</divider>
+                </div>
+                <divider class="mb55" v-if="allLoaded && !firstLoad">已经到底啦</divider>
                 <div class="spinner mb55" v-show="loadmore&&!allLoaded">
                     <spinner size="1.5rem"></spinner>
                     正在加载
                 </div>
 
             </mt-loadmore>
-            <div v-else class="p-no-data-panel">
-                <divider>暂无数据</divider>
-            </div>
+            
         </div>
     </div>
 </template>
@@ -42,7 +43,7 @@ export default {
             flowData:[], // 页面数据
             type:4, // 数据类型
             loading:false,
-            firstLoad:false, // 判断当前页是否为初次加载
+            firstLoad:true, // 判断当前页是否为初次加载
             allLoaded:false, // 判断数据是否全部加载完成
             currentPage:0, // 数据页码
             pageSize:10, // 每页数据量
@@ -54,8 +55,7 @@ export default {
             if(!refresh){
                 this.loadmore = true;
             }
-            if(!this.firstLoad){
-                this.firstLoad = true;
+            if(this.firstLoad){
                 this.loading = true;
                 this.$vux.loading.show({
                     text: '加载中'
@@ -76,6 +76,7 @@ export default {
                             this.allLoaded = false;
                         } else{
                             this.flowData = this.flowData.concat(res.data);
+                            this.firstLoad = false;
                         }
 
                         this.$nextTick(()=>{

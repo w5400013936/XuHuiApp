@@ -40,15 +40,6 @@ export default {
     },
     beforeMount(){
         this.title = this.$route.params.title;
-        if(this.$route.query.guid){
-            let loginUser = globalData.user;
-            loginUser.guid = this.$route.query.guid;
-            loginUser.userId = this.$route.query.userId;
-            loginUser.name = this.$route.query.name;
-        } else{
-            // console.log("没有获取到用户guid");
-            // console.log(this.$route.query)
-        }
     },
     components:{
         HeaderBar,
