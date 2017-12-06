@@ -1,24 +1,42 @@
 <template>
-    <BodyContent :showBottomPadding="false">
-        <div class="container" slot="content">
-            <div class="news-box">
-                <mt-cell v-for="(item,index) in newsList" :key="index" :title="item.name" :label="item.date">
-                    <img class="news-img" :src="item.picUrl" :onerror="defaultAvatar">
-                </mt-cell>
+    <div class="fullScreen">
+        <BodyContent :showBottomPadding="false">
+            <div class="container" slot="content">
+                <div class="news-box">
+                    <mt-cell v-for="(item,index) in newsList" :key="index"
+                             :title="item.name" :label="item.date" @click.native="getNewsDetail(item)">
+                        <img class="news-img" src="" :onerror="errorLoadImg">
+                    </mt-cell>
+                </div>
             </div>
-        </div>
-    </BodyContent>
+        </BodyContent>
+        <!-- 新闻详情 -->
+        <popup height="100%" v-model="showNewsDetail">
+            <x-header :left-options="{showBack: false}" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
+                {{curNewsTitle}}
+                <a slot="right" href="javascript:;" @click="closeNewsDetail"><i class="fa fa-close"></i></a>
+            </x-header>
+            <BodyContent :showBottomPadding="false" style="padding:0 10px;">
+                <div slot="content" v-html="newsDetailHTML">
+                </div>
+            </BodyContent>
+        </popup>
+    </div>
 </template>
 
 <script>
 import BodyContent from "@/components/content/BodyContent"
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
+
+import { Popup,XHeader } from 'vux';
 export default {
     data(){
         return{
             newsList:[],
-            defaultAvatar: 'this.src="' + require('../../../assets/images/avatar/Captain.png') + '"',
+            newsDetailHTML: '', //页面加载的数据
+            curNewsTitle: '', //当前新闻标题
+            showNewsDetail: false,
         }
     },
     methods:{
@@ -28,20 +46,49 @@ export default {
             });
             axios.get(apiConfig.companyServer+apiConfig.allNewsList)
                 .then(res=>{
-                    console.log(res)
                     this.newsList = res.data.appNewsList;
+                    this.$vux.loading.hide();
+                }).catch(err=>{
+                    console.log(err);
+                    this.$vux.loading.hide();
+                })
+        },
+        getNewsDetail:function(item){
+            const url = apiConfig.companyServer + apiConfig.newsDetailData + '?newsId=' + item.newsId + '&r=' + Math.random();
+            this.showNewsDetail = true;
+            this.curNewsTitle = item.name;
+            this.$vux.loading.show({
+                text: '加载中'
+            });
+            axios.get(url)
+                .then(res=>{
+                    let w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                    let h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+                    console.log(res);
+                    this.newsDetailHTML = res.data.content.replace(/<img.+?src=\"(.+?)\".+?>/g, function ($1, str) {
+                      return '<img src="' + str + '" width="' + (w - 20) + '">';
+                    }).replace(/960px/g, (w - 20) + 'px').replace(/682px/g,(w - 50) + 'px')
+                      .replace(/818px/g, (w - 135) + 'px;display:inline-block');
                     this.$vux.loading.hide();
                 }).catch(err=>{
                     console.log(err)
                     this.$vux.loading.hide();
-                })
+                });
+        },
+        closeNewsDetail:function(){
+            this.newsDetailHTML = '';
+            this.showNewsDetail = false;
+            this.curNewsTitle = '';
+        },
+        errorLoadImg: function() {
+            return ('this.src="' + require('../../../assets/images/projLogo/default.png') + '"');
         }
     },
     beforeMount(){
         this.getNewsData();
     },
     components:{
-        BodyContent,
+        BodyContent,Popup,XHeader
     }
 }
 </script>

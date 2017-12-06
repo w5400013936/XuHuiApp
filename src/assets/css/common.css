@@ -63,3 +63,23 @@
 .weui-cells.vux-no-group-title{
     margin-top: 0 !important;
 }
+.p-company-sys-content{
+  background-color: #FFFFFF;
+}
+.p-company-sys-item{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.p-company-sys-icon{
+  font-size: 30px;
+  color: #BBB;
+}
+.p-company-sys-eName{
+  color: #BBB;
+  font-size: 13px;
+}
+.p-icon-active{
+  color: #333 !important;
+}
