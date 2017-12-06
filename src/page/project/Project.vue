@@ -1,17 +1,25 @@
 <template>
     <div class='fullScreen'>
         <HeaderBar title="项目"></HeaderBar>
-        <BodyContent :showBottomPadding="false">
+        <BodyContent :showBottomPadding="true">
             <div slot="content">
                 <div v-if="!loading">
+                    <Search v-model="searchKey"
+                      top="2.9rem"
+                      :style="{position:'fixed',zIndex:'1'}"
+                      @on-change="searchProj"
+                      @on-focus="searchBarFocus=true"
+                      @on-cancel="searchBarFocus=false">
+                    </Search>
                     <div v-if="projList.length > 0">
-                        <Search v-model="searchKey" top="3rem"></Search>
-                        <div class="proj-box" v-for="(item,index) in projList" :key="index">
-                            <div class="box-title">{{item.name}}</div>
-                            <mt-cell v-for="(proj,i) in item.engList" :key="i"
-                                :title="proj.name" is-link
-                                :to="{ name: 'ProjectList', params: { name:proj.name,engId: proj.engId }}">
-                            </mt-cell>
+                        <div :style="{'padding-top':'2.78rem'}">
+                          <div class="proj-box" v-for="(item,index) in projList" :key="index">
+                              <div class="box-title">{{item.name}}</div>
+                              <mt-cell v-for="(proj,i) in item.engList" :key="i"
+                                  :title="proj.name" is-link
+                                  :to="{ name: 'ProjectList', params: { name:proj.name,engId: proj.engId }}">
+                              </mt-cell>
+                          </div>
                         </div>
                     </div>
                     <div v-else class="p-no-data-panel">
@@ -36,9 +44,11 @@ export default {
   data() {
     return {
       tabSelected:2,
-      projList: [],
+      projList: [], // 当前项目列表数据
+      allProjList:null, // 完整项目列表数据,数据格式为JSON字符串
       loading: true,
       searchKey:'',
+      // searchBarFocus:false,
     };
   },
   methods: {
@@ -50,7 +60,8 @@ export default {
         .get(apiConfig.companyServer + apiConfig.projectData.pageUrl)
         .then(res => {
           // console.log(res);
-          this.projList = res.data;
+          this.allProjList = JSON.stringify(res.data);
+          this.projList = JSON.parse(this.allProjList);
           this.$vux.loading.hide();
           this.loading = false;
         })
@@ -59,6 +70,24 @@ export default {
           this.$vux.loading.hide();
           this.loading = false;
         });
+    },
+    searchProj(){
+      var self = this;
+      if(self.searchKey.trim() == ''){
+        self.projList = JSON.parse(self.allProjList);
+      }
+      else{
+        self.projList = JSON.parse(self.allProjList).filter(i=>{
+          i.engList = i.engList.filter(j=>{
+            if(j.name.indexOf(self.searchKey.trim()) > -1){
+              return j;
+            }
+          })
+          if(i.engList.length > 0){
+            return i;
+          }
+        })
+      }
     }
   },
   beforeMount() {
@@ -77,7 +106,6 @@ export default {
 <style>
 .search-box .mint-search {
   height: 100%;
-  /* margin-bottom: 0.5rem; */
 }
 .search-box .mint-searchbar {
   z-index: 0;
