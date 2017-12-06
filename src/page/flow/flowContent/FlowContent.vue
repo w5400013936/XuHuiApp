@@ -17,13 +17,6 @@
                     </cell>
                 </group>
             </div>
-            <div slot="flowForm" v-if="flowContent.formList.length > 0">
-                <div class="p-title">相关表单</div>
-                <group class="p-no-group-top">
-                    <cell v-for="(item,index) in flowContent.formList" :key="index" is-link
-                        :title="item.name" @click.native="showTable(item)"></cell>
-                </group>
-            </div>
             <div slot="flowOperation">
                 <div class="fixedBottom" v-if="type == 1">
                     <x-button type="warn" @click.native="goFlowOpinion">查看审批意见</x-button>
@@ -121,7 +114,7 @@ export default {
             }else{
                 this.$router.push({name:'FlowAttachment',query:{filename:filename,url:url,fileext:''}});
             }
-            
+
         },
         goFlowCheck(){
             globalData.flow.actList = this.actList;

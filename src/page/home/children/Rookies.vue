@@ -2,11 +2,11 @@
     <BodyContent :showBottomPadding="false">
         <div class="container" slot="content">
             <div class="rookies-box" v-for="(item,index) in brideList" :key="index">
-                <img class="rookies-img" :src="item.picUrl" :onerror="defaultAvatar">
+                <img class="rookies-img" :src="item.path" :onerror="setThumbpath(item,index)">
                 <div class="rookies-info">
                     <span class="rookies-name">{{item.name}}</span>
                     <p class="rookies-data">入职日期：{{item.entryDate}}</p>
-                    <p class="rookies-position">郑州事业部设计部副经理</p>
+                    <p class="rookies-position">{{item.remark}}</p>
                 </div>
             </div>
         </div>
@@ -17,14 +17,17 @@
 import BodyContent from "@/components/content/BodyContent"
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
+import defaultAvatar from '../../../assets/images/avatar/errorAvatar';
 export default {
     data(){
         return{
             brideList:[],
-            defaultAvatar: 'this.src="' + require('../../../assets/images/avatar/BatMan.png') + '"',
         }
     },
     methods:{
+        /**
+         * 获取新人数据
+         */
         getBrideData(){
             this.$vux.loading.show({
                 text: '加载中'
@@ -34,9 +37,18 @@ export default {
                     this.brideList = res.data.appEmpList;
                     this.$vux.loading.hide();
                 }).catch(err=>{
-                    console.log(err)
+                    console.log(err);
                     this.$vux.loading.hide();
-                })
+                });
+        },
+      /**
+       * 设置默认图片
+       * @param item
+       * @param index
+       * @returns {*}
+       */
+        setThumbpath:function(item,index){
+            return item.path?item.path:defaultAvatar['avatar'+(index%10!==0?index%10:8)];
         }
     },
     beforeMount(){
