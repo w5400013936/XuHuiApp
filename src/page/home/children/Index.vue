@@ -21,7 +21,9 @@
             <panel :list="newsList" :type="type" @on-img-error="onImgError"></panel>
             <Cell class="index-title" title="公司体系"></Cell>
             <grid :cols="3" class="p-company-sys-content">
-                <grid-item v-for="(item,index) in companySys" :key="index" :label="item.name" class="p-company-sys-item">
+                <grid-item v-for="(item,index) in companySys" :key="index" 
+                 :label="item.name" class="p-company-sys-item"
+                 :link="item.link?item.link:''">
                     <i slot="icon" class="fa p-company-sys-icon" :class="[item.icon,item.isActive?'p-icon-active':'']"></i>
                     <span class="p-company-sys-eName">{{item.eName}}</span>
                 </grid-item>
@@ -53,7 +55,7 @@ export default {
                 { name: '产品线体系', eName: 'PRODUCT', icon: 'fa-cogs', isActive: false },
                 { name: '产品成本体系', eName: 'COST', icon: 'fa-database', isActive: false },
                 { name: '人才管理体系', eName: 'TALENT', icon: 'fa-users', isActive: false },
-                { name: '供应商管理', eName: 'SUPPLIER', icon: 'fa-link', isActive: true },
+                { name: '供应商管理', eName: 'SUPPLIER', icon: 'fa-link', isActive: true, link:{name:'Suppliers'} },
                 { name: '设计论剑', eName: 'DESIGN', icon: 'fa-folder-o', isActive: false },
                 { name: '地区风采', eName: 'STYLE', icon: 'fa-pencil-square-o', isActive: false }
             ]

@@ -7,9 +7,7 @@
                     <Search v-model="searchKey"
                       top="2.9rem"
                       :style="{position:'fixed',zIndex:'1'}"
-                      @on-change="searchProj"
-                      @on-focus="searchBarFocus=true"
-                      @on-cancel="searchBarFocus=false">
+                      @on-change="searchProj">
                     </Search>
                     <div v-if="projList.length > 0">
                         <div :style="{'padding-top':'2.78rem'}">

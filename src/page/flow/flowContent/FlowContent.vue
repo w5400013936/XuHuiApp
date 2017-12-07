@@ -90,7 +90,7 @@ export default {
                         +'&referFieldValue='+this.referFieldValue
                         +'&userId=' + globalData.user.guid)
                 .then(res=>{
-                    // console.log(res);s
+                    // console.log(res);
                     this.flowContent = res.data;
                     this.actList = res.data.actList;
                     this.flowId = res.data.flowId;

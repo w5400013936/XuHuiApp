@@ -20,6 +20,7 @@ import NotifyUser from '@/page/flow/flowContent/NotifyUser';
 import FlowSign from '@/page/flow/flowContent/FlowSign';
 import FlowComment from '@/page/flow/flowContent/FlowComment';
 import ChangePwd from '@/page/setting/ChangePwd';
+import Suppliers from '@/page/home/suppliers/SuppliersIndex';
 Vue.use(Router);
 
  const router = new Router({
@@ -106,30 +107,30 @@ Vue.use(Router);
         name: 'FlowAttachment',
         component: FlowAttachment
       },
-      {
+      { 
         path: '/SelectUser',
         name: 'SelectUser',
         component: SelectUser,
       },
-      {
+      { // 知会
         path: '/NotifyUser',
         name: 'NotifyUser',
         component: NotifyUser,
       },
-      {
+      { // 会签
         path: '/FlowSign',
         name: 'FlowSign',
         component: FlowSign,
       },
-      {
-        path: '/FlowComment',
-        name: 'FlowComment',
-        component: FlowComment,
-      },
-      {
+      { // 修改密码
         path: '/ChangePwd',
         name: 'ChangePwd',
         component: ChangePwd,
+      },
+      {
+        path: '/Suppliers',
+        name: 'Suppliers',
+        component: Suppliers,
       }
   ]
 });
