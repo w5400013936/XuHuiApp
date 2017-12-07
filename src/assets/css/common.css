@@ -83,3 +83,6 @@
 .p-icon-active{
   color: #333 !important;
 }
+.weui-media-box_appmsg .weui-media-box__hd{
+  display: flex;
+}

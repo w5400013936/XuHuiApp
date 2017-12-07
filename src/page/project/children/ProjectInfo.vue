@@ -46,7 +46,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
             </cell-box>
         </group>
     </div>
@@ -59,7 +59,7 @@ import { Group,Cell,CellBox } from 'vux'
 export default {
     data(){
         return{
-            defaultAvatar: 'this.src="' + require('../../../assets/images/avatar/BatMan.png') + '"',
+            defaultAvatar: 'this.src="' + require('../../../assets/images/projLogo/default.png') + '"',
         }
     },
     components:{

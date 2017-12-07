@@ -5,7 +5,7 @@
                 <div class="news-box">
                     <mt-cell v-for="(item,index) in newsList" :key="index"
                              :title="item.name" :label="item.date" @click.native="getNewsDetail(item)">
-                        <img class="news-img" src="" :onerror="errorLoadImg">
+                        <img class="news-img" :src="item.path" :onerror="defaultImg">
                     </mt-cell>
                 </div>
             </div>
@@ -37,6 +37,7 @@ export default {
             newsDetailHTML: '', //页面加载的数据
             curNewsTitle: '', //当前新闻标题
             showNewsDetail: false,
+            defaultImg: 'this.src="' + require('../../../assets/images/projLogo/default.png') + '"'
         }
     },
     methods:{
@@ -46,6 +47,7 @@ export default {
             });
             axios.get(apiConfig.companyServer+apiConfig.allNewsList)
                 .then(res=>{
+                    console.log(res);
                     this.newsList = res.data.appNewsList;
                     this.$vux.loading.hide();
                 }).catch(err=>{
@@ -80,9 +82,6 @@ export default {
             this.showNewsDetail = false;
             this.curNewsTitle = '';
         },
-        errorLoadImg: function() {
-            return ('this.src="' + require('../../../assets/images/projLogo/default.png') + '"');
-        }
     },
     beforeMount(){
         this.getNewsData();

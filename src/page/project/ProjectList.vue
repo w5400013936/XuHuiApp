@@ -34,7 +34,7 @@ export default {
             title:null,
             engId:null,
             loading:false,
-            defaultAvatar: 'this.src="' + require('../../assets/images/avatar/BatMan.png') + '"',
+            defaultAvatar: 'this.src="' + require('../../assets/images/projLogo/default.png') + '"',
         }
     },
     methods:{
