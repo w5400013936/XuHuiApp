@@ -27,7 +27,7 @@
                         />
                     </div>
                     <div v-if="flowCommentModal">
-                        <FlowComment 
+                        <FlowComment
                             :actType="actType"
                             :givenUser="givenUser"
                             @listenToToggleComment="syncToggleComment"
@@ -57,9 +57,6 @@ export default {
             mainAct:[],
             moreAct:[],
             actMenu:{},
-            // tableName:null,
-            // referFieldName:null,
-            // referFieldValue:null,
             flowId: null,   // 流程Id
             flowInstanceId: null,   // 流程实例Id
             stepId:null,    // 当前步骤Id
@@ -77,8 +74,6 @@ export default {
             this.userSelectModal = newState;
         },
         getUserFromChild: function(data){
-            console.log('以下是从组件获取的人员信息！');
-            console.log(data);
             if(data.userId != globalData.user.userId){
                 this.givenUser = data;
                 this.flowCommentModal = !this.flowCommentModal;
@@ -190,11 +185,12 @@ export default {
         },
     },
     beforeMount(){
-        var self = this;
-        this.flowId = globalData.flow.flowId;
-        this.flowInstanceId = globalData.flow.flowInstanceId;
-        this.stepId = globalData.flow.stepId;
-        this.actList = globalData.flow.actList;
+        const self = this,initData = JSON.parse(globalData.getStorage('curFlowContentInfo').data);
+        this.flowId = globalData.flow.flowId || initData.flowId;
+        this.flowInstanceId = globalData.flow.flowInstanceId || initData.flowInstanceId;
+        this.stepId = globalData.flow.stepId || initData.stepId;
+        this.actList = globalData.flow.actList || initData.actList;
+
         if(this.actList.length == 1 || this.actList.length == 2){
             this.mainAct = this.actList;
         }else if(this.actList.length > 2){

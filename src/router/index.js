@@ -32,9 +32,9 @@ Vue.use(Router);
       },
       {
           path:'/',     // 路由默认页
-          name:'Flow',
-          component:Flow,
-          redirect:'/Index/Flow'
+          name:'Login',
+          component:Login,
+          redirect:'/Login'
       },
       { // 首页
           path: '/Index',

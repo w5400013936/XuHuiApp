@@ -27,7 +27,7 @@
                 </div>
 
             </mt-loadmore>
-            
+
         </div>
     </div>
 </template>
@@ -62,15 +62,15 @@ export default {
                 });
             }
             this.currentPage += 1;
-            axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl
-            + '?type='+this.type+'&userId=' + globalData.user.guid
-            + '&current=' + this.currentPage
-            + '&pageSize=' + this.pageSize)
+            if(globalData.beforeLoadCheckUser()) {
+                axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl
+                    + '?type='+this.type+'&userId=' + globalData.user.guid
+                    + '&current=' + this.currentPage
+                    + '&pageSize=' + this.pageSize)
                 .then(res=>{
                     if(res.data.length == 0){
                         this.allLoaded = true;
-                    }
-                    else{
+                    } else{
                         if(refresh){
                             this.flowData = res.data;
                             this.allLoaded = false;
@@ -94,17 +94,20 @@ export default {
                     this.loading = false;
                     this.$vux.loading.hide();
                     this.$refs.loadmore.onTopLoaded();
-                })
+                });
+            }
         },
         goFlowContent(tableName,referFieldName,referFieldValue){
+            const queryData = {
+                tableName:tableName,
+                referFieldName:referFieldName,
+                referFieldValue:referFieldValue,
+                type:this.type
+            };
+            globalData.setStorage("curFlowInfo",queryData,true);
             this.$router.push({name:'FlowContent',
-                query:{
-                    tableName:tableName,
-                    referFieldName:referFieldName,
-                    referFieldValue:referFieldValue,
-                    type:this.type
-                }
-            })
+                query:queryData
+            });
         },
         loadTop(){
             this.currentPage = 0;

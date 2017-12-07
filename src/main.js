@@ -27,6 +27,12 @@ Vue.use(Mint);
 Vue.config.productionTip = false;
 //router.push('home');
 /* eslint-disable no-new */
+window.addEventListener('offline', function(e) {
+  alert('offline');
+});
+window.addEventListener('online', function(e) {
+  alert('online``');
+});
 new Vue({
   el: '#app',
   router,

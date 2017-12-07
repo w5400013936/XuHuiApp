@@ -97,13 +97,16 @@ export default {
                     this.flowInstanceId = res.data.flowInstanceId;
                     this.stepId = res.data.stepId;
 
-                    this.loading = false;
-                    this.$vux.loading.hide();
-                }).catch(err=>{
-                    console.log(err);
-                    this.loading = false;
-                    this.$vux.loading.hide();
-                })
+                this.loading = false;
+                this.$vux.loading.hide();
+
+                globalData.setStorage('curFlowContentInfo', res.data, true);
+                //console.log(JSON.parse(globalData.getStorage('curFlowContentInfo').data))
+            }).catch(err=>{
+                console.log(err);
+                this.loading = false;
+                this.$vux.loading.hide();
+            });
         },
         goFlowOpinion(){
             this.$router.push({name:'FlowOpinion',query:{flowInstanceId:this.flowInstanceId}});
@@ -114,7 +117,6 @@ export default {
             }else{
                 this.$router.push({name:'FlowAttachment',query:{filename:filename,url:url,fileext:''}});
             }
-
         },
         goFlowCheck(){
             globalData.flow.actList = this.actList;
@@ -122,12 +124,6 @@ export default {
             globalData.flow.flowInstanceId = this.flowInstanceId;
             globalData.flow.stepId = this.stepId;
             this.$router.push({name:'FlowCheck',query:{
-                // flowId:this.flowId,
-                // flowInstanceId: this.flowInstanceId,
-                // stepId: this.stepId,
-                // tableName:this.tableName,
-                // referFieldName:this.referFieldName,
-                // referFieldValue:this.referFieldValue,
             }});
         },
         startFlow(){
@@ -146,11 +142,14 @@ export default {
         }
     },
     beforeMount(){
-        this.tableName = this.$route.query.tableName;
-        this.referFieldName = this.$route.query.referFieldName;
-        this.referFieldValue = this.$route.query.referFieldValue;
-        this.type = this.$route.query.type;
-        this.getFlowContent();
+        const initData = JSON.parse(globalData.getStorage('curFlowInfo').data);
+        this.tableName = this.$route.query.tableName || initData.tableName;
+        this.referFieldName = this.$route.query.referFieldName || initData.referFieldName;
+        this.referFieldValue = this.$route.query.referFieldValue || initData.referFieldValue;
+        this.type = this.$route.query.type || initData.type;
+        if(globalData.beforeLoadCheckUser()){
+            this.getFlowContent();
+        }
     },
     components:{
         HeaderBar, FlowTemplate, Group,
