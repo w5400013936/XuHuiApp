@@ -61,8 +61,8 @@
                 let param = new URLSearchParams();
                 param.append("userName", this.userName);
                 param.append("passWord", this.passWord);
-                axios.post(apiConfig.companyServer + apiConfig.login,param ).then((response)=>{
-                    let data = response.data;
+                axios.post(apiConfig.companyServer + apiConfig.login, param).then( res =>{
+                    let data = res.data;
                     if(data.state === 1){
                         globalData.isLogin = true;
                         globalData.user={
@@ -71,12 +71,14 @@
                             loginName: data.loginName,
                             guid: data.guid,
                         };
+                        globalData.setStorage('userInfo',data);
                         this.$router.push({name:'Flow'});
                     }else{
                         this.$vux.toast.text(data.Message, 'bottom');
                     }
                     this.isLoading=false;
                 }).catch(error=>{
+                    console.log(error);
                     this.isLoading=false;
                 });
             }

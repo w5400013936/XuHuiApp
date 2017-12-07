@@ -23,11 +23,9 @@
                 <divider class="mb55" v-if="allLoaded && !firstLoad">已经到底啦</divider>
                 <div class="spinner mb55" v-show="loadmore&&!allLoaded">
                     <spinner size="1.5rem"></spinner>
-                    正在加载
+                    正在加载...
                 </div>
-
             </mt-loadmore>
-            
         </div>
     </div>
 </template>
@@ -40,14 +38,14 @@ import { Divider,LoadMore,Spinner } from 'vux'
 export default {
     data(){
         return{
-            flowData:[], // 页面数据
-            type:1, // 数据类型
-            loading:false,
-            firstLoad:true, // 判断当前页是否为初次加载
-            allLoaded:false, // 判断数据是否全部加载完成
-            currentPage:0, // 数据页码
-            pageSize:10, // 每页数据量
-            loadmore:false, //判断页面底部是否正在加载更多
+            flowData: [], // 页面数据
+            type: 1, // 数据类型
+            loading: false,
+            firstLoad: true, // 判断当前页是否为初次加载
+            allLoaded: false, // 判断数据是否全部加载完成
+            currentPage: 0, // 数据页码
+            pageSize: 10, // 每页数据量
+            loadmore: false, //判断页面底部是否正在加载更多
         }
     },
     methods:{
@@ -62,24 +60,24 @@ export default {
                 });
             }
             this.currentPage += 1;
-            axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl
-            + '?type='+this.type+'&userId=' + globalData.user.guid
-            + '&current=' + this.currentPage
-            + '&pageSize=' + this.pageSize)
-                .then(res=>{
+            if(globalData.beforeLoadCheckUser()) {
+                axios.get(apiConfig.companyServer + apiConfig.flowData.pageUrl
+                    + '?type=' + this.type + '&userId=' + globalData.user.guid
+                    + '&current=' + this.currentPage
+                    + '&pageSize=' + this.pageSize)
+                .then(res => {
                     if(res.data.length == 0){
                         this.allLoaded = true;
-                    }
-                    else{
-                        if(refresh){
+                    } else {
+                        if (refresh) {
                             this.flowData = res.data;
                             this.allLoaded = false;
-                        } else{
+                        } else {
                             this.flowData = this.flowData.concat(res.data);
                             this.firstLoad = false;
                         }
 
-                        this.$nextTick(()=>{
+                        this.$nextTick(() => {
                             if(this.$refs.loadmore){
                                 this.$refs.loadmore.onTopLoaded();
                             }
@@ -88,23 +86,26 @@ export default {
                     this.loadmore = false;
                     this.loading = false;
                     this.$vux.loading.hide();
-                }).catch(err=>{
+                }).catch(err => {
                     console.log(err)
                     this.loadmore = false;
                     this.loading = false;
                     this.$vux.loading.hide();
                     this.$refs.loadmore.onTopLoaded();
-                })
+                });
+            }
         },
         goFlowContent(tableName,referFieldName,referFieldValue){
+            const queryData = {
+                tableName:tableName,
+                referFieldName:referFieldName,
+                referFieldValue:referFieldValue,
+                type:this.type
+            };
+            globalData.setStorage("curFlowInfo",queryData,true);
             this.$router.push({name:'FlowContent',
-                query:{
-                    tableName:tableName,
-                    referFieldName:referFieldName,
-                    referFieldValue:referFieldValue,
-                    type:this.type
-                }
-            })
+                query: queryData
+            });
         },
         loadTop(){
             this.currentPage = 0;
@@ -112,7 +113,7 @@ export default {
         },
         loadBottom(){
             this.getFlowData();
-        },
+        }
     },
     created(){
         this.getFlowData();
@@ -123,7 +124,7 @@ export default {
     components:{
         Divider,
         LoadMore,
-        Spinner,
+        Spinner
     }
 }
 </script>

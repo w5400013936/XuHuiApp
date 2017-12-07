@@ -4,10 +4,10 @@
         <BodyContent :showBottomPadding="true">
             <div slot="content" class="fullScreen">
                 <tab v-model="tabIndex">
-                    <tab-item selected>待审流程</tab-item>
-                    <tab-item>已审流程</tab-item>
-                    <tab-item>待发流程</tab-item>
-                    <tab-item>已发流程</tab-item>
+                    <tab-item @on-item-click="changeFlowItem">待审流程</tab-item>
+                    <tab-item @on-item-click="changeFlowItem">已审流程</tab-item>
+                    <tab-item @on-item-click="changeFlowItem">待发流程</tab-item>
+                    <tab-item @on-item-click="changeFlowItem">已发流程</tab-item>
                 </tab>
                 <keep-alive>
                     <UncheckedFlow v-if="tabIndex == 0"></UncheckedFlow>
@@ -39,13 +39,22 @@ import { Tab, TabItem, Swiper, SwiperItem } from 'vux'
 export default {
     data(){
         return {
-            tabIndex:0,
-            tabSelected:1
+            tabIndex: parseInt(globalData.getStorage('flowTabIndex').data)|| 0,
+            tabSelected: 1
+        }
+    },
+    methods:{
+      /**
+       * 记录当前选中的Tab
+       * @param index
+       */
+        changeFlowItem:function(index){
+            globalData.setStorage('flowTabIndex',index);
         }
     },
     beforeMount(){
         globalData.tabSelected = this.tabSelected;
-        if(this.$route.query.guid){
+        if(this.$route.query.guid){ // url传入用户信息
             let loginUser = globalData.user;
             loginUser.guid = this.$route.query.guid;
             loginUser.userId = this.$route.query.userId;
