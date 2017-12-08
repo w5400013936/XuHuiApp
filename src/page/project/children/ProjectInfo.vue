@@ -2,7 +2,7 @@
     <div class="fullScreen">
         <swiper loop auto :aspect-ratio="350/800">
             <swiper-item v-for="(item,index) in projBannerAry" :key="index" class="p-img-center">
-                <img :src="item.src" alt="#" width="100%">
+                <img :src="item.src" alt="#" width="100%" :onerror="defaultSwiper">
             </swiper-item>
         </swiper>
         <group>
@@ -40,6 +40,7 @@ export default {
     data(){
         return{
             defaultAvatar: 'this.src="' + require('../../../assets/images/projLogo/default.png') + '"',
+            defaultSwiper: 'this.src="' + require('../../../assets/images/projLogo/noPic.png') + '"',
             projBannerAry: [], // 项目详情页轮播图
             abstractAry: [], // 项目简介
         }
@@ -56,7 +57,7 @@ export default {
                 +"&userId=" + globalData.user.guid
             ).then(res => {
                 this.projBannerAry = res.data.imgList;
-              this.$vux.loading.hide();
+                this.$vux.loading.hide();
             }).catch(err=>{
                 console.log(err);
                 this.$vux.loading.hide();
@@ -66,6 +67,7 @@ export default {
                 +"?projId=" + projId
                 +"&userId=" + globalData.user.guid
             ).then(res => {
+              console.log(res)
                 this.abstractAry = res.data.data;
                 this.$vux.loading.hide();
             }).catch(err=>{
@@ -136,5 +138,6 @@ export default {
 .p-img-center{
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 </style>

@@ -8,10 +8,11 @@ import 'mint-ui/lib/style.css'
 import '../src/assets/css/base.css'
 import '../src/assets/css/common.css'
 import FastClick from 'fastclick';
-import { LoadingPlugin,ToastPlugin,ConfirmPlugin } from 'vux';
+import { LoadingPlugin,ToastPlugin,ConfirmPlugin,AlertPlugin  } from 'vux';
 Vue.use(LoadingPlugin);
 Vue.use(ToastPlugin);
 Vue.use(ConfirmPlugin);
+Vue.use(AlertPlugin);
 
 import utils from './server/globalData'
 Vue.prototype.$utils=utils;
