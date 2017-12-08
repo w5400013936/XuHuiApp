@@ -18,6 +18,8 @@ export default {
     newsDetailData: '/home/NewsDetailsJson', // 新闻详情
     brideList: '/home/EmpListJson', // 新人列表
     allNewsList: '/home/NewsListJson', // 完整新闻列表
+    SupplierList: '/Home/DesignSupplierJson', // 供应商列表 type current pageSize
+    SupplierDetail: '/Home/SupplierDetailsJson', // 供应商详情 supplierId
 
     // 项目列表数据
     projectData: {
@@ -61,5 +63,5 @@ export default {
     // remark: this.state.remark,
 
     // 设置
-    changeUserPwdData: '/home/ChangeAppUserPwd',
+    changeUserPwdData: '/home/ChangeAppUserPwd', // 修改密码
 }

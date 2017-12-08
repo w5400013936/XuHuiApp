@@ -1,43 +1,130 @@
 <template>
-    <div class="fullScreen">
-        <x-table class="bgf" :cell-bordered="false">
-            <thead>
-                <tr>
-                    <th>供方名称</th>
-                    <th>服务专业</th>
-                    <th>状态</th>
-                </tr>
-            </thead>
-            <tbody class="p-tbody">
-                <tr>
-                    <td class="p-supplierName">上海水石建筑规划设计有限公司</td>
-                    <td>建筑</td>
-                    <td>正式</td>
-                </tr>
-                <tr>
-                    <td class="p-supplierName">北京墨臣工程有限公司</td>
-                    <td>建筑</td>
-                    <td>正式</td>
-                </tr>
-                <tr>
-                    <td class="p-supplierName">上海天华建筑设计有限公司</td>
-                    <td>建筑</td>
-                    <td>正式</td>
-                </tr>
-            </tbody>
-        </x-table>
+    <div class="fullScreen" style="overflow:hidden;">
+        <Search v-model="searchKey"
+            placeholder="搜索供应商名称"
+            top="5.6rem"
+            :style="{position:'fixed',zIndex:'1'}"
+            @on-submit="searchSupplier">
+        </Search>
+        <div class="fixedThead">
+            <div class="t1">供方名称</div>
+            <div class="t2">服务专业</div>
+            <div class="t3">状态</div>
+        </div>
+        <div v-if="!loading" class="fullScreen" style="overflow:scroll;padding-bottom:8.5rem;">
+            <mt-loadmore class="fullScreen"
+                :top-method="loadTop"
+                :autoFill="false"
+                ref="loadmore">
+            <x-table class="bgf" :cell-bordered="false" v-if="supplierData.length > 0"
+            v-infinite-scroll="getSupplierData"
+            infinite-scroll-disabled="loadmore"
+            infinite-scroll-immediate-check="false">
+                <tbody class="p-tbody">
+                    <tr v-for="(item,index) in supplierData" :key="index" @click="goSupplierDetail(item.name,item.supplierId)">
+                        <td class="t1">{{item.name}}</td>
+                        <td class="t2">{{item.profs}}</td>
+                        <td class="t3">{{item.officialStatus}}</td>
+                    </tr>
+                </tbody>
+            </x-table>
+             <div v-else class="p-no-data-panel">
+                <divider v-if="firstLoad">暂无数据</divider>
+            </div>
+            <divider class="" v-if="allLoaded && !firstLoad">已经到底啦</divider>
+            <div class="spinner " v-show="loadmore&&!allLoaded">
+                <spinner size="1.5rem"></spinner>
+                正在加载
+            </div>
+            </mt-loadmore>
+        </div>
+        
     </div>
 </template>
 <script>
-import { XTable } from 'vux'
+import apiConfig from '../../../server/apiConfig';
+import axios from 'axios';
+import globalData from '../../../server/globalData';
+import { Search,XTable,Divider,LoadMore,Spinner } from 'vux'
 export default {
     data(){
         return{
-
+            searchKey:'',
+            supplierData: [], // 页面数据
+            type: 2, // 数据类型
+            loading: false,
+            firstLoad: true, // 判断当前页是否为初次加载
+            allLoaded: false, // 判断数据是否全部加载完成
+            currentPage: 0, // 数据页码
+            pageSize: 10, // 每页数据量
+            loadmore: false, //判断页面底部是否正在加载更多
         }
     },
+    methods:{
+        getSupplierData(refresh){
+            if(!refresh){
+                this.loadmore = true;
+            }
+            if(this.firstLoad){
+                this.loading = true;
+                this.$vux.loading.show({
+                    text: '加载中'
+                });
+            }
+            this.currentPage += 1;
+            axios.get(
+                apiConfig.companyServer + apiConfig.SupplierList 
+                + '?type=' + this.type
+                + '&current=' + this.currentPage
+                + '&pageSize=' + this.pageSize
+            ).then(res=>{
+                console.log(res.data)
+                if(res.data.appSupplierList.length == 0){
+                    this.allLoaded = true;
+                } else{
+                    if(refresh){
+                        this.supplierData = res.data.appSupplierList;
+                        this.allLoaded = false;
+                    } else{
+                        this.supplierData = this.supplierData.concat(res.data.appSupplierList);
+                        this.firstLoad = false;
+                    }
+                    this.$nextTick(()=>{
+                        if(this.$refs.loadmore){
+                            this.$refs.loadmore.onTopLoaded();
+                        }
+                    });
+                }
+                this.loadmore = false;
+                this.loading = false;
+                this.$vux.loading.hide();
+            }).catch(err=>{
+                this.loadmore = false;
+                this.loading = false;
+                this.$vux.loading.hide();
+                this.$refs.loadmore.onTopLoaded();
+            });
+        },
+        searchSupplier(){
+
+        },
+        loadTop(){
+            this.currentPage = 0;
+            this.getSupplierData(true);
+        },
+        goSupplierDetail(name,supplierId){ // 跳转供应商详情页
+            this.$router.push({name:'SupplierDetail',query:{name:name,supplierId:supplierId}});
+        }
+    },
+    created(){
+        this.getSupplierData();
+    },
     components:{
+        Search,
         XTable,
+        Divider,
+        LoadMore,
+        Spinner,
     }
 }
 </script>
@@ -57,7 +144,26 @@ export default {
 .p-tbody{
     font-size: 0.9rem;
 }
-.p-supplierName{
-    width: 11rem;
+.fixedThead{
+    width: 100%;
+    margin-top: 2.9rem;
+    background-color: #fff;
+    border-bottom: 1px solid #c1c1c1;
+    display: flex;
+    padding: 0.7rem 0;
+    color: #474747;
+    text-align: center;
+}
+.fixedThead div{
+    font-weight: bold !important;
+}
+.t1{
+    width: 46%;
+}
+.t2{
+    width: 27%;
+}
+.t3{
+    width: 27%;
 }
 </style>
