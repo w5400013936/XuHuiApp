@@ -6,7 +6,7 @@
             </swiper-item>
         </swiper>
         <group>
-            <cell value-align="left" v-for="(item,index) in abstractAry" key="index" class="p-proj-item">
+            <cell value-align="left" v-for="(item,index) in abstractAry" :key="index" class="p-proj-item">
                 <div slot="title" class="p-label">{{item.key}}</div>
                 <span class="p-value">{{item.value|| "暂无数据"}}</span>
             </cell>
