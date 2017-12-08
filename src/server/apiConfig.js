@@ -27,8 +27,8 @@ export default {
         pageUrl: useStaticData?serverDebug+'appData/indexData.json':'/home/CityEngList',
     },
     projectInfoPageUrl: '/home/EngineerInfo',
-    projectSummaryUrl: '/home/ProjectSummaryJson',
-    projectIntroduce: '/home/ProjectIndxSummaryJson',
+    projectSummaryUrl: '/home/ProjectSummaryJson', // 项目概要 参数（projId，userId）
+    projectIntroduce: '/home/ProjectIntroduceJson',  // 项目简介 参数（projId，userId）
     projectDesigner: '/home/ProjectDesignerJson',
 
     // 审批

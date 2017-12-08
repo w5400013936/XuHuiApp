@@ -24,6 +24,10 @@ export default {
         stepId:null,
         actId:null,
     },
+    fileType:{
+        img:['.png','.jpg','.gif','.bmp','.jpeg'],
+        other:['.pdf','.doc','.xls','.ppt','.docx','.xlsx','.pptx']
+    },
   /**
    * URL 编码
    * @param name

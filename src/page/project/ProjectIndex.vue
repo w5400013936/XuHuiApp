@@ -24,22 +24,28 @@
 
 <script>
 import globalData from '../../server/globalData';
+import apiConfig from '../../server/apiConfig';
 import HeaderBar from '@/components/header/Header';
 import BodyContent from "@/components/content/BodyContent";
 import ProjInfo from '@/page/project/children/ProjectInfo';
 import ProjManagement from '@/page/project/children/ProjectManagement';
 import ProjArea from '@/page/project/children/ProjectArea';
-import { Tab, TabItem, } from 'vux'
+import axios from 'axios';
+import { Tab, TabItem, } from 'vux';
 
 export default {
     data(){
         return {
+            initData: null,
             title:'',
             tabIndex:0,
         }
     },
     beforeMount(){
-        this.title = this.$route.params.title;
+        const initData = this.$route.query;
+        this.initData = initData;
+        this.title = initData.title;
+        globalData.setStorage('curProjBaseInfo',initData,true);
     },
     components:{
         HeaderBar,

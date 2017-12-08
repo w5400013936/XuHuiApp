@@ -4,7 +4,7 @@
 <template>
     <div class="fullScreen">
         <HeaderBar title="登录" :showBackBtn="false"></HeaderBar>
-        <BodyContent class="container" :showBottomPadding="false">
+        <BodyContent :showBottomPadding="false">
             <div slot='content'>
                 <!-- logo -->
                 <div class="logo">

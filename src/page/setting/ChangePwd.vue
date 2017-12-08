@@ -13,7 +13,7 @@
             </div>
         </BodyContent>
     </div>
-    
+
 </template>
 <script>
 import HeaderBar from '@/components/header/Header';
@@ -34,14 +34,25 @@ export default {
             let param = new URLSearchParams();
             param.append("oldPwd", this.oldPwd);
             param.append("newPwd", this.newPwd);
-            param.append("userId", globalData.userId);
+            param.append("userId", globalData.user.userId || JSON.parse(globalData.getStorage('userInfo').data).guid);
             axios.post(apiConfig.companyServer + apiConfig.changeUserPwdData,param)
                 .then(res => {
                     console.log(res);
-                    this.$vux.toast.show({
-                        text: "操作成功"
-                    });
-                    this.$router.push({ name: "Login" });
+                    if(res.data.Success){
+                        this.$vux.toast.show({
+                            text: "操作成功"
+                        });
+                        this.$router.push({ name: "Login" });
+                    }else{
+//                        this.$vux.toast.show({
+//                            type: 'warn',
+//                            text: res.data.Message || "操作失败！"
+//                        });
+                        this.$vux.alert.show({
+                            title: '操作失败',
+                            content: res.data.Message,
+                        });
+                    }
                 }).catch(err => {
                     console.log(err);
                 });

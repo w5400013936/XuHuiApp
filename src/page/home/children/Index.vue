@@ -4,8 +4,8 @@
             <div class="container" slot="content">
               <!-- 首页banner -->
                 <swiper loop auto :aspect-ratio="350/800">
-                    <swiper-item v-for="(item,index) in homeBannerAry" :key="index">
-                        <img :src="item.path" alt="#" width="100%">
+                    <swiper-item v-for="(item,index) in homeBannerAry" :key="index" class="p-img-center">
+                        <img :src="item.path" alt="#" width="100%" :onerror="defaultSwiper">
                     </swiper-item>
                 </swiper>
                 <Cell class="index-title" is-link title="新人风采" :link="{name:'Rookies',params:{name:'新人风采'}}"></Cell>
@@ -59,6 +59,7 @@
           appEmpList: [], // 首页新人展示
           loading: false, // 是否处于加载中
           defaultNewsImg: 'this.src="' + require('../../../assets/images/avatar/BatMan.png') + '"',
+          defaultSwiper: 'this.src="' + require('../../../assets/images/projLogo/noPic.png') + '"',
           type: '1',
           showNewsDetail: false,
           newsDetailHTML: '',
@@ -199,6 +200,10 @@
   }
   .container .weui-cell:before{
     border-top: none;
+  }
+  .p-img-center{
+    display: flex;
+    align-items: center;
   }
 </style>
 

@@ -33,7 +33,6 @@ Vue.use(Router);
       },
       {
           path:'/',     // 路由默认页
-          name:'Login',
           component:Login,
           redirect:'/Login'
       },
@@ -69,7 +68,7 @@ Vue.use(Router);
           component: ProjectList
       },
       {
-          path: '/Project/:title',
+          path: '/Project',
           name: 'ProjectIndex',
           component: ProjectIndex
       },
@@ -108,7 +107,7 @@ Vue.use(Router);
         name: 'FlowAttachment',
         component: FlowAttachment
       },
-      { 
+      {
         path: '/SelectUser',
         name: 'SelectUser',
         component: SelectUser,
@@ -140,5 +139,4 @@ Vue.use(Router);
       }
   ]
 });
-// router.push('Index/Flow');
 export default router
