@@ -8,7 +8,7 @@
                     <div class="setting-system-name">旭辉设计系统</div>
                 </div>
                 <div class="setting-operation">
-                    <x-button class="setting-button" type="warn">清除缓存</x-button>
+                    <!--<x-button class="setting-button" type="warn">清除缓存</x-button>-->
                     <x-button class="setting-button" type="warn" @click.native="goChangePwd">修改密码</x-button>
                     <x-button class="setting-button" type="warn" @click.native="goLogin">退出当前账号</x-button>
                 </div>

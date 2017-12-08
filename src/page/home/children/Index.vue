@@ -4,7 +4,7 @@
             <div class="container" slot="content">
               <!-- 首页banner -->
                 <swiper loop auto :aspect-ratio="350/800">
-                    <swiper-item v-for="(item,index) in homeBannerAry" :key="index">
+                    <swiper-item v-for="(item,index) in homeBannerAry" :key="index" class="p-img-center">
                         <img :src="item.path" alt="#" width="100%">
                     </swiper-item>
                 </swiper>
@@ -197,6 +197,10 @@
   }
   .container .weui-cell:before{
     border-top: none;
+  }
+  .p-img-center{
+    display: flex;
+    align-items: center;
   }
 </style>
 
