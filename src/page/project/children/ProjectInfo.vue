@@ -16,7 +16,7 @@
                     <div class="w100p">
                         <grid :cols="3" >
                             <grid-item class="p-attachItem" v-for="(img,i) in  item.appFileList" :key="i">
-                                <img @click="show(i)" class="p-previewer-img" :src="img.onlineFilePath.replace('.jpg','_m.jpg')"
+                                <img @click="show(i)" class="p-previewer-img" :src="img.thumbPicPath"
                                      alt="#" :onerror="defaultAvatar" width="100" style="height:100%;width: 100%;">
                             </grid-item>
                         </grid>
@@ -64,7 +64,7 @@ export default {
     },
     methods:{
         getPreview:function(list){
-            const previewList = JSON.parse(JSON.stringify(list).replace(/onlineFilePath/g,'src').replace(/.jpg/g,'_hmsl.jpg'));
+            const previewList = JSON.parse(JSON.stringify(list).replace(/thumbPicPath/g,'src').replace(/_m./g,'_hmsl.'));
             return previewList;
         },
         show:function(index) {
@@ -80,8 +80,6 @@ export default {
                 +"?projId=" + projId
                 +"&userId=" + globalData.user.guid
             ).then(res => {
-                console.log('=============')
-                console.log(res.data)
                 this.projBannerAry = res.data.imgList;
                 this.$vux.loading.hide();
             }).catch(err=>{
