@@ -1,61 +1,89 @@
 <template>
     <div class="fullScreen">
-        <x-table class="p-table">
-            <thead>
-                <tr>
-                    <th class="level1">规划指标</th>
-                    <th>单位</th>
-                    <th>投资拿地版</th>
-                    <th>投资拿地版</th>
-                    <th>投资拿地版</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="level2">总建筑面积</td>
-                    <td>m²</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                </tr>
-                <tr>
-                    <td class="level3">地上建筑面积</td>
-                    <td>m²</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="level3">地上建筑面积</td>
-                    <td>m²</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="level3">地上建筑面积</td>
-                    <td>m²</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </x-table>
+        <div>
+            <SuperTable v-if="headData" :headList="headData" :bodyList="bodyData"></SuperTable>
+        </div>
     </div>
 </template>
 <script>
 import apiConfig from "../../../server/apiConfig";
 import globalData from '../../../server/globalData';
 import axios from "axios";
-import { XTable } from 'vux'
+import { XTable } from 'vux';
+import SuperTable from '../../../components/common/SuperTable.vue';
 export default {
     data(){
         return{
-            
+            headData: null,
+            bodyData: null,
+            tableData:{
+                thead:[
+                    '指标','单位','投资拿地版','定位考核版','方案版','规划预测版','房产预测版','房产实测版'
+                ],
+                headerOrderList: [],
+                tbody:[
+                    {
+                        lev:1,
+                        ths:['总用地面积','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    },
+                    {
+                        lev:2,
+                        ths:['建设用地','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    },
+                    {
+                        lev:2,
+                        ths:['道路代征用地','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    },
+                    {
+                        lev:2,
+                        ths:['绿化代征用地','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    },
+                    {
+                        lev:1,
+                        ths:['建筑限高','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    },
+                    {
+                        lev:1,
+                        ths:['计容建筑面积','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    },
+                    {
+                        lev:1,
+                        ths:['容积率','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    },
+                    {
+                        lev:1,
+                        ths:['绿化率','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    },
+                    {
+                        lev:1,
+                        ths:['建筑密度','m²','103,885.60','0.00','0.00','0.00','0.00','0.00']
+                    }
+                ],
+                colsInfo:[
+                    20,
+                ]
+            }
         }
     },
+    methods:{
+        fetchData(){
+            const projId = JSON.parse(globalData.getStorage('curProjBaseInfo').data).projId;
+            axios.get(apiConfig.companyServer + apiConfig.projectAreaManage
+                + "?projId=" + projId
+            ).then(res => {
+                console.log(res);
+                this.headData = res.data.headList;
+                this.bodyData = res.data.indexList;
+            }).catch(err=>{
+                console.log(err);
+            });
+        }
+    },
+    beforeMount(){
+        this.fetchData();
+    },
     components:{
-        XTable,
+        XTable,SuperTable
     }
 }
 </script>

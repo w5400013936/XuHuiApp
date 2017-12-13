@@ -4,9 +4,9 @@
         <BodyContent :showBottomPadding="true">
             <div slot="content" class="fullScreen">
                 <tab v-model="tabIndex">
-                    <tab-item selected>基本信息</tab-item>
-                    <tab-item>计划管理</tab-item>
-                    <tab-item>面积管理</tab-item>
+                    <tab-item @on-item-click="changeProjectItem">基本信息</tab-item>
+                    <tab-item @on-item-click="changeProjectItem">计划管理</tab-item>
+                    <tab-item @on-item-click="changeProjectItem">面积管理</tab-item>
                 </tab>
                 <keep-alive>
                     <ProjInfo v-if="tabIndex == 0"></ProjInfo>
@@ -38,23 +38,24 @@ export default {
         return {
             initData: null,
             title:'',
-            tabIndex:0,
+            tabIndex: parseInt(globalData.getStorage('projTabIndex').data)|| 0,
+        }
+    },
+    methods:{
+        changeProjectItem:function(index){
+            globalData.setStorage('projTabIndex',index);
         }
     },
     beforeMount(){
         const initData = this.$route.query;
         this.initData = initData;
-        this.title = initData.title;
+        this.title = initData.name;
         globalData.setStorage('curProjBaseInfo',initData,true);
     },
     components:{
-        HeaderBar,
-        BodyContent,
-        ProjInfo,
-        ProjManagement,
-        ProjArea,
-        Tab,
-        TabItem,
+        HeaderBar, BodyContent, ProjInfo,
+        ProjManagement, ProjArea,
+        Tab, TabItem,
     }
 }
 </script>

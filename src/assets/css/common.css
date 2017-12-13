@@ -86,3 +86,34 @@
 .weui-media-box_appmsg .weui-media-box__hd{
   display: flex;
 }
+.p-label{
+    color: #999999 !important;
+    width: 6rem;
+    font-size: 1rem;
+}
+.p-value{
+    padding-left: 1rem;
+    color:#000;
+    font-size: 1rem;
+}
+
+/*--状态颜色--*/
+.p-state-cqwc{
+  color:#FE5D31;
+}
+.p-state-wks{
+  color:#B4B4B4;
+}
+.p-state-jxz{
+  color:#F7C124;
+}
+.p-state-ywc{
+  color:#6ABBE4;
+}
+.p-state-yyc{
+  color:#FE5D31;
+}
+.p-tips>span{
+  margin-right: 2px;
+  font-size: 0.7rem;
+}

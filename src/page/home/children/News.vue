@@ -16,7 +16,7 @@
                 {{curNewsTitle}}
                 <a slot="right" href="javascript:;" @click="closeNewsDetail"><i class="fa fa-close"></i></a>
             </x-header>
-            <BodyContent :showBottomPadding="false" style="padding:0 10px;">
+            <BodyContent :showBottomPadding="false" style="padding:0 10px;background-color: #fff;">
                 <div slot="content" v-html="newsDetailHTML">
                 </div>
             </BodyContent>

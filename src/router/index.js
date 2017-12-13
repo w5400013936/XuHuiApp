@@ -21,6 +21,7 @@ import FlowSign from '@/page/flow/flowContent/FlowSign';
 import FlowComment from '@/page/flow/flowContent/FlowComment';
 import ChangePwd from '@/page/setting/ChangePwd';
 import Suppliers from '@/page/home/suppliers/SuppliersIndex';
+import SupplierDetail from '@/page/home/suppliers/SupplierDetail';
 Vue.use(Router);
 
  const router = new Router({
@@ -126,10 +127,15 @@ Vue.use(Router);
         name: 'ChangePwd',
         component: ChangePwd,
       },
-      {
+      { // 供应商列表
         path: '/Suppliers',
         name: 'Suppliers',
         component: Suppliers,
+      },
+      { // 供应商详情
+        path:'/SupplierDetail',
+        name:'SupplierDetail',
+        component:SupplierDetail,
       }
   ]
 });

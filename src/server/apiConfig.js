@@ -7,7 +7,7 @@ const serverDebug = 'http://192.168.1.19:8000/';
 const serverRelease = 'http://192.168.1.178:9012/';
 // const companyServer = 'https://bird.ioliu.cn/v1/?url=http://des.cifi.com.cn:8033/';
 const companyServer = '/api';
-const webViewServer = 'http://192.168.1.159:9029/';
+const webViewServer = 'http://des.cifi.com.cn:8033/'; // 表格地址前缀
 export default {
     companyServer,
     webViewServer,
@@ -28,7 +28,8 @@ export default {
     projectSummaryUrl: '/home/ProjectSummaryJson', // 项目概要 参数（projId，userId）
     projectIntroduce: '/home/ProjectIntroduceJson',  // 项目简介 参数（projId，userId）
     projectDesigner: '/home/ProjectDesignerJson',
-
+    projectPlanList: '/Home/ProjTaskListJson', // 计划任务 ?projId=
+    projectAreaManage: '/Home/IndexIndictorJson',  // 面积管理 ?projId=
     // 审批
     flowData:{
         historyFlowKey: 'historyFlowKey',

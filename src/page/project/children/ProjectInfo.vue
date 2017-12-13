@@ -6,25 +6,23 @@
             </swiper-item>
         </swiper>
         <group>
-            <cell value-align="left" v-for="(item,index) in abstractAry" key="index" class="p-proj-item">
+            <cell value-align="left" v-for="(item,index) in abstractAry" :key="index" class="p-proj-item">
                 <div slot="title" class="p-label">{{item.key}}</div>
                 <span class="p-value">{{item.value|| "暂无数据"}}</span>
             </cell>
-            <cell-box>
+            <cell-box class="p-attachList" v-for="(item,index) in attachList" :key="index" v-if="item.appFileList.length>0">
                 <div class="w100p">
-                    <div class="p-cellTitle">效果图</div>
+                    <div class="p-title">{{item.name}}</div>
                     <div class="w100p">
-                        <ul class="flexbox p-buildingShowList">
-                            <li>
-                                <img src="" alt="#" :onerror="defaultAvatar" width="100" style="height:100px;width: 100px;">
-                            </li>
-                            <li>
-                                <img src="" alt="#" :onerror="defaultAvatar" width="100" style="height:100px;width: 100px;">
-                            </li>
-                            <li>
-                                <img src="" alt="#" :onerror="defaultAvatar" width="100" style="height:100px;width: 100px;">
-                            </li>
-                        </ul>
+                        <grid :cols="3" >
+                            <grid-item class="p-attachItem" v-for="(img,i) in  item.appFileList" :key="i">
+                                <img @click="show(i)" class="p-previewer-img" :src="img.onlineFilePath.replace('.jpg','_m.jpg')"
+                                     alt="#" :onerror="defaultAvatar" width="100" style="height:100%;width: 100%;">
+                            </grid-item>
+                        </grid>
+                        <div v-transfer-dom>
+                            <previewer :list="getPreview(item.appFileList)" ref="previewer" :options="options"></previewer>
+                        </div>
                     </div>
                 </div>
             </cell-box>
@@ -35,17 +33,43 @@
 import apiConfig from "../../../server/apiConfig";
 import globalData from '../../../server/globalData';
 import axios from "axios";
-import { Group,Cell,CellBox,Swiper,SwiperItem } from 'vux'
+import { Group,Cell,CellBox,Swiper,SwiperItem, Grid, GridItem, Previewer, TransferDom } from 'vux'
 export default {
+    directives: {
+        TransferDom
+    },
     data(){
         return{
             defaultAvatar: 'this.src="' + require('../../../assets/images/projLogo/default.png') + '"',
             defaultSwiper: 'this.src="' + require('../../../assets/images/projLogo/noPic.png') + '"',
             projBannerAry: [], // 项目详情页轮播图
             abstractAry: [], // 项目简介
+            attachList: [], // 实景图等
+            options: {
+                getThumbBoundsFn (index) {
+                    // find thumbnail element
+                    let thumbnail = document.querySelectorAll('.p-previewer-img')[index]
+                    // get window scroll Y
+                    let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+                    // optionally get horizontal scroll
+                    // get position of element relative to viewport
+                    let rect = thumbnail.getBoundingClientRect()
+                    // w = width
+                    return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+                    // Good guide on how to get element coordinates:
+                    // http://javascript.info/tutorial/coordinates
+                }
+            }
         }
     },
     methods:{
+        getPreview:function(list){
+            const previewList = JSON.parse(JSON.stringify(list).replace(/onlineFilePath/g,'src').replace(/.jpg/g,'_hmsl.jpg'));
+            return previewList;
+        },
+        show:function(index) {
+            this.$refs.previewer[0].show(index)
+        },
         fetchData(){
             this.$vux.loading.show({
                 text: '加载中'
@@ -56,6 +80,8 @@ export default {
                 +"?projId=" + projId
                 +"&userId=" + globalData.user.guid
             ).then(res => {
+                console.log('=============')
+                console.log(res.data)
                 this.projBannerAry = res.data.imgList;
                 this.$vux.loading.hide();
             }).catch(err=>{
@@ -67,8 +93,9 @@ export default {
                 +"?projId=" + projId
                 +"&userId=" + globalData.user.guid
             ).then(res => {
-              console.log(res)
+                console.log(res)
                 this.abstractAry = res.data.data;
+                this.attachList = res.data.appFileList;
                 this.$vux.loading.hide();
             }).catch(err=>{
                 console.log(err);
@@ -77,8 +104,8 @@ export default {
         }
     },
     components:{
-        Group,  Cell, CellBox,
-        Swiper, SwiperItem,
+        Group,  Cell, CellBox, Previewer,
+        Swiper, SwiperItem, Grid, GridItem,
     },
     beforeMount(){
         if(globalData.beforeLoadCheckUser()) {
@@ -104,6 +131,21 @@ export default {
 .weui-cell__ft{
     margin-left: 1rem !important;
     color: #000 !important;
+}
+.p-attachList{
+  padding: 15px 5px !important;
+}
+.p-attachItem{
+  padding: 5px 5px;
+  overflow: hidden;
+  height: 8rem;
+  border: none;
+}
+.p-attachItem.weui-grid:before,.p-attachItem.weui-grid:after{
+  border: none;
+}
+.p-attachList:before,.p-attachList:after{
+  border: none;
 }
 .w100p{
     width: 100%;

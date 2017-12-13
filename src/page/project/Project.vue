@@ -11,13 +11,13 @@
                     </Search>
                     <div v-if="projList.length > 0">
                         <div :style="{'padding-top':'2.78rem'}">
-                          <div class="proj-box" v-for="(item,index) in projList" :key="index">
-                              <div class="box-title">{{item.name}}</div>
-                              <mt-cell v-for="(proj,i) in item.engList" :key="i"
-                                  :title="proj.name" is-link
-                                  :to="{ name: 'ProjectList', params: { name:proj.name,engId: proj.engId }}">
-                              </mt-cell>
-                          </div>
+                            <div class="proj-box" v-for="(item,index) in projList" :key="index">
+                                <div class="box-title">{{item.name}}</div>
+                                <mt-cell v-for="(proj,i) in item.engList" :key="i"
+                                    :title="proj.name" is-link
+                                    :to="{ name: 'ProjectList', params: { name:proj.name,engId: proj.engId }}">
+                                </mt-cell>
+                            </div>
                         </div>
                     </div>
                     <div v-else class="p-no-data-panel">
