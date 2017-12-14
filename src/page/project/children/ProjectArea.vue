@@ -66,16 +66,21 @@ export default {
         }
     },
     methods:{
-        fetchData(){
+        fetchData:function(){
+            this.$vux.loading.show({
+                text: '加载中'
+            });
             const projId = JSON.parse(globalData.getStorage('curProjBaseInfo').data).projId;
             axios.get(apiConfig.companyServer + apiConfig.projectAreaManage
                 + "?projId=" + projId
             ).then(res => {
-                console.log(res);
+                //console.log(res);
                 this.headData = res.data.headList;
                 this.bodyData = res.data.indexList;
-            }).catch(err=>{
+                this.$vux.loading.hide();
+            }).catch(err => {
                 console.log(err);
+                this.$vux.loading.hide();
             });
         }
     },

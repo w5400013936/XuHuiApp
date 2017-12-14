@@ -97,7 +97,7 @@
     font-size: 1rem;
 }
 
-/*--状态颜色--*/
+/*--计划表状态颜色--*/
 .p-state-cqwc{
   color:#FE5D31;
 }
@@ -116,4 +116,8 @@
 .p-tips>span{
   margin-right: 2px;
   font-size: 0.7rem;
+}
+/*--计划表状态颜色--*/
+.vux-header .vux-header-left .vux-header-back{
+  color:#fff;
 }

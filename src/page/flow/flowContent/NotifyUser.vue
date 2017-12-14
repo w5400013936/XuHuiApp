@@ -18,7 +18,7 @@
                         <li class="fl" v-for="(item,index) in users" :key="index">{{item.userName}}</li>
                     </ul>
                 </div>
-                
+
                 <div class="mt2">
                     <x-button @click.native="showSearchBar" style="border-radius:99px;">
                         <i class="fa fa-plus"></i>
@@ -28,7 +28,7 @@
                 <div class="fixedBottom">
                     <flexbox>
                         <flexbox-item>
-                            <x-button type="warn" 
+                            <x-button type="warn"
                              @click.native="submitNotify"
                              :disabled="users.length > 0?false:true">
                                 确认知会
@@ -95,9 +95,8 @@ export default {
             var IdsArr = [];
             this.users.forEach((i)=>{
                 IdsArr.push(i.userId);
-            })
+            });
             this.givenUserIds = IdsArr.join(',');
-            console.log(this.givenUserIds);
             let param = new URLSearchParams();
             param.append("flowId", this.FlowId);
             param.append("givenUserIds", this.givenUserIds);
@@ -108,11 +107,11 @@ export default {
                     console.log(res);
                     this.$vux.toast.show({
                         text: '操作成功'
-                    })
+                    });
                     this.$router.push({name:'Flow'});
                 }).catch(err=>{
                     console.log(err)
-                })
+                });
         },
         goBack(){
             this.$router.push({name:'Flow'});
@@ -136,7 +135,7 @@ export default {
 }
 </script>
 <style scoped>
-    
+
     .mt1{
         margin-top: 1rem;
         padding: 0 1rem;
