@@ -4,9 +4,9 @@
         <BodyContent :showBottomPadding="false">
             <div slot="content" class="fullScreen" style="overflow:hidden;">
                 <tab v-model="tabIndex">
-                    <tab-item selected>集团设计供方</tab-item>
-                    <tab-item>地区设计供方</tab-item>
-                    <tab-item>非正式供应商</tab-item>
+                    <tab-item @on-item-click="changeSupplierItem">集团设计供方</tab-item>
+                    <tab-item @on-item-click="changeSupplierItem">地区设计供方</tab-item>
+                    <tab-item @on-item-click="changeSupplierItem">非正式供应商</tab-item>
                 </tab>
                 <keep-alive>
                     <GroupSupplier v-if="tabIndex == 0"></GroupSupplier>
@@ -33,11 +33,20 @@ import { Tab, TabItem, } from 'vux'
 export default {
     data(){
         return {
-            tabIndex:0,
+            tabIndex: parseInt(globalData.getStorage('suppTabIndex').data)|| 0,
+        }
+    },
+    methods:{
+        /**
+         * 记录当前选中的Tab
+         * @param index
+         */
+        changeSupplierItem:function(index){
+            globalData.setStorage('suppTabIndex',index);
         }
     },
     beforeMount(){
-        
+
     },
     components:{
         HeaderBar,
