@@ -29,10 +29,10 @@ Vue.config.productionTip = false;
 //router.push('home');
 /* eslint-disable no-new */
 window.addEventListener('offline', function(e) {
-  alert('offline');
+  cosnole.log('offline');
 });
 window.addEventListener('online', function(e) {
-  alert('online``');
+  console.log('online``');
 });
 new Vue({
   el: '#app',

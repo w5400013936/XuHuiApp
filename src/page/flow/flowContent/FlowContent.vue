@@ -109,17 +109,17 @@ export default {
             });
             this.loading = true;
             axios.get(apiConfig.companyServer + apiConfig.flowContent.pageUrl
-                        + '?tableName='+this.tableName
-                        +'&referFieldName=' + this.referFieldName
-                        +'&referFieldValue='+this.referFieldValue
-                        +'&userId=' + globalData.user.guid)
-                .then(res=>{
-                    console.log(res);
-                    this.flowContent = res.data;
-                    this.actList = res.data.actList;
-                    this.flowId = res.data.flowId;
-                    this.flowInstanceId = res.data.flowInstanceId;
-                    this.stepId = res.data.stepId;
+                + '?tableName='+this.tableName
+                +'&referFieldName=' + this.referFieldName
+                +'&referFieldValue='+this.referFieldValue
+                +'&userId=' + globalData.user.guid
+            ).then(res=>{
+                console.log(res);
+                this.flowContent = res.data;
+                this.actList = res.data.actList;
+                this.flowId = res.data.flowId;
+                this.flowInstanceId = res.data.flowInstanceId;
+                this.stepId = res.data.stepId;
 
                 this.loading = false;
                 this.$vux.loading.hide();

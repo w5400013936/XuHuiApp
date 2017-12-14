@@ -77,91 +77,86 @@ export default {
     }
   },
   methods: {
-    toggleDialog() {
-      // 显示当前组件是否可见
-      this.commentVisible = !this.commentVisible;
-      this.$emit("listenToToggleComment", this.commentVisible);
-    },
-    submitTurn() {
-      if (this.actType == 5) {
-        let param = new URLSearchParams();
-        param.append("flowId", this.flowId);
-        param.append("givenUserId", this.givenUser.userId);
-        param.append("grantUserId", this.grantUserId);
-        param.append("remark", this.comment);
-        axios.post(apiConfig.companyServer + apiConfig.TurnOnToUser + this.flowInstanceId,param)
-            .then(res => {
-                console.log(res);
-                this.$vux.toast.show({
-                    text: "操作成功"
-                });
-                this.$router.push({ name: "Flow" });
-            }).catch(err => {
-                console.log(err);
-            });
-      }else if(this.actType == 11){
-          let param = new URLSearchParams();
-            param.append("flowId", this.flowId);
-            param.append("flowInstanceId", this.flowInstanceId);
-            param.append("curStepId", this.stepId);
-            param.append("flowPosUserStr", this.flowPosUserStr);
-            axios.post(apiConfig.companyServer + apiConfig.AddAuditStep,param)
-                .then(res => {
-                    console.log(res);
-                    this.$vux.toast.show({
-                        text: "操作成功"
-                    });
-                    this.$router.push({ name: "Flow" });
-                }).catch(err => {
-                    console.log(err);
-                });
-      }else if(this.actType == 10){
-          let param = new URLSearchParams();
-            param.append("flowId", this.flowId);
-            param.append("flowInstanceId", this.flowInstanceId);
-            param.append("curStepId", this.stepId);
-            param.append("flowPosUserStr", this.flowPosUserStr);
-            axios.post(apiConfig.companyServer + apiConfig.AddCounterSignStep,param)
-                .then(res => {
-                    console.log(res);
-                    this.$vux.toast.show({
-                        text: "操作成功"
-                    });
-                    this.$router.push({ name: "Flow" });
-                }).catch(err => {
-                    console.log(err);
-                });
+      toggleDialog() {
+          // 显示当前组件是否可见
+          this.commentVisible = !this.commentVisible;
+          this.$emit("listenToToggleComment", this.commentVisible);
+      },
+      submitTurn() {
+          if (this.actType == 5) {
+              let param = new URLSearchParams();
+              param.append("flowId", this.flowId);
+              param.append("givenUserId", this.givenUser.userId);
+              param.append("grantUserId", this.grantUserId);
+              param.append("remark", this.comment);
+              axios.post(apiConfig.companyServer + apiConfig.TurnOnToUser + this.flowInstanceId,param)
+                  .then(res => {
+                      console.log(res);
+                      this.$vux.toast.show({
+                          text: "操作成功"
+                      });
+                      this.$router.push({ name: "Flow" });
+                  }).catch(err => {
+                      console.log(err);
+                  });
+          }else if(this.actType == 11){
+              let param = new URLSearchParams();
+              param.append("flowId", this.flowId);
+              param.append("flowInstanceId", this.flowInstanceId);
+              param.append("curStepId", this.stepId);
+              param.append("flowPosUserStr", this.flowPosUserStr);
+              axios.post(apiConfig.companyServer + apiConfig.AddAuditStep,param)
+                  .then(res => {
+                      console.log(res);
+                      this.$vux.toast.show({
+                          text: "操作成功"
+                      });
+                      this.$router.push({ name: "Flow" });
+                  }).catch(err => {
+                      console.log(err);
+                  });
+          }else if(this.actType == 10){
+              let param = new URLSearchParams();
+              param.append("flowId", this.flowId);
+              param.append("flowInstanceId", this.flowInstanceId);
+              param.append("curStepId", this.stepId);
+              param.append("flowPosUserStr", this.flowPosUserStr);
+              axios.post(apiConfig.companyServer + apiConfig.AddCounterSignStep,param)
+                  .then(res => {
+                      console.log(res);
+                      this.$vux.toast.show({
+                          text: "操作成功"
+                      });
+                      this.$router.push({ name: "Flow" });
+                  }).catch(err => {
+                      console.log(err);
+                  });
+          }
       }
-    }
   },
   beforeMount() {
-    this.flowId = globalData.flow.flowId;
-    this.flowInstanceId = globalData.flow.flowInstanceId;
-    this.stepId = globalData.flow.stepId;
-    if (this.actType == 5) {
-      this.title = "填写转办意见";
-      this.subTitle = "转办给" + this.givenUser.userName + "：";
-      this.userName = this.$route.query.userName;
-      this.grantUserId = globalData.user.userId;
-    } else if (this.actType == 11 || this.actType == 10) {
-      this.title = "填写会签意见";
-      this.selectedList.forEach((item)=>{
-          for(var key in item.userList){
-              this.flowPosUserStr += item.flowPosId + '|Y|' + item.userList[key].userId + '|H|';
-          }
-      })
-    }
+      this.flowId = globalData.flow.flowId;
+      this.flowInstanceId = globalData.flow.flowInstanceId;
+      this.stepId = globalData.flow.stepId;
+      if (this.actType == 5) {
+          this.title = "填写转办意见";
+          this.subTitle = "转办给" + this.givenUser.userName + "：";
+          this.userName = this.$route.query.userName;
+          this.grantUserId = globalData.user.userId;
+      } else if (this.actType == 11 || this.actType == 10) {
+          this.title = "填写会签意见";
+          this.selectedList.forEach((item)=>{
+              for(var key in item.userList){
+                  this.flowPosUserStr += item.flowPosId + '|Y|' + item.userList[key].userId + '|H|';
+              }
+          })
+      }
   },
   components: {
-    HeaderBar,
-    Popup,
-    XHeader,
-    BodyContent,
-    Group,
-    XTextarea,
-    XButton,
-    Flexbox,
-    FlexboxItem
+    HeaderBar, Popup,
+    XHeader, BodyContent,
+    Group, XTextarea,
+    XButton, Flexbox, FlexboxItem
   }
 };
 </script>
