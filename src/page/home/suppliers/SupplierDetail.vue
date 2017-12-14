@@ -40,11 +40,12 @@
                     <div class="p-title">{{appFile.name}}</div>
                     <cell-box>
                         <div class="w100p">
-                            <ul class="flexbox p-imgList">
-                                <li v-for="(item,index) in appFile.appFileList" :key="index">
-                                    <img @click="show(index)" class="p-previewer-img" :src="item.thumbPicPath" :alt="item.name" :onerror="defaultAvatar" width="100" style="height:100px;width: 100px;">
-                                </li>
-                            </ul>
+                            <grid :cols="3" >
+                                <grid-item class="p-attachItem" v-for="(item,index) in appFile.appFileList" :key="index">
+                                    <img @click="show(index)" class="p-previewer-img" :src="item.thumbPicPath"
+                                        :alt="item.name" :onerror="defaultAvatar" width="100" height="100" style="height:100%;width: 100%;">
+                                </grid-item>
+                            </grid>
                             <div v-transfer-dom>
                                 <previewer :list="getPreview(appFile.appFileList)" ref="previewer" :options="options"></previewer>
                             </div>
@@ -62,7 +63,7 @@ import BodyContent from "@/components/content/BodyContent";
 import apiConfig from '../../../server/apiConfig';
 import axios from 'axios';
 import globalData from '../../../server/globalData';
-import { Group,Cell,CellBox,Previewer,TransferDom } from 'vux';
+import { Group,Cell,CellBox,Previewer,TransferDom,Grid, GridItem, } from 'vux';
 export default {
     directives: {
         TransferDom
@@ -137,6 +138,8 @@ export default {
         Cell,
         CellBox,
         Previewer,
+        Grid,
+        GridItem,
     }
 }
 </script>
@@ -178,5 +181,17 @@ export default {
     align-items: center;
     overflow: hidden;
     flex-direction: column;
+}
+.p-attachItem{
+  padding: 5px 5px;
+  overflow: hidden;
+  height: 8rem;
+  border: none;
+}
+.p-attachItem.weui-grid:before,.p-attachItem.weui-grid:after{
+  border: none;
+}
+.p-attachList:before,.p-attachList:after{
+  border: none;
 }
 </style>

@@ -4,7 +4,7 @@
             placeholder="搜索供应商名称"
             top="5.6rem"
             :style="{position:'fixed',zIndex:'1'}"
-            @on-submit="searchSupplier"
+            @on-submit="searchSupplier(true)"
             @on-cancel="resetList">
         </Search>
         <div class="fixedThead">
@@ -62,7 +62,7 @@ export default {
         }
     },
     methods:{
-        getSupplierData(refresh){   // 获取数据，参数：refresh为是否刷新页面数据
+        getSupplierData(refresh,inSearch){   // 获取数据，参数：refresh为是否刷新页面数据
             if(!refresh){
                 this.loadmore = true;
             }else{
@@ -84,7 +84,15 @@ export default {
             ).then(res=>{
                 // console.log(res.data)
                 if(res.data.appSupplierList.length == 0){
-                    this.allLoaded = true;
+                    if(inSearch){
+                        this.$vux.toast.show({
+                            text: '无相关供应商',
+                            type: 'cancel',
+                        });
+                    }
+                    else{
+                        this.allLoaded = true;
+                    }
                 } else{
                     if(refresh){
                         this.supplierData = res.data.appSupplierList;
@@ -109,8 +117,8 @@ export default {
                 this.$refs.loadmore.onTopLoaded();
             });
         },
-        searchSupplier(){ // 供应商搜索
-            this.getSupplierData(true);
+        searchSupplier(inSearch){ // 供应商搜索
+            this.getSupplierData(true,inSearch);
         },
         resetList(){    // 清空搜索，数据重置
             this.searchKey = '';
