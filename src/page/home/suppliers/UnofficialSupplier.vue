@@ -4,7 +4,8 @@
             placeholder="搜索供应商名称"
             top="5.6rem"
             :style="{position:'fixed',zIndex:'1'}"
-            @on-submit="searchSupplier">
+            @on-submit="searchSupplier"
+            @on-cancel="resetList">
         </Search>
         <div class="fixedThead">
             <div class="t1">供方名称</div>
@@ -61,9 +62,11 @@ export default {
         }
     },
     methods:{
-        getSupplierData(refresh){
+        getSupplierData(refresh){   // 获取数据，参数：refresh为是否刷新页面数据
             if(!refresh){
                 this.loadmore = true;
+            }else{
+                this.currentPage = 0;
             }
             if(this.firstLoad){
                 this.loading = true;
@@ -77,8 +80,9 @@ export default {
                 + '?type=' + this.type
                 + '&current=' + this.currentPage
                 + '&pageSize=' + this.pageSize
+                + '&keyWord=' + this.searchKey
             ).then(res=>{
-                console.log(res.data)
+                // console.log(res.data)
                 if(res.data.appSupplierList.length == 0){
                     this.allLoaded = true;
                 } else{
@@ -105,11 +109,14 @@ export default {
                 this.$refs.loadmore.onTopLoaded();
             });
         },
-        searchSupplier(){
-
+        searchSupplier(){ // 供应商搜索
+            this.getSupplierData(true);
         },
-        loadTop(){
-            this.currentPage = 0;
+        resetList(){    // 清空搜索，数据重置
+            this.searchKey = '';
+            this.getSupplierData(true);  
+        },
+        loadTop(){  // 下拉更新
             this.getSupplierData(true);
         },
         goSupplierDetail(name,supplierId){ // 跳转供应商详情页
