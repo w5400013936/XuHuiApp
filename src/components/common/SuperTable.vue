@@ -7,7 +7,7 @@
             <div class="p-table-left" :dataKey="thead[0].dataKey"><span>{{thead[0].name}}</span></div>
             <div class="p-table-main" :style="{width: (thead.length-1)*100+'px'}">
                 <div class="p-thead-slide">
-                    <div v-for="(item,index) in thead" v-if="index>0" class="p-table-column" >
+                    <div v-for="(item,index) in thead" :key="index" v-if="index>0" class="p-table-column" >
                         <span>{{item.name}}</span>
                     </div>
                 </div>

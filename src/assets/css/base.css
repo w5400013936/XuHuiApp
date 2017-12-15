@@ -52,6 +52,9 @@ body{
   min-width: 320px;
   margin: 0 auto;
 }
+#vux_view_box_body{
+  background-color: #DDDDDD;
+}
 
 .clear:after {
   content: '';

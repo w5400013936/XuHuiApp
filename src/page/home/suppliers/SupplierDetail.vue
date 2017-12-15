@@ -1,9 +1,9 @@
 <template>
     <div class="fullScreen">
-        <HeaderBar :title="supplierName" :showBackBtn="true"></HeaderBar>
+        <HeaderBar :title="supplierName || '供应商详情'" :showBackBtn="true"></HeaderBar>
         <BodyContent :showBottomPadding="false">
             <div slot="content" v-if="!loading" class="fullScreen" style="overflow:scroll;">
-                <group v-if="bases.baseList.length > 0">
+                <group v-if="bases.baseList && bases.baseList.length > 0">
                     <div class="p-title">{{bases.name}}</div>
                     <cell value-align="left"
                      v-for="(item,index) in bases.baseList" 
@@ -12,7 +12,7 @@
                         <span class="p-value dib">{{item.value}}</span>
                     </cell>
                 </group>
-                <group v-if="cooperation.cooperationList.length > 0">
+                <group v-if="cooperation.cooperationList && cooperation.cooperationList.length > 0">
                     <div class="p-title">{{cooperation.name}}</div>
                     <cell value-align="left"
                      v-for="(item,index) in cooperation.cooperationList" 
@@ -21,7 +21,7 @@
                         <span class="p-value dib">{{item.value}}</span>
                     </cell>
                 </group>
-                <group v-if="communication.communicationList.length > 0">
+                <group v-if="communication.communicationList && communication.communicationList.length > 0">
                     <div class="p-title">{{communication.name}}</div>
                     <cell value-align="left"
                      v-for="(item,index) in communication.communicationList" 
@@ -36,7 +36,7 @@
                         </span>
                     </cell>
                 </group>
-                <group v-if="appFile.appFileList.length > 0">
+                <group v-if="appFile.appFileList && appFile.appFileList.length > 0">
                     <div class="p-title">{{appFile.name}}</div>
                     <cell-box>
                         <div class="w100p">
