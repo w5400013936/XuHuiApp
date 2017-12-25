@@ -19,9 +19,9 @@ Vue.prototype.$utils=utils;
 
 //移除移动端点击延迟
 if ('addEventListener' in document) {
-  document.addEventListener('DOMContentLoaded', function() {
-    FastClick.attach(document.body);
-  }, false);
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
 }
 //Vue.prototype.axios = axios;
 Vue.use(Mint);
@@ -29,10 +29,12 @@ Vue.config.productionTip = false;
 //router.push('home');
 /* eslint-disable no-new */
 window.addEventListener('offline', function(e) {
-  cosnole.log('offline');
+    cosnole.log('offline');
+    alert(this.$route);
+    // 记录断网当时的路由
 });
 window.addEventListener('online', function(e) {
-  console.log('online``');
+    console.log('online``');
 });
 new Vue({
   el: '#app',

@@ -3,6 +3,7 @@
  */
 /****系统全局数据****/
 export default {
+    isWebView: false,  // 是否当着站点载入
     isLogin: false,
     user:{
         //houbo
