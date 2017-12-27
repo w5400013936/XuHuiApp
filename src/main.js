@@ -29,7 +29,7 @@ Vue.config.productionTip = false;
 //router.push('home');
 /* eslint-disable no-new */
 window.addEventListener('offline', function(e) {
-    cosnole.log('offline');
+    console.log('offline');
     alert(this.$route);
     // 记录断网当时的路由
 });

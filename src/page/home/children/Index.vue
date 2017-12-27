@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="fullScreen">
         <BodyContent :showBottomPadding="true">
             <div class="container" slot="content">
               <!-- 首页banner -->

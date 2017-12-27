@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="fullScreen">
         <HeaderBar title="首页"></HeaderBar>
         <Index></Index>
     </div>
