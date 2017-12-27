@@ -14,7 +14,7 @@
         </div>
         <div v-if="!loading" class="fullScreen" style="overflow:scroll;padding-bottom:8.5rem;">
             <mt-loadmore class="fullScreen"
-                :top-method="loadTop($event)"
+                :top-method="loadTop"
                 :autoFill="false"
                 ref="loadmore">
             <x-table class="bgf" :cell-bordered="false" v-if="supplierData.length > 0"
@@ -22,7 +22,7 @@
             infinite-scroll-disabled="loadmore"
             infinite-scroll-immediate-check="false">
                 <tbody class="p-tbody">
-                    <tr v-for="(item,index) in supplierData" :key="index" @click="goSupplierDetail(item.name,item.supplierId,$event)">
+                    <tr v-for="(item,index) in supplierData" :key="index" @click="goSupplierDetail(item.name,item.supplierId)">
                         <td class="t1">{{item.name}}</td>
                         <td class="t2">{{item.profs}}</td>
                         <td class="t3">{{item.officialStatus}}</td>
@@ -124,14 +124,10 @@ export default {
             this.searchKey = '';
             this.getSupplierData(true);  
         },
-        loadTop(event){  // 下拉更新
-            event.preventDefault();
-            event.stopPropagation();
+        loadTop(){  // 下拉更新
             this.getSupplierData(true);
         },
-        goSupplierDetail(name,supplierId,event){ // 跳转供应商详情页
-            event.preventDefault();
-            event.stopPropagation();
+        goSupplierDetail(name,supplierId){ // 跳转供应商详情页
             this.$router.push({name:'SupplierDetail',query:{name:name,supplierId:supplierId}});
         }
     },
