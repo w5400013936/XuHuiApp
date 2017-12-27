@@ -91,7 +91,6 @@ export default {
                 +"?projId=" + projId
                 +"&userId=" + globalData.user.guid
             ).then(res => {
-                console.log(res)
                 this.abstractAry = res.data.data;
                 this.attachList = res.data.appFileList;
                 this.$vux.loading.hide();

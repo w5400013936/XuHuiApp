@@ -24,6 +24,7 @@
 import HeaderBar from '@/components/header/Header';
 import BodyContent from "@/components/content/BodyContent";
 import apiConfig from '../../server/apiConfig';
+import globalData from '../../server/globalData';
 import axios from 'axios';
 import { Divider } from 'vux'
 
@@ -46,7 +47,6 @@ export default {
             this.engId = this.$route.params.engId;
             axios.get(apiConfig.companyServer+apiConfig.projectInfoPageUrl+'?engId='+this.engId)
                 .then(res=>{
-                    console.log(res);
                     this.projInfoList = res.data;
                     this.$vux.loading.hide();
                     this.loading = false;
@@ -65,6 +65,7 @@ export default {
     beforeMount(){
         this.title = this.$route.params.name;
         this.getProjInfoData();
+        globalData.removeData('projTabIndex'); // 清楚记录的 tab位置
     },
     components:{
         HeaderBar, BodyContent, Divider,

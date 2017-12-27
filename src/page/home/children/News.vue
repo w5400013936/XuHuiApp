@@ -3,7 +3,7 @@
         <BodyContent :showBottomPadding="false">
             <div class="container" slot="content">
                 <div class="news-box">
-                    <mt-cell v-for="(item,index) in newsList" :key="index"
+                    <mt-cell v-for="(item,index) in newsList" :key="index" style="border-bottom: 1px dashed #ddd;"
                              :title="item.name" :label="item.date" @click.native="getNewsDetail(item)">
                         <img class="news-img" :src="item.path" :onerror="defaultImg">
                     </mt-cell>
@@ -12,11 +12,11 @@
         </BodyContent>
         <!-- 新闻详情 -->
         <popup height="100%" v-model="showNewsDetail">
-            <x-header :left-options="{showBack: false}" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
+            <x-header :left-options="{showBack:   false}" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
                 {{curNewsTitle}}
                 <a slot="right" href="javascript:;" @click="closeNewsDetail"><i class="fa fa-close"></i></a>
             </x-header>
-            <BodyContent :showBottomPadding="false" style="padding:0 10px;background-color: #fff;">
+            <BodyContent :showBottomPadding="false" style="padding:0 10px;background-color: #ddd;">
                 <div slot="content" v-html="newsDetailHTML">
                 </div>
             </BodyContent>

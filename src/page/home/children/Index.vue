@@ -37,7 +37,7 @@
                 {{curNewsTitle}}
                 <a slot="right" href="javascript:;" @click="closeNewsDetail"><i class="fa fa-close"></i></a>
             </x-header>
-            <BodyContent :showBottomPadding="false" style="padding:0 10px;background-color: #fff;">
+            <BodyContent :showBottomPadding="false" style="padding:0 10px;background-color: #ddd;">
                 <div slot="content" v-html="newsDetailHTML">
                 </div>
             </BodyContent>
@@ -49,6 +49,7 @@
   import { Swiper,SwiperItem,Flexbox, FlexboxItem,Panel,Cell, Grid, GridItem, GroupTitle, Popup,XHeader } from 'vux';
   import BodyContent from "@/components/content/BodyContent";
   import apiConfig from '../../../server/apiConfig';
+  import globalData from '../../../server/globalData';
   import defaultAvatar from '../../../assets/images/avatar/errorAvatar';
   import axios from 'axios';
   export default {
@@ -150,6 +151,7 @@
       },
       beforeMount(){
           this.fetchData();
+          globalData.removeData("suppTabIndex");// 清空记录的 供应商 首页状态
       },
   }
 </script>

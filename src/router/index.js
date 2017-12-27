@@ -31,16 +31,16 @@ Vue.use(Router);
         name:'Login',
         component:Login
       },
-    //   {
-    //       path:'/',     // 路由默认页
-    //       component:Login,
-    //       redirect:'/Login'
-    //   },
       {
-            path:'/',     // 路由默认页
-            component:Flow,
-            redirect:'/Index/Flow'
-        },
+          path:'/',     // 路由默认页
+          component:Login,
+          redirect:'/Login'
+      },
+      // {
+      //       path:'/',     // 路由默认页
+      //       component:Flow,
+      //       redirect:'/Index/Flow'
+      // },
       { // 首页
           path: '/Index',
           name: 'Index',
