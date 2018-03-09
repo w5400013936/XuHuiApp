@@ -54,7 +54,7 @@
                         stand.style.height = headHeight+"px";
                     },false);
                     el.addEventListener("touchmove",function(event){
-                        this.nowX = this.nowX = event.pageX || event.touches[0].pageX; // 当前鼠标或手指的位置
+                        this.nowX = event.pageX || event.touches[0].pageX; // 当前鼠标或手指的位置
                         this.moveX = this.nowX - this.startX; // 位移
                         let newOffset = this.moveX + elOffsetLeft;
                         let contentLeft = this.offsetWidth || 0,
